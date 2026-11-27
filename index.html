@@ -831,7 +831,7 @@
 
         <!-- Quick Monograph Directory -->
         <div class="card monograph-dir">
-          <div class="section-label" style="margin-bottom:4px;">已串接之血液科疾病個論網站（12 大主題）</div>
+          <div class="section-label" style="margin-bottom:4px;">已串接之血液科疾病個論網站（13 大主題）</div>
           <div class="dir-grid">
             <a class="dir-link" href="https://lichiahans.github.io/aml-nccn-guide/" target="_blank" rel="noopener"><span>AML / APL / BPDCN</span><span>↗</span></a>
             <a class="dir-link" href="https://lichiahans.github.io/all-nccn-guide/" target="_blank" rel="noopener"><span>ALL 急性淋巴芽球 (B/T-ALL)</span><span>↗</span></a>
@@ -845,6 +845,7 @@
             <a class="dir-link" href="https://lichiahans.github.io/tcell-nccn-guide/" target="_blank" rel="noopener"><span>T / NK 細胞淋巴瘤</span><span>↗</span></a>
             <a class="dir-link" href="https://lichiahans.github.io/histiocytic-nccn-guide/" target="_blank" rel="noopener"><span>組織球腫瘤 (LCH/ECD/RDD/MHN)</span><span>↗</span></a>
             <a class="dir-link" href="https://lichiahans.github.io/hsct-nccn-guide/" target="_blank" rel="noopener"><span>造血幹細胞移植 (HSCT / GVHD)</span><span>↗</span></a>
+            <a class="dir-link" href="https://lichiahans.github.io/mlntk-nccn-guide/" target="_blank" rel="noopener"><span>MLN-TK 嗜酸性球腫瘤</span><span>↗</span></a>
           </div>
         </div>
       </aside>
@@ -863,7 +864,8 @@
       mm: "https://lichiahans.github.io/mm-nccn-guide/",
       wm: "https://lichiahans.github.io/wm-nccn-guide/",
       tcell: "https://lichiahans.github.io/tcell-nccn-guide/",
-      histiocytic: "https://lichiahans.github.io/histiocytic-nccn-guide/"
+      histiocytic: "https://lichiahans.github.io/histiocytic-nccn-guide/",
+      mlntk: "https://lichiahans.github.io/mlntk-nccn-guide/"
     };
 
     const TREE_DATA = [
@@ -878,7 +880,8 @@
           { label: "AML 個論", url: BASE.aml },
           { label: "CML 個論", url: BASE.cml },
           { label: "MPN 個論", url: BASE.mpn },
-          { label: "MDS 個論", url: BASE.mds }
+          { label: "MDS 個論", url: BASE.mds },
+          { label: "MLN-TK 個論", url: BASE.mlntk }
         ],
         children: [
           {
@@ -1047,7 +1050,10 @@
                 name: "Chronic eosinophilic leukemia (CEL)",
                 zh: "慢性嗜酸性球白血病",
                 tag: "renamed",
-                links: [{ label: "🔍 MPN 初始檢查", url: BASE.mpn + "#workup" }],
+                links: [
+                  { label: "🔍 MPN 初始檢查", url: BASE.mpn + "#workup" },
+                  { label: "🧬 MLN-TK 鑑別與 NGS 角色", url: BASE.mlntk + "#initial-eval" }
+                ],
                 essential: [
                   "持續 ≥4 週（原為 6 個月）之嗜酸性球增多（≥1.5×10⁹/L 且 ≥10% WBC）",
                   "同時具備「株系性證據（染色體或體細胞基因突變）」與「異常骨髓型態（如巨核／紅系發育不良或顯著纖維化）」",
@@ -1661,6 +1667,11 @@
             name: "Myeloid/lymphoid neoplasms with eosinophilia and defining gene rearrangement",
             zh: "合併嗜酸性球增多與定義性基因重排之骨髓／淋巴腫瘤",
             tag: "renamed",
+            links: [
+              { label: "🧬 MLN-TK 個論 (NCCN v2.2026)", url: BASE.mlntk },
+              { label: "🔬 核型／標靶決策工具", url: BASE.mlntk + "#algorithm" },
+              { label: "💊 六大基因治療方案", url: BASE.mlntk + "#treatment" }
+            ],
             essential: [
               "骨髓或淋巴腫瘤（常伴嗜酸性球增多，但非絕對必要）",
               "檢出定義性酪胺酸激酶重排：PDGFRA、PDGFRB、FGFR1、JAK2（不限 PCM1）、FLT3 (NEW)、ETV6::ABL1 (NEW) 或其他 TK 融合基因 (NEW)"
