@@ -831,9 +831,10 @@
 
         <!-- Quick Monograph Directory -->
         <div class="card monograph-dir">
-          <div class="section-label" style="margin-bottom:4px;">已串接之血液科疾病個論網站（8 大主題）</div>
+          <div class="section-label" style="margin-bottom:4px;">已串接之血液科疾病個論網站（10 大主題）</div>
           <div class="dir-grid">
             <a class="dir-link" href="https://lichiahans.github.io/aml-nccn-guide/" target="_blank" rel="noopener"><span>AML / APL / BPDCN</span><span>↗</span></a>
+            <a class="dir-link" href="https://lichiahans.github.io/all-nccn-guide/" target="_blank" rel="noopener"><span>ALL 急性淋巴芽球 (B/T-ALL)</span><span>↗</span></a>
             <a class="dir-link" href="https://lichiahans.github.io/cml-nccn-guide/" target="_blank" rel="noopener"><span>CML 慢性骨髓性</span><span>↗</span></a>
             <a class="dir-link" href="https://lichiahans.github.io/mpn-nccn-guide/" target="_blank" rel="noopener"><span>MPN (PV/ET/MF)</span><span>↗</span></a>
             <a class="dir-link" href="https://lichiahans.github.io/mds-nccn-guide/" target="_blank" rel="noopener"><span>MDS / 遺傳易感</span><span>↗</span></a>
@@ -851,6 +852,7 @@
   <script>
     const BASE = {
       aml: "https://lichiahans.github.io/aml-nccn-guide/",
+      all: "https://lichiahans.github.io/all-nccn-guide/",
       cml: "https://lichiahans.github.io/cml-nccn-guide/",
       mpn: "https://lichiahans.github.io/mpn-nccn-guide/",
       mds: "https://lichiahans.github.io/mds-nccn-guide/",
@@ -1669,7 +1671,10 @@
             level: "Family",
             name: "Acute leukemias of mixed or ambiguous lineage (ALAL / MPAL)",
             zh: "混合或不明系急性白血病",
-            links: [{ label: "🔍 AML 個論：初始評估", url: BASE.aml + "#sec-eval" }],
+            links: [
+              { label: "🔍 AML 個論：初始評估", url: BASE.aml + "#sec-eval" },
+              { label: "🩸 ALL 個論：診斷與 MPAL 備註", url: BASE.all + "#diagnosis" }
+            ],
             children: [
               {
                 id: "ch2-alal-gen",
@@ -1985,6 +1990,12 @@
             level: "Category",
             name: "Precursor B-cell neoplasms (B-LBL/L / B-ALL)",
             zh: "前驅 B 細胞腫瘤（B 淋巴芽球白血病／淋巴瘤）",
+            links: [
+              { label: "🩸 ALL 個論 (NCCN v3.2026)", url: BASE.all },
+              { label: "🧬 B-ALL 風險分層", url: BASE.all + "#risk" },
+              { label: "⚡ Ph+ B-ALL 治療", url: BASE.all + "#ph-pos" },
+              { label: "💊 Ph− B-ALL 治療", url: BASE.all + "#ph-neg" }
+            ],
             children: [
               {
                 id: "ch4-ball-gen",
@@ -1992,7 +2003,10 @@
                 name: "B-LBL/L with defining genetic abnormalities (12 entities)",
                 zh: "具定義性基因異常之 B-ALL（含新增 ETV6::RUNX1-like, TCF3::HLF）",
                 tag: "new",
-                links: [{ label: "🔍 B 細胞淋巴瘤：淋巴芽球淋巴瘤", url: BASE.bcell + "#sec-ll" }],
+                links: [
+                  { label: "🩸 ALL 個論：B-ALL 風險分層與治療", url: BASE.all + "#risk" },
+                  { label: "🔍 B 細胞淋巴瘤：淋巴芽球淋巴瘤", url: BASE.bcell + "#sec-ll" }
+                ],
                 essential: [
                   "前驅 B 淋巴芽球增生（CD19+, cCD79a+, cCD22+, PAX5+；多為 TdT+, CD34+, CD10+）",
                   "核型、FISH、RT-PCR 或 RNA-seq 證實特定異常：高超二倍體 (51–65條)、低二倍體 (<44條)、iAMP21、BCR::ABL1、BCR::ABL1-like、KMT2A、ETV6::RUNX1、ETV6::RUNX1-like (NEW)、TCF3::PBX1、IGH::IL3、TCF3::HLF (NEW)，或其他定義性異常（DUX4, MEF2D, ZNF384, NUTM1, IG::MYC, PAX5alt, PAX5 p.P80R）"
@@ -2006,7 +2020,10 @@
                 level: "Entity",
                 name: "B-LBL/L, NOS",
                 zh: "B-ALL，未另分類",
-                links: [{ label: "🔍 淋巴芽球淋巴瘤", url: BASE.bcell + "#sec-ll" }],
+                links: [
+                  { label: "🩸 ALL 個論：Ph− B-ALL 治療", url: BASE.all + "#ph-neg" },
+                  { label: "🔍 淋巴芽球淋巴瘤", url: BASE.bcell + "#sec-ll" }
+                ],
                 essential: [
                   "確認前驅 B 淋巴芽球白血病／淋巴瘤（型態＋免疫表型）",
                   "經完整細胞遺傳與分子檢測後，仍不符合任何定義性基因異常亞型"
@@ -2794,6 +2811,10 @@
             level: "Category",
             name: "Precursor T-cell neoplasms (T-LBL/L / T-ALL)",
             zh: "前驅 T 細胞腫瘤",
+            links: [
+              { label: "🩸 ALL 個論：T-ALL 治療方案", url: BASE.all + "#t-all" },
+              { label: "🎯 MRD 與異體 HCT (ALL-G)", url: BASE.all + "#mrd-hct" }
+            ],
             children: [
               {
                 id: "ch5-tall",
@@ -2801,6 +2822,7 @@
                 name: "T-lymphoblastic leukaemia/lymphoma, NOS (T-ALL / T-LBL)",
                 zh: "T 淋巴芽球白血病／淋巴瘤，NOS",
                 tag: "renamed",
+                links: [{ label: "🩸 ALL 個論：T-ALL 治療方案", url: BASE.all + "#t-all" }],
                 essential: [
                   "前驅 T 淋巴芽球增生（白血病或縱膈／淋巴結腫塊）",
                   "表現系譜定義標記 cytoplasmic CD3（或 surface CD3）合併未成熟標記（TdT, CD34, CD1a, CD99 等），且不符合 ETP-ALL 標準"
@@ -2815,6 +2837,10 @@
                 name: "Early T-precursor lymphoblastic leukaemia/lymphoma (ETP-ALL)",
                 zh: "早期 T 前驅淋巴芽球白血病／淋巴瘤",
                 tag: "renamed",
+                links: [
+                  { label: "🩸 ALL 個論：T-ALL / ETP 治療", url: BASE.all + "#t-all" },
+                  { label: "🏥 CR1 異體移植適應症 (ALL-G)", url: BASE.all + "#mrd-hct" }
+                ],
                 essential: [
                   "表現 cytoplasmic CD3+、CD7+",
                   "CD1a 陰性、CD8 陰性、CD5 陰性或弱陽性（<75% 芽球）",
