@@ -831,7 +831,7 @@
 
         <!-- Quick Monograph Directory -->
         <div class="card monograph-dir">
-          <div class="section-label" style="margin-bottom:4px;">已串接之血液科疾病個論網站（11 大主題）</div>
+          <div class="section-label" style="margin-bottom:4px;">已串接之血液科疾病個論網站（12 大主題）</div>
           <div class="dir-grid">
             <a class="dir-link" href="https://lichiahans.github.io/aml-nccn-guide/" target="_blank" rel="noopener"><span>AML / APL / BPDCN</span><span>↗</span></a>
             <a class="dir-link" href="https://lichiahans.github.io/all-nccn-guide/" target="_blank" rel="noopener"><span>ALL 急性淋巴芽球 (B/T-ALL)</span><span>↗</span></a>
@@ -841,6 +841,7 @@
             <a class="dir-link" href="https://lichiahans.github.io/bcell-lymphoma-nccn-guide/" target="_blank" rel="noopener"><span>B 細胞淋巴瘤</span><span>↗</span></a>
             <a class="dir-link" href="https://lichiahans.github.io/cll-nccn-guide/" target="_blank" rel="noopener"><span>CLL / SLL / MBL</span><span>↗</span></a>
             <a class="dir-link" href="https://lichiahans.github.io/mm-nccn-guide/" target="_blank" rel="noopener"><span>多發性骨髓瘤 / MGCS</span><span>↗</span></a>
+            <a class="dir-link" href="https://lichiahans.github.io/wm-nccn-guide/" target="_blank" rel="noopener"><span>華氏巨球蛋白血症 (WM / LPL)</span><span>↗</span></a>
             <a class="dir-link" href="https://lichiahans.github.io/tcell-nccn-guide/" target="_blank" rel="noopener"><span>T / NK 細胞淋巴瘤</span><span>↗</span></a>
             <a class="dir-link" href="https://lichiahans.github.io/histiocytic-nccn-guide/" target="_blank" rel="noopener"><span>組織球腫瘤 (LCH/ECD/RDD/MHN)</span><span>↗</span></a>
             <a class="dir-link" href="https://lichiahans.github.io/hsct-nccn-guide/" target="_blank" rel="noopener"><span>造血幹細胞移植 (HSCT / GVHD)</span><span>↗</span></a>
@@ -860,6 +861,7 @@
       bcell: "https://lichiahans.github.io/bcell-lymphoma-nccn-guide/",
       cll: "https://lichiahans.github.io/cll-nccn-guide/",
       mm: "https://lichiahans.github.io/mm-nccn-guide/",
+      wm: "https://lichiahans.github.io/wm-nccn-guide/",
       tcell: "https://lichiahans.github.io/tcell-nccn-guide/",
       histiocytic: "https://lichiahans.github.io/histiocytic-nccn-guide/"
     };
@@ -2161,7 +2163,12 @@
                 level: "Entity",
                 name: "Lymphoplasmacytic lymphoma (LPL)",
                 zh: "淋巴漿細胞淋巴瘤（含 Waldenström 巨球蛋白血症）",
-                links: [{ label: "🔍 MM 個論：副蛋白鑑別", url: BASE.mm + "#mgcs" }],
+                links: [
+                  { label: "💊 WM/LPL 個論：一線與復發治療", url: BASE.wm + "#primary-tx", primary: true },
+                  { label: "📊 WM/LPL：MSS-WM 與無症狀追蹤", url: BASE.wm + "#staging-asym" },
+                  { label: "🧠 Bing-Neel 症候群 (BNS-1)", url: BASE.wm + "#bns" },
+                  { label: "🔍 MM 個論：副蛋白鑑別", url: BASE.mm + "#mgcs" }
+                ],
                 essential: [
                   "骨髓（或淋巴結）見小淋巴球、漿細胞樣淋巴球與漿細胞混合浸潤（骨髓常佔 ≥10%）",
                   "成熟 B 細胞（CD19+, CD20+）與單株漿細胞共存，通常 CD5−, CD10−, CD23−；排除其他可伴漿細胞分化之小 B 細胞淋巴瘤（如 MZL, CLL）"
@@ -2664,7 +2671,10 @@
                 name: "Cold agglutinin disease (CAD)",
                 zh: "冷凝集素病",
                 tag: "new",
-                links: [{ label: "🔍 MM 個論：MGCS 副蛋白疾病", url: BASE.mm + "#mgcs", primary: true }],
+                links: [
+                  { label: "🔍 MM 個論：MGCS 副蛋白疾病", url: BASE.mm + "#mgcs", primary: true },
+                  { label: "🔍 WM/LPL 個論：鑑別與冷凝集素", url: BASE.wm + "#diagnosis" }
+                ],
                 essential: [
                   "慢性溶血性貧血合併直接抗球蛋白試驗 C3d 強陽性、高滴度冷凝集素（4°C ≥64），且排除繼發感染／淋巴瘤",
                   "骨髓見結節狀單株成熟 B 細胞浸潤（多 IgM κ），但不符合 LPL 或其他明確 B 細胞淋巴瘤標準"
@@ -2709,7 +2719,10 @@
                 name: "AL amyloidosis / MIDD / Heavy chain diseases",
                 zh: "AL 類澱粉沉積症／單株免疫球蛋白沉積病／重鏈病",
                 tag: "renamed",
-                links: [{ label: "💊 MM 個論：MGCS / 腎病變處置", url: BASE.mm + "#mgcs", primary: true }],
+                links: [
+                  { label: "💊 MM 個論：MGCS / 腎病變處置", url: BASE.mm + "#mgcs", primary: true },
+                  { label: "🫀 WM 相關類澱粉沉積症 (WM/AL-1)", url: BASE.wm + "#amyloidosis", primary: true }
+                ],
                 essential: [
                   "AL amyloidosis：組織剛果紅染色呈蘋果綠雙折光，質譜或免疫染色證實為免疫球蛋白輕鏈（λ 居多）＋單株漿細胞／B 細胞證據",
                   "MIDD：非纖維性單株輕鏈／重鏈沉積於基底膜（最常見腎臟），剛果紅陰性",
