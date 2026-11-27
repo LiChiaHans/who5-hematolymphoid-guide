@@ -831,7 +831,7 @@
 
         <!-- Quick Monograph Directory -->
         <div class="card monograph-dir">
-          <div class="section-label" style="margin-bottom:4px;">已串接之血液科疾病個論網站（13 大主題）</div>
+          <div class="section-label" style="margin-bottom:4px;">已串接之血液科疾病個論網站（14 大主題）</div>
           <div class="dir-grid">
             <a class="dir-link" href="https://lichiahans.github.io/aml-nccn-guide/" target="_blank" rel="noopener"><span>AML / APL / BPDCN</span><span>↗</span></a>
             <a class="dir-link" href="https://lichiahans.github.io/all-nccn-guide/" target="_blank" rel="noopener"><span>ALL 急性淋巴芽球 (B/T-ALL)</span><span>↗</span></a>
@@ -839,6 +839,7 @@
             <a class="dir-link" href="https://lichiahans.github.io/mpn-nccn-guide/" target="_blank" rel="noopener"><span>MPN (PV/ET/MF)</span><span>↗</span></a>
             <a class="dir-link" href="https://lichiahans.github.io/mds-nccn-guide/" target="_blank" rel="noopener"><span>MDS / 遺傳易感</span><span>↗</span></a>
             <a class="dir-link" href="https://lichiahans.github.io/bcell-lymphoma-nccn-guide/" target="_blank" rel="noopener"><span>B 細胞淋巴瘤</span><span>↗</span></a>
+            <a class="dir-link" href="https://lichiahans.github.io/hl-nccn-guide/" target="_blank" rel="noopener"><span>何杰金氏淋巴瘤 (CHL / NLPHL)</span><span>↗</span></a>
             <a class="dir-link" href="https://lichiahans.github.io/cll-nccn-guide/" target="_blank" rel="noopener"><span>CLL / SLL / MBL</span><span>↗</span></a>
             <a class="dir-link" href="https://lichiahans.github.io/mm-nccn-guide/" target="_blank" rel="noopener"><span>多發性骨髓瘤 / MGCS</span><span>↗</span></a>
             <a class="dir-link" href="https://lichiahans.github.io/wm-nccn-guide/" target="_blank" rel="noopener"><span>華氏巨球蛋白血症 (WM / LPL)</span><span>↗</span></a>
@@ -860,6 +861,7 @@
       mpn: "https://lichiahans.github.io/mpn-nccn-guide/",
       mds: "https://lichiahans.github.io/mds-nccn-guide/",
       bcell: "https://lichiahans.github.io/bcell-lymphoma-nccn-guide/",
+      hl: "https://lichiahans.github.io/hl-nccn-guide/",
       cll: "https://lichiahans.github.io/cll-nccn-guide/",
       mm: "https://lichiahans.github.io/mm-nccn-guide/",
       wm: "https://lichiahans.github.io/wm-nccn-guide/",
@@ -2635,12 +2637,21 @@
             level: "Category",
             name: "Hodgkin lymphoma",
             zh: "何杰金氏淋巴瘤",
+            links: [
+              { label: "🎗️ NCCN HL v2.2026 總覽", url: BASE.hl, primary: true },
+              { label: "📊 風險分層與 IPS 計算機", url: BASE.hl + "#risk-calc" }
+            ],
             children: [
               {
                 id: "ch4-chl",
                 level: "Entity",
                 name: "Classic Hodgkin lymphoma (CHL)",
                 zh: "典型何杰金氏淋巴瘤",
+                links: [
+                  { label: "🔬 CHL 診斷與 IHC", url: BASE.hl + "#diagnosis" },
+                  { label: "💊 一線治療 (Nivo-AVD / BrECADD / ABVD)", url: BASE.hl + "#chl-primary", primary: true },
+                  { label: "🔄 復發難治 (CPI / HDT-ASCR)", url: BASE.hl + "#relapsed" }
+                ],
                 essential: [
                   "豐富反應性發炎背景中見少數大型雙核／多核 Hodgkin 與 Reed-Sternberg (HRS) 細胞",
                   "HRS 細胞表型：CD30 強陽性、CD15 常陽性、弱 PAX5+、MUM1+，CD45−，B 細胞程式缺損（CD20 多陰或弱變異，OCT2/BOB1 常缺失）"
@@ -2654,6 +2665,10 @@
                 level: "Entity",
                 name: "Nodular lymphocyte predominant Hodgkin lymphoma (NLPHL / NLPBCL)",
                 zh: "結節性淋巴球為主型何杰金氏淋巴瘤",
+                links: [
+                  { label: "🟣 NLPHL 初診與復發處置", url: BASE.hl + "#nlphl", primary: true },
+                  { label: "☢️ ISRT 放療劑量原則", url: BASE.hl + "#pet-rt" }
+                ],
                 essential: [
                   "結節狀（或變異型瀰漫）小 B 細胞背景中見爆米花樣 LP 細胞，伴濾泡樹突網與 PD1+ TFH 細胞環繞（rosetting）",
                   "LP 細胞具完整 B 細胞程式：強 CD20+, PAX5+, OCT2+, BOB1+, BCL6+, EMA±，通常 CD30−、CD15−、EBER−"
