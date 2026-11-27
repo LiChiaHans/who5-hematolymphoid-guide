@@ -1,0 +1,3889 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WHO 第五版 血液腫瘤分類總覽 (WHO-HAEM5) — 樹狀導覽與診斷標準</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --surface: #ffffff;
+      --surface-alt: #f8fafc;
+      --border: #e2e8f0;
+      --text: #0f172a;
+      --text-muted: #475569;
+      --primary: #0f4c81;
+      --primary-light: #e0f0ff;
+      --accent: #0284c7;
+      --shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
+      --radius: 14px;
+      --topbar-h: 64px;
+    }
+
+    [data-theme="dark"] {
+      --bg: #0b1120;
+      --surface: #111827;
+      --surface-alt: #1e293b;
+      --border: #293548;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --primary: #38bdf8;
+      --primary-light: #0c4a6e;
+      --accent: #0ea5e9;
+      --shadow: 0 2px 14px rgba(0, 0, 0, 0.4);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Noto Sans TC", "Microsoft JhengHei", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 14.5px;
+      padding-top: var(--topbar-h);
+    }
+
+    /* Per-chapter dynamic accent colors */
+    .theme-ch2 { --ch-accent: #d97706; } /* Myeloid: Amber */
+    .theme-ch3 { --ch-accent: #059669; } /* Histiocytic/DC: Emerald */
+    .theme-ch4 { --ch-accent: #2563eb; } /* B-cell: Royal Blue */
+    .theme-ch5 { --ch-accent: #e11d48; } /* T/NK-cell: Rose */
+    .theme-ch6 { --ch-accent: #7c3aed; } /* Stroma: Violet */
+    .theme-ch7 { --ch-accent: #0891b2; } /* Genetic: Cyan */
+
+    [data-theme="dark"] .theme-ch2 { --ch-accent: #f59e0b; }
+    [data-theme="dark"] .theme-ch3 { --ch-accent: #10b981; }
+    [data-theme="dark"] .theme-ch4 { --ch-accent: #60a5fa; }
+    [data-theme="dark"] .theme-ch5 { --ch-accent: #fb7185; }
+    [data-theme="dark"] .theme-ch6 { --ch-accent: #a78bfa; }
+    [data-theme="dark"] .theme-ch7 { --ch-accent: #22d3ee; }
+
+    /* Fixed Topbar (consistent with hematology-portal guides) */
+    .topbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--topbar-h);
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 20px;
+      z-index: 100;
+      box-shadow: var(--shadow);
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      font-size: 16.5px;
+      color: var(--primary);
+      white-space: nowrap;
+    }
+    .brand .ver {
+      font-size: 11px;
+      font-weight: 700;
+      background: var(--primary-light);
+      color: var(--primary);
+      padding: 2px 8px;
+      border-radius: 999px;
+    }
+    .portal-link {
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      border: 1px solid var(--border);
+      padding: 5px 11px;
+      border-radius: 999px;
+      white-space: nowrap;
+      transition: all .15s;
+    }
+    .portal-link:hover {
+      color: var(--primary);
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+    .search-wrap {
+      flex: 1;
+      max-width: 480px;
+      margin-left: auto;
+      position: relative;
+    }
+    .search-input {
+      width: 100%;
+      padding: 8px 34px 8px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface-alt);
+      color: var(--text);
+      font-size: 13.5px;
+      outline: none;
+      transition: border-color .2s;
+    }
+    .search-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+    }
+    .search-clear {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: none;
+      font-size: 14px;
+      padding: 2px 5px;
+    }
+    .theme-btn {
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all .15s;
+    }
+    .theme-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    /* Main Layout */
+    .container {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 18px 20px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    /* Control Hero Card */
+    .hero-card {
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .hero-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .hero-desc {
+      margin: 4px 0 0;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .btn-sm {
+      font-size: 12px;
+      font-weight: 500;
+      padding: 6px 11px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface-alt);
+      color: var(--text);
+      cursor: pointer;
+      transition: all .15s;
+    }
+    .btn-sm:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+    .btn-sm.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+    }
+    [data-theme="dark"] .btn-sm.active {
+      color: #0b1120;
+    }
+
+    /* Chapter & Scenario Pills */
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+    }
+    .ch-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 11px;
+      border-radius: 999px;
+      border: 1px solid color-mix(in srgb, var(--ch-accent) 38%, var(--border));
+      background: color-mix(in srgb, var(--ch-accent) 10%, transparent);
+      color: var(--text);
+      cursor: pointer;
+      transition: all .15s;
+    }
+    .ch-pill:hover {
+      background: color-mix(in srgb, var(--ch-accent) 20%, transparent);
+    }
+    .ch-pill.active {
+      background: var(--ch-accent);
+      border-color: var(--ch-accent);
+      color: #ffffff;
+    }
+    .ch-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--ch-accent);
+      flex-shrink: 0;
+    }
+    .ch-pill.active .ch-dot { background: #ffffff; }
+
+    .scenario-box {
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+    }
+    .scenario-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    .sc-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 8px;
+      border: 1px solid color-mix(in srgb, var(--ch-accent) 35%, var(--border));
+      background: color-mix(in srgb, var(--ch-accent) 8%, var(--surface-alt));
+      color: var(--text);
+      cursor: pointer;
+      transition: all .15s;
+    }
+    .sc-chip:hover {
+      background: color-mix(in srgb, var(--ch-accent) 18%, var(--surface-alt));
+      border-color: var(--ch-accent);
+    }
+
+    /* Deleted panel */
+    .deleted-panel {
+      padding: 16px 20px;
+      display: none;
+    }
+    .deleted-panel.show { display: block; }
+    .deleted-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .deleted-item {
+      text-align: left;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--surface-alt);
+      color: var(--text);
+      cursor: pointer;
+      font-size: 12.5px;
+      transition: border-color .15s;
+    }
+    .deleted-item:hover { border-color: var(--primary); }
+    .deleted-old {
+      text-decoration: line-through;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+
+    /* Two-column Workspace */
+    .workspace {
+      display: grid;
+      grid-template-columns: 7fr 5fr;
+      gap: 16px;
+      align-items: start;
+    }
+    @media (max-width: 1024px) {
+      .workspace { grid-template-columns: 1fr; }
+      .inspector-wrap { position: static !important; }
+    }
+    @media (max-width: 720px) {
+      .topbar { padding: 0 12px; gap: 8px; }
+      .brand .ver { display: none; }
+      .brand { font-size: 14.5px; }
+      .container { padding: 12px; }
+    }
+
+    /* Tree Panel */
+    .tree-panel {
+      padding: 16px;
+    }
+    .tree-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+
+    .tree-item { position: relative; }
+    .tree-root-item { margin-bottom: 10px; }
+    .tree-children {
+      position: relative;
+      margin-left: 16px;
+      padding-left: 16px;
+      margin-top: 4px;
+      border-left: 2px solid color-mix(in srgb, var(--ch-accent) 36%, var(--border));
+    }
+    .tree-children > .tree-item::before {
+      content: "";
+      position: absolute;
+      left: -16px;
+      top: 15px;
+      width: 14px;
+      height: 2px;
+      background-color: color-mix(in srgb, var(--ch-accent) 36%, var(--border));
+    }
+
+    .node-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      padding: 6px 9px;
+      border-radius: 9px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all .12s;
+    }
+    .node-row:hover {
+      background: color-mix(in srgb, var(--ch-accent) 9%, transparent);
+    }
+    .node-row.is-chapter {
+      padding: 10px 12px;
+      border-radius: 11px;
+      font-weight: 700;
+      font-size: 14.5px;
+      background: color-mix(in srgb, var(--ch-accent) 12%, var(--surface));
+      border: 1px solid color-mix(in srgb, var(--ch-accent) 32%, var(--border));
+      border-left: 4px solid var(--ch-accent);
+    }
+    .node-row.is-chapter:hover {
+      background: color-mix(in srgb, var(--ch-accent) 18%, var(--surface));
+    }
+    .node-row.is-group {
+      font-weight: 600;
+      font-size: 13.5px;
+    }
+    .node-row.is-entity {
+      font-size: 13.5px;
+    }
+    .node-row.selected {
+      background: color-mix(in srgb, var(--ch-accent) 16%, var(--surface)) !important;
+      border-color: var(--ch-accent) !important;
+      box-shadow: 0 0 0 1px color-mix(in srgb, var(--ch-accent) 45%, transparent);
+    }
+
+    .toggle-btn {
+      width: 20px;
+      height: 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      border-radius: 5px;
+      cursor: pointer;
+      flex-shrink: 0;
+      font-size: 12px;
+      margin-top: 1px;
+    }
+    .toggle-btn:hover { background: color-mix(in srgb, var(--ch-accent) 16%, transparent); }
+    .leaf-bullet {
+      width: 20px;
+      height: 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .leaf-bullet::after {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--ch-accent);
+    }
+
+    .node-content { flex: 1; min-width: 0; }
+    .node-title-line {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+    }
+    .node-zh {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 1px;
+    }
+
+    /* Badges */
+    .badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 1px 6px;
+      border-radius: 5px;
+      white-space: nowrap;
+    }
+    .badge-new {
+      background: color-mix(in srgb, #10b981 18%, transparent);
+      color: #059669;
+      border: 1px solid color-mix(in srgb, #10b981 40%, transparent);
+    }
+    [data-theme="dark"] .badge-new { color: #34d399; }
+    .badge-renamed {
+      background: color-mix(in srgb, #f59e0b 18%, transparent);
+      color: #b45309;
+      border: 1px solid color-mix(in srgb, #f59e0b 40%, transparent);
+    }
+    [data-theme="dark"] .badge-renamed { color: #fbbf24; }
+    .badge-moved {
+      background: color-mix(in srgb, #6366f1 18%, transparent);
+      color: #4f46e5;
+      border: 1px solid color-mix(in srgb, #6366f1 40%, transparent);
+    }
+    [data-theme="dark"] .badge-moved { color: #a5b4fc; }
+    .badge-guide {
+      background: color-mix(in srgb, var(--primary) 13%, transparent);
+      color: var(--primary);
+      border: 1px solid color-mix(in srgb, var(--primary) 32%, transparent);
+      text-decoration: none;
+    }
+    .badge-guide:hover {
+      background: var(--primary);
+      color: #ffffff;
+    }
+    [data-theme="dark"] .badge-guide:hover { color: #0b1120; }
+
+    .highlight-mark {
+      background: color-mix(in srgb, #f59e0b 36%, transparent);
+      color: var(--text);
+      border-radius: 3px;
+      padding: 0 2px;
+      font-weight: 700;
+    }
+
+    /* Right Inspector */
+    .inspector-wrap {
+      position: sticky;
+      top: calc(var(--topbar-h) + 14px);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .inspector-card {
+      overflow: hidden;
+    }
+    .inspector-banner {
+      padding: 16px 18px;
+      background: linear-gradient(135deg, color-mix(in srgb, var(--ch-accent) 18%, var(--surface)), color-mix(in srgb, var(--ch-accent) 5%, var(--surface)));
+      border-bottom: 2px solid color-mix(in srgb, var(--ch-accent) 45%, var(--border));
+    }
+    .inspector-level-pill {
+      display: inline-block;
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 2px 9px;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--ch-accent) 18%, transparent);
+      color: var(--ch-accent);
+      border: 1px solid color-mix(in srgb, var(--ch-accent) 40%, transparent);
+    }
+    .inspector-title {
+      margin: 8px 0 3px;
+      font-size: 16.5px;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+    .inspector-zh {
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+    .inspector-body {
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+    }
+    .section-label {
+      font-size: 11.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    .breadcrumb-box {
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 12.5px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .bc-btn {
+      background: none;
+      border: none;
+      padding: 0;
+      text-align: left;
+      cursor: pointer;
+      color: var(--text-muted);
+      font-size: 12.5px;
+      font-family: inherit;
+    }
+    .bc-btn:hover { text-decoration: underline; color: var(--primary); }
+    .bc-btn.current { color: var(--text); font-weight: 700; }
+
+    /* Monograph Deep-Link Box */
+    .guide-links-box {
+      background: color-mix(in srgb, var(--ch-accent) 8%, var(--surface-alt));
+      border: 1px solid color-mix(in srgb, var(--ch-accent) 34%, var(--border));
+      border-left: 4px solid var(--ch-accent);
+      border-radius: 10px;
+      padding: 12px;
+    }
+    .guide-links-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--ch-accent);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+    .guide-links-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+    .guide-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12.5px;
+      font-weight: 600;
+      padding: 6px 11px;
+      border-radius: 8px;
+      text-decoration: none;
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid color-mix(in srgb, var(--ch-accent) 42%, var(--border));
+      transition: all .15s;
+    }
+    .guide-link-btn:hover {
+      background: var(--ch-accent);
+      border-color: var(--ch-accent);
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+    .guide-link-btn.primary-tx {
+      background: var(--ch-accent);
+      border-color: var(--ch-accent);
+      color: #ffffff;
+    }
+    .guide-link-btn.primary-tx:hover {
+      filter: brightness(1.08);
+    }
+
+    /* Essential & Desirable Criteria Boxes */
+    .criteria-box {
+      border-radius: 10px;
+      padding: 12px 13px;
+      font-size: 12.8px;
+    }
+    .criteria-essential {
+      background: color-mix(in srgb, #10b981 9%, var(--surface-alt));
+      border: 1px solid color-mix(in srgb, #10b981 30%, var(--border));
+      border-left: 4px solid #10b981;
+    }
+    .criteria-desirable {
+      background: color-mix(in srgb, #3b82f6 9%, var(--surface-alt));
+      border: 1px solid color-mix(in srgb, #3b82f6 30%, var(--border));
+      border-left: 4px solid #3b82f6;
+    }
+    .criteria-heading {
+      font-weight: 700;
+      font-size: 12.5px;
+      margin-bottom: 6px;
+    }
+    .criteria-essential .criteria-heading { color: #059669; }
+    [data-theme="dark"] .criteria-essential .criteria-heading { color: #34d399; }
+    .criteria-desirable .criteria-heading { color: #2563eb; }
+    [data-theme="dark"] .criteria-desirable .criteria-heading { color: #60a5fa; }
+
+    .criteria-list {
+      margin: 0;
+      padding-left: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .note-box {
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 12.5px;
+      margin: 0;
+    }
+
+    /* Connected Monographs Directory Card */
+    .monograph-dir {
+      padding: 14px 16px;
+    }
+    .dir-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .dir-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 9px;
+      border-radius: 8px;
+      text-decoration: none;
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      color: var(--text);
+      transition: all .15s;
+    }
+    .dir-link:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+  <!-- Fixed Topbar -->
+  <header class="topbar">
+    <div class="brand">
+      <span>WHO 第五版 血液腫瘤分類</span>
+      <span class="ver">WHO-HAEM5</span>
+    </div>
+    <a class="portal-link" href="https://lichiahans.github.io/hematology-portal/" title="返回血液科臨床資源入口網">← 血液科入口網</a>
+    <div class="search-wrap">
+      <input
+        id="search-input"
+        class="search-input"
+        type="text"
+        placeholder="搜尋診斷、縮寫、中文或標記（例：DLBCL、MDS、SF3B1、MYD88、CD30）..."
+        aria-label="搜尋 WHO 第五版疾病分類與診斷標準"
+      />
+      <button id="btn-clear-search" class="search-clear" type="button" title="清除搜尋">✕</button>
+    </div>
+    <button id="theme-toggle" class="theme-btn" type="button" title="切換淺色／深色模式">🌙 深色</button>
+  </header>
+
+  <div class="container">
+    <!-- Control & Quick Navigation Card -->
+    <section class="card hero-card">
+      <div class="hero-top">
+        <div>
+          <div style="font-size:15px;font-weight:700;">造血與淋巴組織腫瘤 — 分色樹狀尋路 ＋ Essential / Desirable 診斷標準 ＋ 個論直連</div>
+          <p class="hero-desc">
+            六大章節採專屬色系區分；點擊任一疾病即可於右側檢視<strong>完整分類路徑</strong>、<strong>Essential／Desirable 標準</strong>，並一鍵跳轉至對應<strong>疾病個論（NCCN 診斷與治療指引）</strong>。
+          </p>
+        </div>
+        <div class="btn-group">
+          <button id="btn-level-1" class="btn-sm" type="button">只看大章節</button>
+          <button id="btn-level-2" class="btn-sm" type="button">展開到家族</button>
+          <button id="btn-expand-all" class="btn-sm" type="button">全部展開</button>
+          <button id="btn-toggle-deleted" class="btn-sm" type="button">第 4 版刪除／搬家去向</button>
+        </div>
+      </div>
+
+      <!-- Chapter & Tag Filter Pills -->
+      <div class="pill-row" style="justify-content: space-between;">
+        <div id="chapter-filters" class="pill-row"></div>
+        <div class="btn-group">
+          <button data-tag-filter="all" class="btn-sm active tag-filter-btn" type="button">全部</button>
+          <button data-tag-filter="new" class="btn-sm tag-filter-btn" type="button">第五版 NEW</button>
+          <button data-tag-filter="changed" class="btn-sm tag-filter-btn" type="button">更名／搬家</button>
+          <button data-tag-filter="linked" class="btn-sm tag-filter-btn" type="button">有連結個論</button>
+        </div>
+      </div>
+
+      <!-- Clinical Scenario Shortcuts -->
+      <div class="scenario-box">
+        <div class="scenario-label">快速情境定位（點一下直接展開該分類分支）：</div>
+        <div id="scenario-chips" class="pill-row"></div>
+      </div>
+    </section>
+
+    <!-- Deleted / Moved Redirects Panel -->
+    <section id="deleted-panel" class="card deleted-panel">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <strong style="font-size:14px;">第 4 版（R4th）被刪除或跨章節搬家的診斷 → 第 5 版要去哪裡找？</strong>
+        <button id="btn-close-deleted" class="btn-sm" type="button">收合 ✕</button>
+      </div>
+      <div id="deleted-list" class="deleted-grid"></div>
+    </section>
+
+    <!-- Two-Column Workspace -->
+    <div class="workspace">
+      <!-- Left: Interactive Color-Coded Tree -->
+      <main class="card tree-panel">
+        <div class="tree-toolbar">
+          <span id="result-summary">顯示全部 6 大章節（Ch.2 – Ch.7）</span>
+          <span>標有 <strong>↗ 個論</strong> 者可直接連結至 NCCN 診斷與治療專頁</span>
+        </div>
+        <div id="tree-container"></div>
+      </main>
+
+      <!-- Right: Sticky Colored Inspector -->
+      <aside class="inspector-wrap">
+        <div id="inspector-card" class="card inspector-card theme-ch4">
+          <div class="inspector-banner">
+            <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px;">
+              <span id="detail-level" class="inspector-level-pill">Ch.4 • Entity</span>
+              <span id="detail-badges" style="display:flex;flex-wrap:wrap;gap:5px;"></span>
+            </div>
+            <h2 id="detail-title" class="inspector-title">請選擇左側疾病</h2>
+            <div id="detail-zh" class="inspector-zh"></div>
+          </div>
+
+          <div class="inspector-body">
+            <!-- Breadcrumb -->
+            <div>
+              <div class="section-label">由上而下分類路徑（怎麼找下去）</div>
+              <div id="breadcrumb-box" class="breadcrumb-box"></div>
+            </div>
+
+            <!-- Deep Links to Disease Monographs (Diagnosis & Treatment) -->
+            <div id="guide-links-section" class="guide-links-box hidden">
+              <div class="guide-links-title">
+                <span>🔗 導向疾病個論（診斷與治療指引）</span>
+              </div>
+              <div id="guide-links-grid" class="guide-links-grid"></div>
+            </div>
+
+            <!-- Essential Criteria -->
+            <div id="essential-section" class="criteria-box criteria-essential hidden">
+              <div class="criteria-heading">✓ Essential Criteria（必要診斷標準）</div>
+              <ul id="essential-list" class="criteria-list"></ul>
+            </div>
+
+            <!-- Desirable Criteria -->
+            <div id="desirable-section" class="criteria-box criteria-desirable hidden">
+              <div class="criteria-heading">✦ Desirable Criteria（建議／輔助標準）</div>
+              <ul id="desirable-list" class="criteria-list"></ul>
+            </div>
+
+            <!-- Note -->
+            <div id="note-section" class="hidden">
+              <div class="section-label">第五版重點備註</div>
+              <p id="detail-note" class="note-box"></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Monograph Directory -->
+        <div class="card monograph-dir">
+          <div class="section-label" style="margin-bottom:4px;">已串接之血液科疾病個論網站（8 大主題）</div>
+          <div class="dir-grid">
+            <a class="dir-link" href="https://lichiahans.github.io/aml-nccn-guide/" target="_blank" rel="noopener"><span>AML / APL / BPDCN</span><span>↗</span></a>
+            <a class="dir-link" href="https://lichiahans.github.io/cml-nccn-guide/" target="_blank" rel="noopener"><span>CML 慢性骨髓性</span><span>↗</span></a>
+            <a class="dir-link" href="https://lichiahans.github.io/mpn-nccn-guide/" target="_blank" rel="noopener"><span>MPN (PV/ET/MF)</span><span>↗</span></a>
+            <a class="dir-link" href="https://lichiahans.github.io/mds-nccn-guide/" target="_blank" rel="noopener"><span>MDS / 遺傳易感</span><span>↗</span></a>
+            <a class="dir-link" href="https://lichiahans.github.io/bcell-lymphoma-nccn-guide/" target="_blank" rel="noopener"><span>B 細胞淋巴瘤</span><span>↗</span></a>
+            <a class="dir-link" href="https://lichiahans.github.io/cll-nccn-guide/" target="_blank" rel="noopener"><span>CLL / SLL / MBL</span><span>↗</span></a>
+            <a class="dir-link" href="https://lichiahans.github.io/mm-nccn-guide/" target="_blank" rel="noopener"><span>多發性骨髓瘤 / MGCS</span><span>↗</span></a>
+            <a class="dir-link" href="https://lichiahans.github.io/tcell-nccn-guide/" target="_blank" rel="noopener"><span>T / NK 細胞淋巴瘤</span><span>↗</span></a>
+            <a class="dir-link" href="https://lichiahans.github.io/histiocytic-nccn-guide/" target="_blank" rel="noopener"><span>組織球腫瘤 (LCH/ECD/RDD/MHN)</span><span>↗</span></a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <script>
+    const BASE = {
+      aml: "https://lichiahans.github.io/aml-nccn-guide/",
+      cml: "https://lichiahans.github.io/cml-nccn-guide/",
+      mpn: "https://lichiahans.github.io/mpn-nccn-guide/",
+      mds: "https://lichiahans.github.io/mds-nccn-guide/",
+      bcell: "https://lichiahans.github.io/bcell-lymphoma-nccn-guide/",
+      cll: "https://lichiahans.github.io/cll-nccn-guide/",
+      mm: "https://lichiahans.github.io/mm-nccn-guide/",
+      tcell: "https://lichiahans.github.io/tcell-nccn-guide/",
+      histiocytic: "https://lichiahans.github.io/histiocytic-nccn-guide/"
+    };
+
+    const TREE_DATA = [
+      {
+        id: "ch2",
+        chapter: 2,
+        level: "Chapter",
+        name: "Ch. 2 Myeloid Proliferations and Neoplasms",
+        zh: "骨髓增生與腫瘤（9 大族群）",
+        note: "包含骨髓前驅病變、MPN、肥大細胞增多症、MDN(原MDS)、MDN/MPN、AML、續發性骨髓腫瘤、嗜酸性球合併基因重排，以及不明/混合系急性白血病(ALAL)。",
+        links: [
+          { label: "AML 個論", url: BASE.aml },
+          { label: "CML 個論", url: BASE.cml },
+          { label: "MPN 個論", url: BASE.mpn },
+          { label: "MDS 個論", url: BASE.mds }
+        ],
+        children: [
+          {
+            id: "ch2-precursor",
+            level: "Family",
+            name: "Myeloid precursor lesions",
+            zh: "骨髓前驅病變",
+            tag: "new",
+            note: "第五版首度納入的前驅病變家族，涵蓋無明確血癌但具株系突變的狀態。",
+            links: [
+              { label: "🔍 MDS 個論：CHIP/CCUS 與惰性病變", url: BASE.mds + "#indolent" }
+            ],
+            children: [
+              {
+                id: "ch2-ch",
+                level: "Entity",
+                name: "Clonal hematopoiesis (CH / CHIP)",
+                zh: "株系造血（含 CHIP）",
+                tag: "new",
+                links: [
+                  { label: "🔍 MDS 個論：惰性前驅病變", url: BASE.mds + "#indolent" },
+                  { label: "🧬 體細胞基因意義", url: BASE.mds + "#somatic-genes" }
+                ],
+                essential: [
+                  "周邊血或骨髓細胞檢出骨髓腫瘤相關基因之體細胞突變，VAF ≥2%（男性 X 染色體基因突變 VAF ≥4%）",
+                  "無不明原因之血球減少症（cytopenia）",
+                  "不符合任何明確血液腫瘤（如 MDN、MPN、AML）之診斷標準"
+                ],
+                desirable: [
+                  "評估突變基因種類（如 DNMT3A, TET2, ASXL1）與株系大小以估算進展風險",
+                  "評估伴隨心血管疾病之風險"
+                ],
+                note: "CHIP 每年約 0.5–1% 進展為骨髓腫瘤；ARCH（年齡相關株系造血）目前尚無嚴格 VAF 門檻。"
+              },
+              {
+                id: "ch2-ccus",
+                level: "Entity",
+                name: "Clonal cytopenia of undetermined significance (CCUS)",
+                zh: "未明意義之株系血球減少症",
+                tag: "new",
+                links: [
+                  { label: "🔍 MDS 個論：CCUS 評估與追蹤", url: BASE.mds + "#indolent" },
+                  { label: "🧬 體細胞突變風險", url: BASE.mds + "#somatic-genes" }
+                ],
+                essential: [
+                  "符合 CHIP 之分子／株系標準（骨髓相關基因體細胞突變 VAF ≥2%）",
+                  "合併持續性（>4 個月）不明原因之單系或多系血球減少",
+                  "骨髓檢查未達 MDN（無顯著發育不良或定義性基因異常）或其他血液腫瘤標準"
+                ],
+                desirable: [
+                  "追蹤突變數量、VAF 大小及高風險基因（如剪接因子、TP53）以預測轉化為 MDN/AML 的風險"
+                ]
+              }
+            ]
+          },
+          {
+            id: "ch2-mpn",
+            level: "Family",
+            name: "Myeloproliferative neoplasms (MPNs)",
+            zh: "骨髓增生性腫瘤",
+            note: "JMML 從 MDN/MPN 移入本族群；CML 移除加速期(AP)。",
+            links: [
+              { label: "🔍 MPN 診斷與評估", url: BASE.mpn + "#diagnosis" },
+              { label: "💊 CML 個論", url: BASE.cml }
+            ],
+            children: [
+              {
+                id: "ch2-cml",
+                level: "Entity",
+                name: "Chronic myeloid leukemia (CML)",
+                zh: "慢性骨髓性白血病",
+                tag: "renamed",
+                links: [
+                  { label: "🔍 CML 診斷與 ELTS 風險", url: BASE.cml + "#workup" },
+                  { label: "💊 慢性期 TKI 治療", url: BASE.cml + "#cp-cml", primary: true },
+                  { label: "⚡ 進展期／芽球期治療", url: BASE.cml + "#advanced-cml" }
+                ],
+                essential: [
+                  "持續性白血球增多（以各階段顆粒球為主）及骨髓顆粒球系過度增生",
+                  "檢出 BCR::ABL1 融合基因或費城染色體 t(9;22)(q34;q11.2)",
+                  "芽球期（Blast phase）：≥20% 骨髓芽球、骨髓外芽球增生，或周邊血／骨髓出現真正淋巴芽球（即使 <10%）"
+                ],
+                desirable: [
+                  "定量 RT-PCR 測定 BCR::ABL1 轉錄本（p210/p190/p230）作為 TKI 監測基準",
+                  "傳統核型分析以評估高風險附加染色體異常（ACA）"
+                ],
+                note: "第五版移除加速期（Accelerated phase），改強調高風險特徵與 TKI 抗藥性監測。"
+              },
+              {
+                id: "ch2-pv",
+                level: "Entity",
+                name: "Polycythemia vera (PV)",
+                zh: "真性紅血球增多症",
+                links: [
+                  { label: "🔍 MPN 診斷標準", url: BASE.mpn + "#diagnosis" },
+                  { label: "💊 PV 風險分層與治療", url: BASE.mpn + "#pv", primary: true }
+                ],
+                essential: [
+                  "血紅素升高（男 >16.5 g/dL、女 >16.0 g/dL）或血比容升高（男 >49%、女 >48%）",
+                  "骨髓三系增生（panmyelosis）合併多形性成熟巨核細胞",
+                  "檢出 JAK2 V617F 或 JAK2 exon 12 突變（若無，則須符合前兩項且血清 EPO 偏低）"
+                ],
+                desirable: [
+                  "血清紅血球生成素（EPO）低於正常參考值",
+                  "骨髓網狀纖維染色分級（評估是否進展至 post-PV MF）"
+                ]
+              },
+              {
+                id: "ch2-et",
+                level: "Entity",
+                name: "Essential thrombocythemia (ET)",
+                zh: "原發性血小板增多症",
+                links: [
+                  { label: "🔍 MPN 診斷標準", url: BASE.mpn + "#diagnosis" },
+                  { label: "💊 ET 風險分層與治療", url: BASE.mpn + "#et", primary: true }
+                ],
+                essential: [
+                  "持續性血小板增多 ≥450×10⁹/L",
+                  "骨髓以大型、成熟、核分葉增多之巨核細胞增生為主，無明顯顆粒球或紅血球左移，網狀纖維 ≤ grade 1",
+                  "不符合 BCR::ABL1+ CML、PV、PMF、MDN 或其他骨髓腫瘤標準",
+                  "檢出 JAK2、CALR 或 MPL 突變（若三陰性，須排除反應性血小板增多）"
+                ],
+                desirable: [
+                  "排除反應性原因（如缺鐵、發炎）或檢出其他株系性標記（如 NGS 基因突變）"
+                ]
+              },
+              {
+                id: "ch2-pmf",
+                level: "Entity",
+                name: "Primary myelofibrosis (PMF)",
+                zh: "原發性骨髓纖維化",
+                links: [
+                  { label: "🔍 MF 風險分層", url: BASE.mpn + "#mf-risk" },
+                  { label: "💊 MF 藥物治療 (JAKi)", url: BASE.mpn + "#mf-tx", primary: true },
+                  { label: "🩸 貧血處置／移植", url: BASE.mpn + "#mf-anemia" }
+                ],
+                essential: [
+                  "骨髓巨核細胞增生合併異型（緊密成群、核深染雲霧狀），伴網狀纖維／膠原纖維化（明顯期 MF-2/3；纖維化前期 MF-0/1 合併細胞過多）",
+                  "不符合 ET、PV、CML、MDN 或其他骨髓腫瘤標準",
+                  "檢出 JAK2、CALR 或 MPL 突變（若無，須檢出其他株系標記如 ASXL1, EZH2, TET2, IDH1/2, SRSF2, SF3B1，並排除反應性纖維化）",
+                  "至少一項次要臨床標準：貧血、白血球 ≥11×10⁹/L、可觸及脾腫大、LDH 升高（明顯期另含幼紅幼粒血象）"
+                ],
+                desirable: [
+                  "高風險分子突變檢測（ASXL1, EZH2, SRSF2, IDH1/2, U2AF1）用於預後分層"
+                ]
+              },
+              {
+                id: "ch2-cnl",
+                level: "Entity",
+                name: "Chronic neutrophilic leukemia (CNL)",
+                zh: "慢性嗜中性球白血病",
+                links: [{ label: "🔍 MPN 基因與鑑別", url: BASE.mpn + "#mutations" }],
+                essential: [
+                  "周邊血 WBC ≥25×10⁹/L，分葉與桿狀嗜中性球 ≥80%，未成熟顆粒球前驅物 <10%，芽球極少，無明顯發育不良",
+                  "骨髓過多細胞且嗜中性球系成熟正常，芽球 <5%",
+                  "不符合 CML、PV、ET、PMF 或 MLN-eo 標準",
+                  "檢出 CSF3R T618I 或其他活化型 CSF3R 突變（若無，須持續嗜中性球增多 ≥3 個月、脾腫大且排除反應性原因）"
+                ],
+                desirable: [
+                  "檢測 SETBP1、ASXL1、SRSF2 等共突變以輔助株系性確認與預後評估"
+                ]
+              },
+              {
+                id: "ch2-cel",
+                level: "Entity",
+                name: "Chronic eosinophilic leukemia (CEL)",
+                zh: "慢性嗜酸性球白血病",
+                tag: "renamed",
+                links: [{ label: "🔍 MPN 初始檢查", url: BASE.mpn + "#workup" }],
+                essential: [
+                  "持續 ≥4 週（原為 6 個月）之嗜酸性球增多（≥1.5×10⁹/L 且 ≥10% WBC）",
+                  "同時具備「株系性證據（染色體或體細胞基因突變）」與「異常骨髓型態（如巨核／紅系發育不良或顯著纖維化）」",
+                  "周邊血與骨髓芽球 <20%，且排除 MLN-eo（PDGFRA/B, FGFR1, JAK2, FLT3 等重排）及其他 MPN/AML"
+                ],
+                desirable: [
+                  "完整基因組檢測排除所有酪胺酸激酶融合基因及反應性／淋巴球變異型嗜酸性球增多"
+                ],
+                note: "第五版移除「芽球增加作為株系性替代指標」，強化與特發性 HES 的鑑別。"
+              },
+              {
+                id: "ch2-jmml",
+                level: "Entity",
+                name: "Juvenile myelomonocytic leukemia (JMML)",
+                zh: "幼年型骨髓單核球白血病",
+                tag: "moved",
+                essential: [
+                  "周邊血單核球 ≥1×10⁹/L、芽球 <20%、脾腫大",
+                  "無 BCR::ABL1 融合且無 KMT2A 重排（第五版新增排除要件）",
+                  "具 RAS 路徑基因突變（PTPN11, KRAS, NRAS, NF1 臨床診斷／雙對偶基因失活、或 CBL 生殖系突變合併 LOH）"
+                ],
+                desirable: [
+                  "輔助標準（若缺典型 RAS 突變）：HbF 隨年齡升高、周邊血出現骨髓前驅細胞、GM-CSF 過度敏感／STAT5 過度磷酸化、血小板減少合併骨髓過多細胞",
+                  "確認體細胞 vs 生殖系突變（影響治療決策，部分 CBL/Noonan 個案可自發緩解）"
+                ],
+                note: "原屬 R4th MDN/MPN，現移入 MPN；已移除 monosomy 7 作為診斷標準。"
+              },
+              {
+                id: "ch2-mpn-nos",
+                level: "Entity",
+                name: "Myeloproliferative neoplasm, NOS",
+                zh: "骨髓增生性腫瘤，未另分類",
+                tag: "renamed",
+                links: [
+                  { label: "🔍 MPN 診斷評估", url: BASE.mpn + "#diagnosis" },
+                  { label: "⚡ MPN 進展期／芽球期", url: BASE.mpn + "#ap-bp" }
+                ],
+                essential: [
+                  "具明確 MPN 臨床、實驗室與骨髓型態特徵（如驅動突變 JAK2/CALR/MPL 或株系性）",
+                  "不符合任何特定 MPN（CML, PV, ET, PMF, CNL, CEL, JMML）或其他骨髓腫瘤之完整標準"
+                ],
+                desirable: [
+                  "追蹤演變（常見於極早期 MPN、晚期纖維化 MPN 或合併其他發炎疾病掩蓋表型者）"
+                ]
+              }
+            ]
+          },
+          {
+            id: "ch2-masto",
+            level: "Family",
+            name: "Mastocytosis",
+            zh: "肥大細胞增多症",
+            children: [
+              {
+                id: "ch2-cm",
+                level: "Entity",
+                name: "Cutaneous mastocytosis",
+                zh: "皮膚型肥大細胞增多症",
+                essential: [
+                  "典型皮膚病灶（斑丘疹型、瀰漫型或皮膚肥大細胞瘤）合併皮膚切片證實真皮層肥大細胞浸潤（CD117+, tryptase+）",
+                  "不符合全身性肥大細胞增多症（SM）之診斷標準"
+                ],
+                desirable: [
+                  "成人個案建議評估骨髓與 KIT D816V 以排除潛在全身性侵犯"
+                ]
+              },
+              {
+                id: "ch2-sm",
+                level: "Entity",
+                name: "Systemic mastocytosis (SM)",
+                zh: "全身性肥大細胞增多症（含新增 Bone marrow mastocytosis）",
+                tag: "new",
+                essential: [
+                  "符合「1 項主要標準 + ≥1 項次要標準」或「≥3 項次要標準」",
+                  "主要標準：骨髓或其他皮膚外器官見多發性緻密肥大細胞浸潤（每群 ≥15 個細胞）",
+                  "次要標準：(1) >25% 肥大細胞呈紡錘狀／異型；(2) KIT codon 816 或其他活化型 KIT 突變（第五版放寬）；(3) 表現 CD2、CD25 或 CD30（第五版新增）；(4) 基礎血清 tryptase >20 ng/mL（遺傳性 α-tryptasemia 須校正）"
+                ],
+                desirable: [
+                  "依 B-findings 與 C-findings 區分亞型：骨髓型（BMM, NEW）、惰性（ISM）、冒煙型（SSM）、侵襲性（ASM）、合併血液腫瘤（SM-AHN）及肥大細胞白血病（MCL）"
+                ]
+              },
+              {
+                id: "ch2-mcs",
+                level: "Entity",
+                name: "Mast cell sarcoma",
+                zh: "肥大細胞肉瘤",
+                essential: [
+                  "單發性局部破壞性腫塊，由高度異型、多形性肥大細胞組成",
+                  "免疫染色證實肥大細胞分化（tryptase+, CD117+, 常伴 CD25/CD30+）",
+                  "無全身性肥大細胞增多症之表現"
+                ],
+                desirable: [
+                  "檢測 KIT 突變（多為非 D816V 或野生型）以評估標靶治療可能性"
+                ]
+              }
+            ]
+          },
+          {
+            id: "ch2-mdn",
+            level: "Family",
+            name: "Myelodysplastic neoplasms (MDNs / MDS)",
+            zh: "骨髓化生不良腫瘤（原 MDS）",
+            tag: "renamed",
+            note: "全面改以「定義性基因異常」與「芽球比例」分類，刪除單系／多系發育不良（SLD/MLD）與 MDS-U。",
+            links: [
+              { label: "🔍 MDS 評估與分類", url: BASE.mds + "#classification" },
+              { label: "📊 IPSS-R / IPSS-M 預後", url: BASE.mds + "#prognosis" },
+              { label: "💊 低風險治療", url: BASE.mds + "#lower-risk", primary: true },
+              { label: "💊 高風險治療", url: BASE.mds + "#higher-risk", primary: true }
+            ],
+            children: [
+              {
+                id: "ch2-mdn-gen",
+                level: "Group",
+                name: "MDN with defining genetic abnormalities",
+                zh: "具定義性基因異常之 MDN",
+                children: [
+                  {
+                    id: "ch2-mdn-5q",
+                    level: "Entity",
+                    name: "MDN with low blasts and 5q deletion",
+                    zh: "低芽球合併 5q 缺失 MDN",
+                    tag: "renamed",
+                    links: [
+                      { label: "🔍 MDS 分類與診斷", url: BASE.mds + "#classification" },
+                      { label: "💊 低風險 (del 5q) 治療", url: BASE.mds + "#lower-risk", primary: true }
+                    ],
+                    essential: [
+                      "血球減少（常見巨球性貧血）與骨髓發育不良（典型單葉小巨核細胞）",
+                      "骨髓芽球 <5% 且周邊血芽球 <2%",
+                      "孤立性 del(5q)，或僅合併 1 項其他染色體異常（但排除 -7 或 del(7q)）"
+                    ],
+                    desirable: [
+                      "檢測 TP53 突變狀態（雙對偶基因 TP53 失活優先歸類於 MDS-biTP53，且影響 lenalidomide 療效）"
+                    ]
+                  },
+                  {
+                    id: "ch2-mdn-sf3b1",
+                    level: "Entity",
+                    name: "MDN with low blasts and SF3B1 mutation",
+                    zh: "低芽球合併 SF3B1 突變 MDN",
+                    tag: "new",
+                    links: [
+                      { label: "🔍 MDS 分類與 SF3B1", url: BASE.mds + "#classification" },
+                      { label: "💊 低風險 (Luspatercept) 治療", url: BASE.mds + "#lower-risk", primary: true }
+                    ],
+                    essential: [
+                      "血球減少與骨髓發育不良，骨髓芽球 <5% 且周邊血芽球 <2%",
+                      "檢出 SF3B1 突變（若無分子檢測資源，≥15% 環狀鐵粒幼紅細胞可作為替代稱 MDS-LB with RS）",
+                      "無 del(5q)、-7、inv(3)/t(3;3)、複雜核型或雙對偶基因 TP53 失活"
+                    ],
+                    desirable: [
+                      "鐵染色確認環狀鐵粒幼紅細胞比例；排除其他高風險共突變"
+                    ]
+                  },
+                  {
+                    id: "ch2-mdn-tp53",
+                    level: "Entity",
+                    name: "MDN with biallelic TP53 inactivation",
+                    zh: "雙對偶基因 TP53 失活 MDN",
+                    tag: "new",
+                    links: [
+                      { label: "📊 IPSS-M 預後分層", url: BASE.mds + "#prognosis" },
+                      { label: "💊 高風險 MDS 治療", url: BASE.mds + "#higher-risk", primary: true }
+                    ],
+                    essential: [
+                      "血球減少與骨髓發育不良，骨髓與周邊血芽球 <20%",
+                      "雙對偶基因 TP53 失活（≥2 個 TP53 突變，或 1 個突變合併 17p/TP53 拷貝數缺失或 cnLOH；單一突變 VAF >50% 亦高度提示）"
+                    ],
+                    desirable: [
+                      "傳統核型分析（多合併複雜核型）與 p53 免疫染色輔助評估"
+                    ]
+                  }
+                ]
+              },
+              {
+                id: "ch2-mdn-morph",
+                level: "Group",
+                name: "MDN, morphologically defined",
+                zh: "型態定義之 MDN",
+                children: [
+                  {
+                    id: "ch2-mdn-lb",
+                    level: "Entity",
+                    name: "MDN with low blasts (MDS-LB)",
+                    zh: "低芽球 MDN",
+                    tag: "new",
+                    links: [
+                      { label: "🔍 MDS 評估與分類", url: BASE.mds + "#workup" },
+                      { label: "💊 低風險 MDS 治療", url: BASE.mds + "#lower-risk", primary: true }
+                    ],
+                    essential: [
+                      "持續血球減少且骨髓 ≥1 個血系有 ≥10% 發育不良（或具定義性染色體異常）",
+                      "骨髓芽球 <5% 且周邊血芽球 <2%",
+                      "不符合上述三種基因定義 MDN（5q-, SF3B1, biTP53）與低細胞性 MDN"
+                    ],
+                    desirable: [
+                      "NGS 基因檢測與核型分析以排除潛在基因定義型並進行 IPSS-M 風險分層"
+                    ]
+                  },
+                  {
+                    id: "ch2-mdn-h",
+                    level: "Entity",
+                    name: "MDN, hypoplastic (MDS-h)",
+                    zh: "低細胞性 MDN",
+                    tag: "new",
+                    links: [
+                      { label: "🔍 MDS 分類", url: BASE.mds + "#classification" },
+                      { label: "💊 低風險治療（含免疫抑制）", url: BASE.mds + "#lower-risk", primary: true }
+                    ],
+                    essential: [
+                      "符合 MDS-LB 標準（骨髓芽球 <5%、周邊血 <2%，具發育不良與血球減少）",
+                      "年齡校正後骨髓細胞密度 ≤25%（須以骨髓切片評估）"
+                    ],
+                    desirable: [
+                      "排除再生不良性貧血（AA）、PNH 株系與生殖系骨髓衰竭症候群（如 GATA2, DDX41, telomeropathies）"
+                    ]
+                  },
+                  {
+                    id: "ch2-mdn-ib",
+                    level: "Entity",
+                    name: "MDN with increased blasts (MDS-IB)",
+                    zh: "芽球增加 MDN（IB1 / IB2 / 纖維化型）",
+                    tag: "renamed",
+                    links: [
+                      { label: "📊 IPSS-R / IPSS-M 預後", url: BASE.mds + "#prognosis" },
+                      { label: "💊 高風險 MDS 治療 (HMA/移植)", url: BASE.mds + "#higher-risk", primary: true }
+                    ],
+                    essential: [
+                      "血球減少、發育不良，且無雙對偶基因 TP53 失活或定義性 AML 基因異常",
+                      "MDS-IB1：骨髓芽球 5–9% 或周邊血 2–4%",
+                      "MDS-IB2：骨髓芽球 10–19% 或周邊血 5–19% 或出現 Auer rods",
+                      "MDS with fibrosis (MDS-f)：骨髓芽球 5–19% 合併網狀纖維化 MF-2/3"
+                    ],
+                    desirable: [
+                      "完整分子突變盤與核型分析以評估轉化為 AML 之風險"
+                    ]
+                  }
+                ]
+              },
+              {
+                id: "ch2-mdn-child",
+                level: "Group",
+                name: "MDNs of childhood",
+                zh: "兒童 MDN",
+                children: [
+                  {
+                    id: "ch2-mdn-clb",
+                    level: "Entity",
+                    name: "Childhood MDN with low blasts",
+                    zh: "兒童低芽球 MDN（取代 RCC）",
+                    tag: "renamed",
+                    links: [{ label: "🧬 遺傳易感評估", url: BASE.mds + "#hereditary" }],
+                    essential: [
+                      "兒童（<18 歲）持續血球減少合併骨髓發育不良",
+                      "骨髓芽球 <5% 且周邊血芽球 <2%",
+                      "依骨髓切片細胞密度分為 hypocellular 與 NOS 兩亞型"
+                    ],
+                    desirable: [
+                      "排除遺傳性骨髓衰竭症候群（Fanconi、SAMD9/9L、GATA2、Shwachman-Diamond）及感染／營養因素"
+                    ]
+                  },
+                  {
+                    id: "ch2-mdn-cib",
+                    level: "Entity",
+                    name: "Childhood MDN with increased blasts",
+                    zh: "兒童芽球增加 MDN",
+                    links: [{ label: "🧬 遺傳易感評估", url: BASE.mds + "#hereditary" }],
+                    essential: [
+                      "兒童持續血球減少合併骨髓發育不良",
+                      "周邊血芽球 ≥2%（且 <20%）和／或骨髓芽球 5–19%",
+                      "排除具定義性基因異常之 AML 及唐氏症相關骨髓腫瘤"
+                    ],
+                    desirable: [
+                      "生殖系遺傳傾向基因檢測（如 GATA2, SAMD9/SAMD9L, RUNX1）及單體 7 檢測"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: "ch2-mdnmpn",
+            level: "Family",
+            name: "Myelodysplastic/myeloproliferative neoplasms (MDN/MPNs)",
+            zh: "骨髓化生不良／增生性腫瘤",
+            links: [
+              { label: "🔍 MDS 個論：CMML 與分類", url: BASE.mds + "#classification" },
+              { label: "💊 MDS/MPN 治療參考", url: BASE.mds + "#higher-risk" }
+            ],
+            children: [
+              {
+                id: "ch2-cmml",
+                level: "Entity",
+                name: "Chronic myelomonocytic leukemia (CMML)",
+                zh: "慢性骨髓單核球白血病",
+                links: [
+                  { label: "🔍 MDS 個論：CMML 診斷", url: BASE.mds + "#classification" },
+                  { label: "💊 MDS 治療指引", url: BASE.mds + "#higher-risk", primary: true }
+                ],
+                essential: [
+                  "先決條件：持續單核球增多 ≥0.5×10⁹/L（第五版調降）且佔 WBC ≥10%、芽球 <20%、不符合 CML/MPN/MLN-eo",
+                  "輔助條件：發育不良（≥1系）、株系性（核型或突變）、流式細胞儀顯示古典單核球（CD14+CD16−）>94%",
+                  "若單核球 ≥1.0×10⁹/L：先決＋任 1 項輔助；若 0.5–<1.0×10⁹/L：必須同時具「株系性」與「發育不良」"
+                ],
+                desirable: [
+                  "依 WBC 分為 MD-CMML (<13×10⁹/L) 與 MP-CMML (≥13×10⁹/L)，並依芽球比例分 CMML-1 / CMML-2",
+                  "檢驗 TET2, SRSF2, ASXL1, RAS 突變"
+                ]
+              },
+              {
+                id: "ch2-mdnmpn-n",
+                level: "Entity",
+                name: "MDN/MPN with neutrophilia",
+                zh: "嗜中性球增多型 MDN/MPN（原 aCML）",
+                tag: "renamed",
+                essential: [
+                  "周邊血白血球 ≥13×10⁹/L，未成熟顆粒球前驅物 ≥10%，明顯顆粒球發育不良",
+                  "無單核球增多（<10% WBC）、無明顯嗜鹼性球增多，芽球 <20%",
+                  "排除 BCR::ABL1、MLN-eo 重排及其他明確 MPN"
+                ],
+                desirable: [
+                  "SETBP1 與 ETNK1 突變常見（具支持價值）；排除典型 JAK2/CALR/MPL/CSF3R 突變"
+                ]
+              },
+              {
+                id: "ch2-mdnmpn-sf3b1",
+                level: "Entity",
+                name: "MDN/MPN with SF3B1 mutation and thrombocytosis",
+                zh: "合併 SF3B1 突變與血小板增多之 MDN/MPN",
+                tag: "renamed",
+                essential: [
+                  "貧血合併紅系發育不良，且持續血小板 ≥450×10⁹/L",
+                  "檢出 SF3B1 突變（≥15% 環狀鐵粒幼紅細胞可作為無基因檢測時替代）",
+                  "骨髓芽球 <5% 且周邊血 <1%，無 del(5q)/BCR::ABL1/MLN-eo 重排"
+                ],
+                desirable: [
+                  "常見同時合併 JAK2 V617F（或 CALR/MPL）突變"
+                ]
+              },
+              {
+                id: "ch2-mdnmpn-nos",
+                level: "Entity",
+                name: "MDN/MPN, NOS",
+                zh: "MDN/MPN，未另分類",
+                tag: "renamed",
+                essential: [
+                  "兼具骨髓化生不良與骨髓增生特徵（如血小板 ≥450 或 WBC ≥13×10⁹/L 合併血球減少／發育不良）",
+                  "芽球 <20%，且不符合 CMML、嗜中性球型、SF3B1+T 或其他特定骨髓腫瘤"
+                ],
+                desirable: [
+                  "NGS 突變分析確認株系性並排除繼發性或細胞毒殺治療後腫瘤"
+                ]
+              }
+            ]
+          },
+          {
+            id: "ch2-aml",
+            level: "Family",
+            name: "Acute myeloid leukemia (AML)",
+            zh: "急性骨髓性白血病",
+            note: "多數具定義性基因異常之 AML 不再強制要求 ≥20% 芽球。",
+            links: [
+              { label: "🔍 AML 診斷與 ELN 風險", url: BASE.aml + "#sec-eval" },
+              { label: "💊 高強度誘導／鞏固", url: BASE.aml + "#sec-intensive", primary: true },
+              { label: "💊 低強度 (Venetoclax)", url: BASE.aml + "#sec-lower", primary: true },
+              { label: "🔄 R/R 標靶治療", url: BASE.aml + "#sec-rr" }
+            ],
+            children: [
+              {
+                id: "ch2-aml-gen",
+                level: "Group",
+                name: "AML with defining genetic abnormalities (13 entities)",
+                zh: "具定義性基因異常之 AML",
+                tag: "renamed",
+                children: [
+                  {
+                    id: "ch2-aml-pml",
+                    level: "Entity",
+                    name: "APL with PML::RARA fusion",
+                    zh: "急性前骨髓細胞白血病 (PML::RARA)",
+                    links: [
+                      { label: "💊 APL 專章（診斷與 ATRA/ATO 治療）", url: BASE.aml + "#sec-apl", primary: true }
+                    ],
+                    essential: [
+                      "異常前骨髓細胞（高顆粒型或微顆粒型，常具柴堆狀 Auer rods）增生",
+                      "檢出 PML::RARA 融合基因或 t(15;17)(q24;q21)（不要求 ≥20% 芽球）"
+                    ],
+                    desirable: [
+                      "免疫表型（CD34−, HLA-DR−, CD117+, 強 MPO+）快速輔助；檢測 FLT3-ITD 評估風險"
+                    ]
+                  },
+                  {
+                    id: "ch2-aml-cbf",
+                    level: "Entity",
+                    name: "AML with RUNX1::RUNX1T1 / CBFB::MYH11",
+                    zh: "核心結合因子 AML（RUNX1::RUNX1T1 / CBFB::MYH11）",
+                    links: [
+                      { label: "🔍 ELN 風險分層", url: BASE.aml + "#sec-risk" },
+                      { label: "💊 高強度治療 (含 GO)", url: BASE.aml + "#sec-intensive", primary: true }
+                    ],
+                    essential: [
+                      "骨髓或周邊血見骨髓芽球增生（不強制要求 ≥20% 芽球）",
+                      "檢出 RUNX1::RUNX1T1 融合或 CBFB::MYH11 融合"
+                    ],
+                    desirable: [
+                      "檢測 KIT 突變（與較高復發風險相關）及 FLT3/NRAS/KRAS 共突變"
+                    ]
+                  },
+                  {
+                    id: "ch2-aml-otherf",
+                    level: "Entity",
+                    name: "AML with DEK::NUP214 / RBM15::MRTFA / KMT2A / MECOM / NUP98",
+                    zh: "其他定義性重排 AML（新增 NUP98）",
+                    tag: "new",
+                    links: [
+                      { label: "🔍 AML 風險分層", url: BASE.aml + "#sec-risk" },
+                      { label: "💊 AML 治療指引", url: BASE.aml + "#sec-intensive", primary: true }
+                    ],
+                    essential: [
+                      "骨髓芽球增生（上述 5 種重排皆不強制要求 ≥20% 芽球）",
+                      "FISH、核型或 RNA-seq/RT-PCR 檢出對應定義性融合或重排（KMT2A、MECOM 不限單一伴侶基因）"
+                    ],
+                    desirable: [
+                      "鑑定確切融合伴侶基因（例如 KMT2A::MLLT3 與其他伴侶預後不同）及 FLT3-ITD 狀態"
+                    ]
+                  },
+                  {
+                    id: "ch2-aml-bcr",
+                    level: "Entity",
+                    name: "AML with BCR::ABL1 fusion",
+                    zh: "BCR::ABL1 融合 AML",
+                    links: [
+                      { label: "🔍 AML 評估", url: BASE.aml + "#sec-risk" },
+                      { label: "💊 AML 治療", url: BASE.aml + "#sec-intensive", primary: true }
+                    ],
+                    essential: [
+                      "骨髓或周邊血骨髓芽球 ≥20%（須達 20% 門檻以區分慢性期 CML）",
+                      "檢出 BCR::ABL1 融合基因，且無先前 CML 病史（排除 CML 芽球期）"
+                    ],
+                    desirable: [
+                      "無脾腫大、無嗜鹼性球增多及無典型 CML 核型特徵支持 de novo AML"
+                    ]
+                  },
+                  {
+                    id: "ch2-aml-npm1",
+                    level: "Entity",
+                    name: "AML with NPM1 mutation",
+                    zh: "NPM1 突變 AML",
+                    links: [
+                      { label: "🔍 ELN 風險分層", url: BASE.aml + "#sec-risk" },
+                      { label: "💊 AML 治療指引", url: BASE.aml + "#sec-intensive", primary: true },
+                      { label: "📈 MRD 追蹤", url: BASE.aml + "#sec-mrd" }
+                    ],
+                    essential: [
+                      "骨髓芽球增生（第五版不強制要求 ≥20% 芽球，但須與少見低芽球狀態臨床整合）",
+                      "檢出 NPM1 體細胞突變（或免疫染色證實細胞質異常 NPM1 表現）"
+                    ],
+                    desirable: [
+                      "檢測 FLT3-ITD（影響預後分層）、DNMT3A、IDH1/2 及 MRD 分子追蹤"
+                    ]
+                  },
+                  {
+                    id: "ch2-aml-cebpa",
+                    level: "Entity",
+                    name: "AML with CEBPA mutation",
+                    zh: "CEBPA 突變 AML",
+                    tag: "renamed",
+                    links: [
+                      { label: "🔍 ELN 風險分層", url: BASE.aml + "#sec-risk" },
+                      { label: "💊 AML 治療指引", url: BASE.aml + "#sec-intensive", primary: true }
+                    ],
+                    essential: [
+                      "骨髓或周邊血芽球 ≥20%",
+                      "檢出雙對偶基因 CEBPA 突變，或位於 bZip 區域之單一 in-frame CEBPA 突變（第五版新增納入）"
+                    ],
+                    desirable: [
+                      "排除生殖系 CEBPA 突變（具家族史或 VAF 接近 50% 時建議檢測）"
+                    ]
+                  },
+                  {
+                    id: "ch2-aml-mr",
+                    level: "Entity",
+                    name: "AML, myelodysplasia-related (AML-MR)",
+                    zh: "骨髓化生不良相關 AML",
+                    tag: "renamed",
+                    links: [
+                      { label: "🔍 AML 風險分層", url: BASE.aml + "#sec-risk" },
+                      { label: "💊 高強度 (CPX-351) 治療", url: BASE.aml + "#sec-intensive", primary: true },
+                      { label: "💊 低強度治療", url: BASE.aml + "#sec-lower" }
+                    ],
+                    essential: [
+                      "骨髓或周邊血芽球 ≥20%",
+                      "符合以下任一條件：(1) 先前確診 MDN 或 MDN/MPN 病史；(2) 具定義性染色體異常（複雜核型、del(5q)、-7/del(7q)、del(12p)、del(17p)/-17 等，已移除平衡轉位）；(3) 具定義性基因突變（ASXL1, BCOR, EZH2, SF3B1, SRSF2, STAG2, U2AF1, ZRSR2）",
+                      "單純型態多系發育不良不再符合本診斷（第五版重大修訂）"
+                    ],
+                    desirable: [
+                      "完整 NGS 突變盤（含 TP53 狀態）與核型分析"
+                    ]
+                  },
+                  {
+                    id: "ch2-aml-other",
+                    level: "Entity",
+                    name: "AML with other defined genetic alterations",
+                    zh: "其他定義性基因異常 AML",
+                    tag: "new",
+                    links: [{ label: "💊 AML 治療指引", url: BASE.aml + "#sec-intensive", primary: true }],
+                    essential: [
+                      "骨髓芽球增生（通常 ≥20%）並檢出特定罕見重現性融合基因（如 CBFA2T3::GLIS2, KAT6A::CREBBP, FUS::ERG, MNX1::ETV6, NPM1::MLF1）"
+                    ],
+                    desirable: [
+                      "RNA 定序確認融合轉錄本與特異免疫表型（如 CBFA2T3::GLIS2 常表現亮 CD56+ 與巨核母細胞表型）"
+                    ]
+                  }
+                ]
+              },
+              {
+                id: "ch2-aml-diff",
+                level: "Entity",
+                name: "AML, defined by differentiation",
+                zh: "依分化定義之 AML（原 AML, NOS）",
+                tag: "renamed",
+                links: [
+                  { label: "🔍 AML 初始評估", url: BASE.aml + "#sec-eval" },
+                  { label: "💊 高強度治療", url: BASE.aml + "#sec-intensive", primary: true },
+                  { label: "💊 低強度治療", url: BASE.aml + "#sec-lower" }
+                ],
+                essential: [
+                  "骨髓或周邊血芽球（含芽球等價物）≥20%（急性紅血球白血病須紅系 ≥80% 且原紅血球 ≥30%）",
+                  "排除所有具定義性基因異常之 AML、AML-MR 及治療後續發性骨髓腫瘤",
+                  "依細胞化學與免疫表型歸類為微分化／無成熟／有成熟／骨髓單核球／單核球／紅血球／巨核母細胞／嗜鹼性球型"
+                ],
+                desirable: [
+                  "完整基因檢測以確認無遺漏隱性融合基因（如 NUP98, KMT2A）及評估 TP53（急性紅血球白血病常具雙對偶基因 TP53 突變）"
+                ]
+              },
+              {
+                id: "ch2-ms",
+                level: "Entity",
+                name: "Myeloid sarcoma",
+                zh: "骨髓肉瘤",
+                links: [{ label: "💊 AML 系統性治療指引", url: BASE.aml + "#sec-intensive", primary: true }],
+                essential: [
+                  "骨髓外解剖部位出現破壞組織結構之腫塊，由骨髓芽球（伴或不伴成熟）組成",
+                  "免疫染色證實骨髓系分化（如 MPO, lysozyme, CD33, CD68, CD117, CD34）"
+                ],
+                desirable: [
+                  "同步進行骨髓檢查與分子基因分析（若具定義性基因異常應一併標註）"
+                ]
+              }
+            ]
+          },
+          {
+            id: "ch2-sec",
+            level: "Family",
+            name: "Secondary myeloid neoplasms",
+            zh: "續發性骨髓腫瘤",
+            tag: "new",
+            children: [
+              {
+                id: "ch2-sec-pct",
+                level: "Entity",
+                name: "Myeloid neoplasm post cytotoxic therapy (MN-pCT)",
+                zh: "細胞毒殺治療後骨髓腫瘤",
+                links: [
+                  { label: "💊 AML 高風險／CPX-351", url: BASE.aml + "#sec-intensive", primary: true },
+                  { label: "💊 高風險 MDS 治療", url: BASE.mds + "#higher-risk" }
+                ],
+                essential: [
+                  "符合 MDN、MDN/MPN 或 AML 之診斷標準",
+                  "具備先前接受細胞毒殺化療（含 PARP 抑制劑）或大範圍放射治療之明確病史（標註於主診斷之後，例如 AML with KMT2A rearrangement post cytotoxic therapy）"
+                ],
+                desirable: [
+                  "檢測 TP53 突變與染色體 5/7 缺失（常見且預後差）"
+                ]
+              },
+              {
+                id: "ch2-sec-germ",
+                level: "Entity",
+                name: "Myeloid neoplasms associated with germline predisposition",
+                zh: "生殖系遺傳傾向相關骨髓腫瘤",
+                links: [
+                  { label: "🧬 MDS 個論：遺傳易感與基因篩檢", url: BASE.mds + "#hereditary", primary: true }
+                ],
+                essential: [
+                  "符合特定骨髓腫瘤診斷，且於非造血組織（如皮膚纖維母細胞）證實致病性生殖系突變（如 CEBPA, DDX41, TP53, RUNX1, ANKRD26, ETV6, GATA2, SAMD9, SAMD9L 等）"
+                ],
+                desirable: [
+                  "遺傳諮詢與家族篩檢（對親屬異體骨髓移植捐贈者篩選至關重要）"
+                ]
+              },
+              {
+                id: "ch2-sec-ds",
+                level: "Entity",
+                name: "Myeloid proliferations associated with Down syndrome",
+                zh: "唐氏症相關骨髓增生（TAM / ML-DS）",
+                essential: [
+                  "具三體 21（唐氏症或嵌合型）背景",
+                  "新生兒暫時性異常骨髓造血（TAM）或兒童骨髓白血病（ML-DS，多為巨核母細胞表型）",
+                  "檢出體細胞 GATA1 突變"
+                ],
+                desirable: [
+                  "ML-DS 常伴隨額外體細胞突變（如 cohesin, CTCF, JAK-STAT 路徑）以與 TAM 區分"
+                ]
+              }
+            ]
+          },
+          {
+            id: "ch2-mlneo",
+            level: "Entity",
+            name: "Myeloid/lymphoid neoplasms with eosinophilia and defining gene rearrangement",
+            zh: "合併嗜酸性球增多與定義性基因重排之骨髓／淋巴腫瘤",
+            tag: "renamed",
+            essential: [
+              "骨髓或淋巴腫瘤（常伴嗜酸性球增多，但非絕對必要）",
+              "檢出定義性酪胺酸激酶重排：PDGFRA、PDGFRB、FGFR1、JAK2（不限 PCM1）、FLT3 (NEW)、ETV6::ABL1 (NEW) 或其他 TK 融合基因 (NEW)"
+            ],
+            desirable: [
+              "確認融合基因伴侶以決定標靶治療（如 PDGFRA/PDGFRB 對 imatinib 極敏感）"
+            ]
+          },
+          {
+            id: "ch2-alal",
+            level: "Family",
+            name: "Acute leukemias of mixed or ambiguous lineage (ALAL / MPAL)",
+            zh: "混合或不明系急性白血病",
+            links: [{ label: "🔍 AML 個論：初始評估", url: BASE.aml + "#sec-eval" }],
+            children: [
+              {
+                id: "ch2-alal-gen",
+                level: "Entity",
+                name: "ALAL with defining genetic abnormalities",
+                zh: "具定義性基因異常之 ALAL（BCR::ABL1 / KMT2A / ZNF384 / BCL11B）",
+                tag: "new",
+                essential: [
+                  "符合急性白血病（通常芽球 ≥20%）且免疫表型符合雙系／混合表型（MPAL）或不明系（ALAL）標準",
+                  "檢出 BCR::ABL1、KMT2A 重排、ZNF384 重排 (NEW) 或 BCL11B 重排 (NEW)"
+                ],
+                desirable: [
+                  "多色流式細胞儀精確判定各系強度（如 MPO 強度、cytoplasmic CD3、CD19+多項 B 標記）"
+                ]
+              },
+              {
+                id: "ch2-alal-imm",
+                level: "Entity",
+                name: "ALAL, immunophenotypically defined (MPAL B/M, T/M, AUL)",
+                zh: "免疫表型定義之 ALAL／急性未分化白血病",
+                essential: [
+                  "芽球 ≥20% 且排除所有具定義性基因異常之 ALAL/AML/ALL",
+                  "MPAL 須同時符合 ≥2 個血系之系譜定義標準（骨髓：強 MPO 或 ≥2 項單核球標記；T 系：cytoplasmic/surface CD3；B 系：強 CD19 + ≥1 項或弱 CD19 + ≥2 項 CD79a/cCD22/CD10）",
+                  "AUL：不表現任何明確系譜特異標記（僅表現幹細胞標記如 CD34, HLA-DR, CD38）"
+                ],
+                desirable: [
+                  "排除 ETP-ALL、BPDCN 與微分化 AML；進行 NGS 排除隱性重排"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: "ch3",
+        chapter: 3,
+        level: "Chapter",
+        name: "Ch. 3 Histiocytic / Dendritic Cell Neoplasms",
+        zh: "組織球／樹突細胞腫瘤（3 大族群）",
+        note: "濾泡樹突細胞腫瘤(FDC)與纖維母細胞網狀細胞腫瘤已移至 Ch.6！BPDCN 併入本章。",
+        links: [
+          { label: "🔬 組織球腫瘤 NCCN v4.2026 個論總覽", url: BASE.histiocytic, primary: true },
+          { label: "🧬 分子檢測原則 (HIST-H)", url: BASE.histiocytic + "#molecular" }
+        ],
+        children: [
+          {
+            id: "ch3-pdc",
+            level: "Family",
+            name: "Plasmacytoid dendritic cell neoplasms",
+            zh: "漿細胞樣樹突細胞腫瘤",
+            tag: "new",
+            children: [
+              {
+                id: "ch3-mpdcp",
+                level: "Entity",
+                name: "Mature plasmacytoid dendritic cell proliferation associated with myeloid neoplasm",
+                zh: "骨髓腫瘤相關成熟漿細胞樣樹突細胞增生",
+                tag: "new",
+                essential: [
+                  "骨髓、淋巴結或皮膚見成熟、低惡性度型態之漿細胞樣樹突細胞（pDC）結節狀或片狀增生",
+                  "免疫表型為 CD123+, TCL1+, TCF4+, CD303+，且缺乏母細胞特徵（CD56 多陰性、Ki67 低）",
+                  "伴隨明確之骨髓腫瘤（最常見為 CMML，其次為 AML、MDN 或 MPN）"
+                ],
+                desirable: [
+                  "分子檢測證實 pDC 與伴隨骨髓腫瘤共享體細胞突變（如 RUNX1, TET2, SRSF2）"
+                ]
+              },
+              {
+                id: "ch3-bpdcn",
+                level: "Entity",
+                name: "Blastic plasmacytoid dendritic cell neoplasm (BPDCN)",
+                zh: "母細胞性漿細胞樣樹突細胞腫瘤",
+                tag: "moved",
+                links: [
+                  { label: "💊 AML 個論：BPDCN 診斷與治療專章", url: BASE.aml + "#sec-bpdcn", primary: true }
+                ],
+                essential: [
+                  "單形性中型母細胞浸潤（好發皮膚、骨髓、周邊血與淋巴結）",
+                  "表現 CD123 及另 ≥1 項 pDC 標記（TCF4, TCL1, CD303, CD304）合併 CD4 和／或 CD56 陽性；或表現 ≥3 項 pDC 標記且排除所有系譜特異標記（CD3−, CD19−, MPO−, lysozyme−, CD14−）"
+                ],
+                desirable: [
+                  "排除伴隨骨髓腫瘤之成熟 pDC 增生及 CD56+ AML；檢測 CNS 侵犯"
+                ]
+              }
+            ]
+          },
+          {
+            id: "ch3-lc",
+            level: "Family",
+            name: "Langerhans cell and other dendritic cell neoplasms",
+            zh: "蘭格罕細胞及其他樹突細胞腫瘤",
+            children: [
+              {
+                id: "ch3-lch",
+                level: "Entity",
+                name: "Langerhans cell histiocytosis (LCH)",
+                zh: "蘭格罕細胞組織球增生症",
+                links: [
+                  { label: "🧑 成人 LCH 診治與療效", url: BASE.histiocytic + "#adult-lch", primary: true },
+                  { label: "🧒 兒童 LCH 診治流程", url: BASE.histiocytic + "#ped-lch" }
+                ],
+                essential: [
+                  "典型蘭格罕細胞（卵圓核伴縱向核溝／咖啡豆核、豐富淡染細胞質）常伴嗜酸性球背景",
+                  "免疫染色證實 CD1a+、Langerin (CD207)+ 及 S100+"
+                ],
+                desirable: [
+                  "檢測 MAPK 路徑突變（約 50% BRAF V600E，其餘常見 MAP2K1 等）以指導標靶治療"
+                ]
+              },
+              {
+                id: "ch3-lcs",
+                level: "Entity",
+                name: "Langerhans cell sarcoma (LCS)",
+                zh: "蘭格罕細胞肉瘤",
+                links: [
+                  { label: "⚡ 惡性組織球腫瘤 (MHN) 專章", url: BASE.histiocytic + "#mhn", primary: true },
+                  { label: "💊 MHN 全身性治療方案", url: BASE.histiocytic + "#systemic" }
+                ],
+                essential: [
+                  "顯著惡性細胞學特徵（高度多形性、顯著核仁、高有絲分裂數）",
+                  "表現蘭格罕細胞免疫表型（CD1a+, Langerin/CD207+, S100+）"
+                ],
+                desirable: [
+                  "排除轉移性黑色素瘤與間變性大細胞淋巴瘤；檢測 MAPK 路徑突變"
+                ]
+              },
+              {
+                id: "ch3-idct",
+                level: "Entity",
+                name: "Indeterminate dendritic cell tumour / Interdigitating dendritic cell sarcoma",
+                zh: "未定型樹突細胞腫瘤／指突狀樹突細胞肉瘤",
+                links: [
+                  { label: "⚡ 惡性組織球腫瘤 (MHN / IDCS)", url: BASE.histiocytic + "#mhn", primary: true },
+                  { label: "🧬 IDCT 分子檢測 (ETV3::NCOA2)", url: BASE.histiocytic + "#molecular" }
+                ],
+                essential: [
+                  "未定型 DC 腫瘤：似 LCH 型態，CD1a+、S100+，但 Langerin (CD207) 陰性（無 Birbeck 顆粒）",
+                  "指突狀 DC 肉瘤：梭狀至多形性細胞束狀排列，強烈 S100+，且 CD1a−、Langerin−、FDC 標記（CD21/CD23/CD35）陰性"
+                ],
+                desirable: [
+                  "未定型 DC 腫瘤可檢測 ETV3::NCOA2 融合；指突狀 DC 肉瘤須嚴格排除黑色素瘤（SOX10/Melan-A/HMB45−）"
+                ]
+              }
+            ]
+          },
+          {
+            id: "ch3-hist",
+            level: "Family",
+            name: "Histiocytic / macrophage neoplasms",
+            zh: "組織球／巨噬細胞腫瘤",
+            children: [
+              {
+                id: "ch3-jxg",
+                level: "Entity",
+                name: "Juvenile xanthogranuloma (JXG)",
+                zh: "幼年型黃色肉芽腫",
+                links: [
+                  { label: "🧬 NTRK1 融合與分子檢測 (HIST-H)", url: BASE.histiocytic + "#molecular", primary: true },
+                  { label: "🔬 病理與 IHC 鑑別", url: BASE.histiocytic + "#pathology" }
+                ],
+                essential: [
+                  "單核組織球、泡沫狀組織球與 Touton 巨細胞浸潤（無顯著異型）",
+                  "免疫表型為 CD68+, CD163+, Factor XIIIa+, Fascin+，且 CD1a−、Langerin−、ALK−"
+                ],
+                desirable: [
+                  "務必加染 ALK 以排除 ALK-positive histiocytosis；全身性個案可檢測 MAPK 路徑突變"
+                ]
+              },
+              {
+                id: "ch3-ecd",
+                level: "Entity",
+                name: "Erdheim-Chester disease (ECD)",
+                zh: "艾德海姆-切斯特病",
+                links: [
+                  { label: "🦴 ECD 診治與追蹤專章", url: BASE.histiocytic + "#ecd", primary: true },
+                  { label: "🎯 標靶起始減量與毒性 (HIST-F)", url: BASE.histiocytic + "#targeted" }
+                ],
+                essential: [
+                  "泡沫狀組織球（CD68+, CD163+, Factor XIIIa+, CD1a−, Langerin−）伴纖維化浸潤",
+                  "特徵性臨床／影像表現（如雙側對稱長骨幹骺端硬化、腎周毛狀腎、包覆主動脈、中樞尿崩等）"
+                ],
+                desirable: [
+                  "檢測 BRAF V600E（逾 50% 陽性）或其他 MAPK/PI3K 路徑突變以使用標靶藥物"
+                ]
+              },
+              {
+                id: "ch3-rdd",
+                level: "Entity",
+                name: "Rosai-Dorfman disease (RDD)",
+                zh: "羅賽-多夫曼病",
+                tag: "new",
+                links: [
+                  { label: "🫧 RDD 診治與家族性檢測", url: BASE.histiocytic + "#rdd", primary: true },
+                  { label: "💊 RDD 全身治療方案", url: BASE.histiocytic + "#systemic" }
+                ],
+                essential: [
+                  "大型淡染組織球於淋巴竇（或結外組織）增生，常見伸入現象（emperipolesis）",
+                  "免疫表型為強 S100+、OCT2+、Cyclin D1+、CD68+，且 CD1a−、Langerin−"
+                ],
+                desirable: [
+                  "檢測 MAPK 路徑突變（如 KRAS, MAP2K1, NRAS, ARAF）；評估是否合併 IgG4+ 漿細胞增多"
+                ]
+              },
+              {
+                id: "ch3-alkh",
+                level: "Entity",
+                name: "ALK-positive histiocytosis",
+                zh: "ALK 陽性組織球增生症",
+                tag: "new",
+                links: [
+                  { label: "🧬 ALK 重排檢測原則 (HIST-H)", url: BASE.histiocytic + "#molecular", primary: true },
+                  { label: "💊 ALK 抑制劑治療選項", url: BASE.histiocytic + "#systemic" }
+                ],
+                essential: [
+                  "組織球增生（型態常與 JXG 重疊，可見泡沫細胞或 Touton 巨細胞，單器官或多器官侵犯）",
+                  "表現組織球標記（CD68+, CD163+, CD1a−, Langerin−）合併 ALK 蛋白表現與 ALK 基因重排（最常見 KIF5B::ALK）"
+                ],
+                desirable: [
+                  "FISH 或 RNA-seq 確認 ALK 融合伴侶以指導 ALK 抑制劑治療"
+                ]
+              },
+              {
+                id: "ch3-hs",
+                level: "Entity",
+                name: "Histiocytic sarcoma",
+                zh: "組織球肉瘤",
+                links: [
+                  { label: "⚡ 惡性組織球腫瘤 (MHN / HS) 專章", url: BASE.histiocytic + "#mhn", primary: true },
+                  { label: "💊 MHN 全身性治療方案", url: BASE.histiocytic + "#systemic" }
+                ],
+                essential: [
+                  "大型多形性惡性細胞瀰漫增生，高有絲分裂活性",
+                  "表現 ≥2 項組織球標記（CD68, CD163, CD4, lysozyme）",
+                  "嚴格排除淋巴瘤（B/T/ALCL）、黑色素瘤、癌（carcinoma）、FDC 肉瘤與骨髓肉瘤"
+                ],
+                desirable: [
+                  "檢測 MAPK 路徑突變及免疫球蛋白／TCR 基因重排（部分個案為 B/T 淋巴瘤轉分化而來）"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: "ch4",
+        chapter: 4,
+        level: "Chapter",
+        name: "Ch. 4 B-Cell Lymphoid Proliferations and Lymphomas",
+        zh: "B 細胞淋巴增生與淋巴瘤（5 大類別）",
+        note: "順序：良性腫瘤樣病變 → 前驅 B → 成熟 B（由惰性到侵襲性）→ 何杰金氏 → 漿細胞與副蛋白。",
+        links: [
+          { label: "B 細胞淋巴瘤個論", url: BASE.bcell },
+          { label: "CLL/SLL 個論", url: BASE.cll },
+          { label: "多發性骨髓瘤／副蛋白個論", url: BASE.mm }
+        ],
+        children: [
+          {
+            id: "ch4-tl",
+            level: "Category",
+            name: "Tumour-like lesions with B-cell predominance",
+            zh: "B 細胞為主的腫瘤樣病變（良性但易誤認淋巴瘤）",
+            tag: "new",
+            children: [
+              {
+                id: "ch4-rbrlp",
+                level: "Entity",
+                name: "Reactive B-cell-rich lymphoid proliferations that can mimic lymphoma",
+                zh: "易仿效淋巴瘤之反應性 B 細胞增生",
+                tag: "new",
+                links: [{ label: "🔍 B 細胞淋巴瘤 IHC 鑑別", url: BASE.bcell + "#sec-ihc" }],
+                essential: [
+                  "組織結構整體保留，具特定反應性型態（如顯著濾泡增生、PTGC、傳染性單核球增多症、女性生殖道淋巴瘤樣病變、SLE 淋巴結炎）",
+                  "生發中心呈極性化、BCL2 陰性、多株性輕鏈表現（無單株限制）"
+                ],
+                desirable: [
+                  "臨床病史整合（病毒感染、自體免疫）；疑難個案以 PCR 確認 B 細胞多株性"
+                ]
+              },
+              {
+                id: "ch4-igg4",
+                level: "Entity",
+                name: "IgG4-related disease",
+                zh: "IgG4 相關疾病",
+                tag: "new",
+                essential: [
+                  "組織學具大量多株性 IgG4+ 漿細胞浸潤（淋巴結常 >100/HPF 且 IgG4/IgG 比例 >40%；結外器官常伴席紋狀纖維化與閉塞性靜脈炎）",
+                  "整合臨床／血清（血清 IgG4 常升高）並排除多中心 Castleman 病、淋巴瘤與感染"
+                ],
+                desirable: [
+                  "輕鏈染色確認多株性；評估多器官侵犯與排除 ANCA 血管炎"
+                ]
+              },
+              {
+                id: "ch4-castleman",
+                level: "Entity",
+                name: "Castleman disease (Unicentric / iMCD / KSHV-HHV8-MCD)",
+                zh: "卡斯爾曼病（單中心 / 特發多中心 / HHV8 相關多中心）",
+                tag: "new",
+                essential: [
+                  "淋巴結具特徵性濾泡萎縮伴洋蔥皮樣套區、穿入透明變性血管（透明血管型）或濾泡間多株性漿細胞片狀增生（漿細胞型）",
+                  "單中心（UCD）：單一淋巴結區受累且 KSHV/HHV8−",
+                  "特發多中心（iMCD）：≥2 區淋巴結腫大 + 系統性發炎／器官功能異常（如 TAFRO），且 KSHV/HHV8−、排除感染／自體免疫／惡性腫瘤",
+                  "KSHV/HHV8-MCD：多中心淋巴結受累且 LANA-1 (HHV8) 陽性漿母細胞（常 IgM λ 限制但多株性）"
+                ],
+                desirable: [
+                  "評估 HIV 狀態、IL-6／CRP 濃度及排除 KSHV/HHV8 相關淋巴瘤"
+                ]
+              }
+            ]
+          },
+          {
+            id: "ch4-pre",
+            level: "Category",
+            name: "Precursor B-cell neoplasms (B-LBL/L / B-ALL)",
+            zh: "前驅 B 細胞腫瘤（B 淋巴芽球白血病／淋巴瘤）",
+            children: [
+              {
+                id: "ch4-ball-gen",
+                level: "Entity",
+                name: "B-LBL/L with defining genetic abnormalities (12 entities)",
+                zh: "具定義性基因異常之 B-ALL（含新增 ETV6::RUNX1-like, TCF3::HLF）",
+                tag: "new",
+                links: [{ label: "🔍 B 細胞淋巴瘤：淋巴芽球淋巴瘤", url: BASE.bcell + "#sec-ll" }],
+                essential: [
+                  "前驅 B 淋巴芽球增生（CD19+, cCD79a+, cCD22+, PAX5+；多為 TdT+, CD34+, CD10+）",
+                  "核型、FISH、RT-PCR 或 RNA-seq 證實特定異常：高超二倍體 (51–65條)、低二倍體 (<44條)、iAMP21、BCR::ABL1、BCR::ABL1-like、KMT2A、ETV6::RUNX1、ETV6::RUNX1-like (NEW)、TCF3::PBX1、IGH::IL3、TCF3::HLF (NEW)，或其他定義性異常（DUX4, MEF2D, ZNF384, NUTM1, IG::MYC, PAX5alt, PAX5 p.P80R）"
+                ],
+                desirable: [
+                  "完整基因表現譜／RNA-seq 辨識 BCR::ABL1-like（如 CRLF2, ABL-class, JAK2 融合以使用標靶藥）；注意 ZNF384/DUX4/PAX5 p.P80R 可能出現單核球分化轉型"
+                ]
+              },
+              {
+                id: "ch4-ball-nos",
+                level: "Entity",
+                name: "B-LBL/L, NOS",
+                zh: "B-ALL，未另分類",
+                links: [{ label: "🔍 淋巴芽球淋巴瘤", url: BASE.bcell + "#sec-ll" }],
+                essential: [
+                  "確認前驅 B 淋巴芽球白血病／淋巴瘤（型態＋免疫表型）",
+                  "經完整細胞遺傳與分子檢測後，仍不符合任何定義性基因異常亞型"
+                ],
+                desirable: [
+                  "若資源受限無法完成完整分子檢測，應標註為 B-ALL, not further classified (NFC)"
+                ]
+              }
+            ]
+          },
+          {
+            id: "ch4-mature",
+            level: "Category",
+            name: "Mature B-cell neoplasms (12 Families)",
+            zh: "成熟 B 細胞腫瘤（12 大族群）",
+            links: [
+              { label: "🔍 B 細胞淋巴瘤診斷／IHC", url: BASE.bcell + "#sec-diag" },
+              { label: "📊 預後計算機", url: BASE.bcell + "#sec-calc" }
+            ],
+            children: [
+              {
+                id: "ch4-m-small",
+                level: "Family",
+                name: "Pre-neoplastic & neoplastic small lymphocytic proliferations",
+                zh: "前腫瘤與腫瘤性小淋巴球增生",
+                links: [
+                  { label: "🔍 CLL/SLL/MBL 診斷", url: BASE.cll + "#diagnosis" },
+                  { label: "💊 CLL 一線治療", url: BASE.cll + "#firstline", primary: true }
+                ],
+                children: [
+                  {
+                    id: "ch4-mbl",
+                    level: "Entity",
+                    name: "Monoclonal B-cell lymphocytosis (MBL)",
+                    zh: "單株 B 細胞淋巴球增多症",
+                    links: [
+                      { label: "🔍 CLL 個論：MBL 診斷與追蹤", url: BASE.cll + "#diagnosis", primary: true }
+                    ],
+                    essential: [
+                      "周邊血單株 B 細胞數 <5×10⁹/L，且無淋巴結腫大、器官腫大、血球減少或疾病相關症狀",
+                      "分三亞型：低計數 MBL (<0.5×10⁹/L, CLL表型)、CLL/SLL型 MBL (0.5–<5×10⁹/L)、非 CLL/SLL型 MBL"
+                    ],
+                    desirable: [
+                      "流式細胞儀排除套細胞淋巴瘤（CD200+, ROR1+ 支持 CLL 型）"
+                    ]
+                  },
+                  {
+                    id: "ch4-cll",
+                    level: "Entity",
+                    name: "Chronic lymphocytic leukaemia / small lymphocytic lymphoma (CLL/SLL)",
+                    zh: "慢性淋巴球白血病／小淋巴球淋巴瘤",
+                    links: [
+                      { label: "🔍 CLL 診斷與分期", url: BASE.cll + "#diagnosis" },
+                      { label: "💊 一線治療 (BTKi / Ven)", url: BASE.cll + "#firstline", primary: true },
+                      { label: "🔄 復發續線治療", url: BASE.cll + "#sequencing" }
+                    ],
+                    essential: [
+                      "CLL：周邊血單株 B 細胞 ≥5×10⁹/L；SLL：淋巴結／組織見小淋巴球合併增生中心（proliferation centers）且周邊血單株 B 細胞 <5×10⁹/L",
+                      "必要免疫標記：CD19+, CD5+, CD23+, 弱 CD20+, 弱表面輕鏈限制（κ 或 λ）"
+                    ],
+                    desirable: [
+                      "鑑別標記：CD10−, CD43+, CD79b弱, CD81弱, CD200+, ROR1+, LEF1+",
+                      "完整預後分子評估：del(11q), del(13q), del(17p), trisomy 12, TP53 突變, IGHV 體細胞超突變狀態, BCR stereotype subset #2（治療抗藥評估 BTK/PLCG2/BCL2）"
+                    ]
+                  }
+                ]
+              },
+              {
+                id: "ch4-m-spleen",
+                level: "Family",
+                name: "Splenic B-cell lymphomas and leukaemias",
+                zh: "脾臟 B 細胞淋巴瘤與白血病",
+                children: [
+                  {
+                    id: "ch4-hcl",
+                    level: "Entity",
+                    name: "Hairy cell leukaemia (HCL)",
+                    zh: "毛細胞白血病",
+                    essential: [
+                      "具纖細毛狀突起、卵圓核與豐富淡染細胞質之小至中型成熟 B 細胞，骨髓呈瀰漫「煎蛋樣」浸潤伴網狀纖維化",
+                      "免疫表型：亮 CD20+, CD22+, CD11c+, CD103+, CD25+, CD123+, Annexin A1+, TRAP+"
+                    ],
+                    desirable: [
+                      "檢出 BRAF p.V600E 體細胞突變（≥95% 陽性，高度特異）"
+                    ]
+                  },
+                  {
+                    id: "ch4-smzl",
+                    level: "Entity",
+                    name: "Splenic marginal zone lymphoma (SMZL)",
+                    zh: "脾臟邊緣區淋巴瘤",
+                    links: [
+                      { label: "💊 B 細胞個論：MZL (含 SMZL) 診斷與治療", url: BASE.bcell + "#sec-mzl", primary: true }
+                    ],
+                    essential: [
+                      "脾臟白髓受累伴雙相性邊緣區擴張，並延伸至紅髓；或周邊血／骨髓見絨毛狀小淋巴球伴竇內浸潤",
+                      "成熟 B 細胞表型（CD20+, CD79a+），通常 CD5−, CD10−, BCL6−, Cyclin D1−, Annexin A1−, CD103−"
+                    ],
+                    desirable: [
+                      "del(7q)、NOTCH2 或 KLF2 突變具支持價值；排除 MYD88 L265P 與 BRAF V600E"
+                    ]
+                  },
+                  {
+                    id: "ch4-sdrpl",
+                    level: "Entity",
+                    name: "Splenic diffuse red pulp small B-cell lymphoma (SDRPL)",
+                    zh: "脾臟瀰漫紅髓小 B 細胞淋巴瘤",
+                    essential: [
+                      "單形性小 B 細胞瀰漫浸潤脾臟紅髓（白髓萎縮）；骨髓呈典型竇內浸潤；周邊血可見極性絨毛淋巴球",
+                      "成熟 B 細胞表型，缺乏 HCL 標記（CD25−, Annexin A1−, CD123−）"
+                    ],
+                    desirable: [
+                      "流式細胞儀 CD200/CD180 MFI 比值 <0.5 支持 SDRPL；常見 CCND3 或 BCOR 突變（需脾臟標本最準確）"
+                    ]
+                  },
+                  {
+                    id: "ch4-sblpn",
+                    level: "Entity",
+                    name: "Splenic B-cell lymphoma/leukaemia with prominent nucleoli (SBLPN)",
+                    zh: "具顯著核仁之脾臟 B 細胞淋巴瘤／白血病",
+                    tag: "new",
+                    essential: [
+                      "脾腫大、周邊血與骨髓見具「單一顯著核仁」之中型成熟 B 細胞（吸收原 HCLv 與 CD5− B-PLL）",
+                      "成熟 B 細胞表型（CD20+, 常 CD11c+），但缺乏經典 HCL 標記（CD25−, Annexin A1−, TRAP−, CD123−）"
+                    ],
+                    desirable: [
+                      "BRAF V600E 陰性；常見 MAP2K1 或 TP53 突變"
+                    ]
+                  }
+                ]
+              },
+              {
+                id: "ch4-m-lpl",
+                level: "Entity",
+                name: "Lymphoplasmacytic lymphoma (LPL)",
+                zh: "淋巴漿細胞淋巴瘤（含 Waldenström 巨球蛋白血症）",
+                links: [{ label: "🔍 MM 個論：副蛋白鑑別", url: BASE.mm + "#mgcs" }],
+                essential: [
+                  "骨髓（或淋巴結）見小淋巴球、漿細胞樣淋巴球與漿細胞混合浸潤（骨髓常佔 ≥10%）",
+                  "成熟 B 細胞（CD19+, CD20+）與單株漿細胞共存，通常 CD5−, CD10−, CD23−；排除其他可伴漿細胞分化之小 B 細胞淋巴瘤（如 MZL, CLL）"
+                ],
+                desirable: [
+                  "檢出 MYD88 p.L265P 突變（>90% IgM-LPL 陽性，極有助鑑別診斷）",
+                  "計畫使用 BTK 抑制劑前建議檢測 CXCR4 突變（約 40%，與 ibrutinib 抗藥性相關）"
+                ]
+              },
+              {
+                id: "ch4-m-mzl",
+                level: "Family",
+                name: "Marginal zone lymphoma (MZL)",
+                zh: "邊緣區淋巴瘤",
+                links: [
+                  { label: "💊 B 細胞個論：MZL 診斷與治療", url: BASE.bcell + "#sec-mzl", primary: true }
+                ],
+                children: [
+                  {
+                    id: "ch4-emzl",
+                    level: "Entity",
+                    name: "Extranodal MZL of MALT (EMZL)",
+                    zh: "結外黏膜相關淋巴組織邊緣區淋巴瘤",
+                    links: [{ label: "💊 EMZL / MALT 診斷與治療", url: BASE.bcell + "#sec-mzl", primary: true }],
+                    essential: [
+                      "結外黏膜／器官（胃、眼附屬器、唾液腺、肺、甲狀腺等）見異質性小 B 細胞（中心細胞樣、單核球樣）浸潤，常形成淋巴上皮病變（LEL）與反應性濾泡",
+                      "成熟 B 細胞表型（CD20+, CD79a+），CD5−, CD10−, BCL6−, Cyclin D1−；證實輕鏈限制或 B 細胞株系性"
+                    ],
+                    desirable: [
+                      "胃 MALT 檢測 BIRC3::MALT1 [t(11;18)]（陽性者對幽門桿菌除菌無效）；各器官有特異突變譜（如眼 TNFAIP3、唾液腺 GPR34）"
+                    ]
+                  },
+                  {
+                    id: "ch4-pcmzl",
+                    level: "Entity",
+                    name: "Primary cutaneous marginal zone lymphoma (PCMZL)",
+                    zh: "原發性皮膚邊緣區淋巴瘤",
+                    tag: "new",
+                    links: [{ label: "💊 MZL 治療指引", url: BASE.bcell + "#sec-mzl" }],
+                    essential: [
+                      "僅限皮膚受累（分期排除系統性病變），真皮結節狀或瀰漫小 B 細胞伴大量漿細胞（多表現類別轉換之 IgG/IgA，少數 IgM）與反應性濾泡",
+                      "CD20+, BCL2+, CD5−, CD10−, BCL6−，證實單株輕鏈限制或 IGH 重排"
+                    ],
+                    desirable: [
+                      "常見 FAS 突變；與反應性皮膚淋巴增生鑑別"
+                    ]
+                  },
+                  {
+                    id: "ch4-nmzl",
+                    level: "Entity",
+                    name: "Nodal / Paediatric marginal zone lymphoma (NMZL / pNMZL)",
+                    zh: "淋巴結／兒童邊緣區淋巴瘤",
+                    links: [{ label: "💊 NMZL 診斷與治療", url: BASE.bcell + "#sec-mzl", primary: true }],
+                    essential: [
+                      "原發於淋巴結（排除結外 MALT 與脾臟侵犯），邊緣區擴張伴小至中型 B 細胞浸潤",
+                      "CD20+, CD5−, CD10−, BCL6−, Cyclin D1−；兒童型（pNMZL）好發年輕男性頭頸部，濾泡呈 PTGC 樣改變且預後極佳"
+                    ],
+                    desirable: [
+                      "NMZL 常見 KMT2D, PTPRD, NOTCH2, KLF2 突變（與 EMZL 不同）"
+                    ]
+                  }
+                ]
+              },
+              {
+                id: "ch4-m-fl",
+                level: "Family",
+                name: "Follicular lymphoma (FL)",
+                zh: "濾泡性淋巴瘤",
+                links: [
+                  { label: "💊 B 細胞個論：FL 診斷、FLIPI 與治療", url: BASE.bcell + "#sec-fl", primary: true }
+                ],
+                children: [
+                  {
+                    id: "ch4-isfn",
+                    level: "Entity",
+                    name: "In situ follicular B-cell neoplasm (ISFN)",
+                    zh: "原位濾泡性 B 細胞腫瘤",
+                    tag: "renamed",
+                    links: [{ label: "🔍 FL 個論", url: BASE.bcell + "#sec-fl" }],
+                    essential: [
+                      "淋巴結結構保留，僅部分或全部生發中心被強 BCL2+、強 CD10+ 之中心細胞單株佔據，未侵犯濾泡外",
+                      "無明確濾泡性淋巴瘤之證據"
+                    ],
+                    desirable: [
+                      "FISH 證實 BCL2 重排；影像分期排除同時存在之顯性 FL"
+                    ]
+                  },
+                  {
+                    id: "ch4-fl",
+                    level: "Entity",
+                    name: "Follicular lymphoma (cFL / FLBL / uFL)",
+                    zh: "濾泡性淋巴瘤（經典型 / 濾泡大 B / 不常見特徵型）",
+                    tag: "new",
+                    links: [
+                      { label: "💊 FL 診斷與一線／復發治療", url: BASE.bcell + "#sec-fl", primary: true },
+                      { label: "📊 FLIPI 計算機", url: BASE.bcell + "#sec-calc" }
+                    ],
+                    essential: [
+                      "至少部分濾泡狀生長（uFL 瀰漫亞型除外），由中心細胞與中心母細胞組成",
+                      "生發中心 B 細胞表型（CD20+, CD10+, BCL6+）且通常 BCL2+",
+                      "經典 FL（cFL, 85%）：具 t(14;18) IGH::BCL2，第五版將 1–3A 分級改為選填；FLBL（≈3B）：濾泡內整片中心母細胞；uFL：母細胞樣／大中心細胞變異型，或腹股溝瀰漫型（常 CD23+, BCL2重排陰性）"
+                    ],
+                    desirable: [
+                      "FISH 檢測 BCL2 重排；uFL 瀰漫型常見 STAT6 突變與 1p36 缺失；母細胞樣 uFL 須排除 IRF4 重排 LBCL"
+                    ]
+                  },
+                  {
+                    id: "ch4-pfl",
+                    level: "Entity",
+                    name: "Paediatric-type / Duodenal-type follicular lymphoma",
+                    zh: "兒童型／十二指腸型濾泡性淋巴瘤",
+                    links: [{ label: "💊 FL 特殊亞型處置", url: BASE.bcell + "#sec-fl" }],
+                    essential: [
+                      "兒童型 FL：年輕患者局部淋巴結（多頭頸部）膨脹性大濾泡、星天現象、高增生指數，CD10+, BCL6+, BCL2 陰性且無 BCL2/BCL6/IRF4 重排",
+                      "十二指腸型 FL：侷限於小腸黏膜／黏膜下層之低惡性度 FL（CD10+, BCL2+, t(14;18)+），分期無全身侵犯"
+                    ],
+                    desirable: [
+                      "兒童型 FL 常見 TNFRSF14 與 MAP2K1 突變；十二指腸型可見濾泡樹突網限於周邊"
+                    ]
+                  }
+                ]
+              },
+              {
+                id: "ch4-m-cfcl",
+                level: "Entity",
+                name: "Primary cutaneous follicle centre lymphoma",
+                zh: "原發性皮膚濾泡中心淋巴瘤",
+                essential: [
+                  "原發於皮膚（常見頭頸軀幹，排除系統性侵犯），由中心細胞與中心母細胞呈濾泡狀、混合或瀰漫生長",
+                  "CD20+, BCL6+, CD10 可陽或陰性，BCL2 通常陰性（無 t(14;18)）"
+                ],
+                desirable: [
+                  "若見強 BCL2 與 t(14;18) 須高度懷疑系統性 FL 續發皮膚侵犯"
+                ]
+              },
+              {
+                id: "ch4-m-mcl",
+                level: "Family",
+                name: "Mantle cell lymphoma (MCL)",
+                zh: "被套細胞淋巴瘤",
+                links: [
+                  { label: "💊 B 細胞個論：MCL 診斷與治療", url: BASE.bcell + "#sec-mcl", primary: true },
+                  { label: "📊 MIPI 計算機", url: BASE.bcell + "#sec-calc" }
+                ],
+                children: [
+                  {
+                    id: "ch4-mcl",
+                    level: "Entity",
+                    name: "Mantle cell lymphoma (incl. In situ & Leukaemic non-nodal)",
+                    zh: "被套細胞淋巴瘤（含原位型與白血病非淋巴結型）",
+                    links: [
+                      { label: "💊 MCL 一線與復發治療 (BTKi)", url: BASE.bcell + "#sec-mcl", primary: true }
+                    ],
+                    essential: [
+                      "單形性小至中型淋巴球（亦含多形性／母細胞樣高危變異型），表現成熟 B 細胞標記 + CD5+（少數陰性）",
+                      "Cyclin D1 過表達和／或 IG::CCND1 [t(11;14)] 融合（≥95%）；Cyclin D1 陰性型須 SOX11+ 並具 CCND2/CCND3/CCNE 重排",
+                      "原位型（ISMCN）：僅佔據濾泡套區；非淋巴結白血病型（nnMCL）：侵犯血／骨髓／脾、無或極少淋巴結腫大、SOX11−"
+                    ],
+                    desirable: [
+                      "高風險預後評估：Ki67 增生指數、細胞型態（母細胞樣／多形性）、p53 染色與 TP53 突變（影響治療選擇）"
+                    ]
+                  }
+                ]
+              },
+              {
+                id: "ch4-m-trans",
+                level: "Entity",
+                name: "Transformations of indolent B-cell lymphomas",
+                zh: "惰性 B 細胞淋巴瘤之高惡性度轉化",
+                tag: "new",
+                links: [
+                  { label: "💊 B 細胞個論：高惡性度轉化治療", url: BASE.bcell + "#sec-htbcel", primary: true },
+                  { label: "💊 CLL 個論：Richter 轉化專章", url: BASE.cll + "#richter", primary: true }
+                ],
+                essential: [
+                  "於既確診或同步存在之惰性 B 細胞淋巴瘤（CLL/SLL, FL, MZL, LPL）患者中，出現侵襲性淋巴瘤（多為 DLBCL、HGBL 或 CHL）",
+                  "建議報告格式：「侵襲性淋巴瘤名稱, transformed from 惰性淋巴瘤名稱」（CLL 轉化建議稱 Richter transformation）"
+                ],
+                desirable: [
+                  "比較 IGH 基因重排證實兩者具株系相關性（clonally related，預後顯著較無關者差）；檢測 TP53, MYC, CDKN2A/B, NOTCH1"
+                ]
+              },
+              {
+                id: "ch4-m-lbcl",
+                level: "Family",
+                name: "Large B-cell lymphomas (LBCL, 18 entities)",
+                zh: "大 B 細胞淋巴瘤（18 種實體）",
+                tag: "new",
+                links: [
+                  { label: "💊 DLBCL 治療指引", url: BASE.bcell + "#sec-dlbcl", primary: true },
+                  { label: "💊 HGBL 治療指引", url: BASE.bcell + "#sec-hgbl" }
+                ],
+                children: [
+                  {
+                    id: "ch4-dlbcl",
+                    level: "Entity",
+                    name: "Diffuse large B-cell lymphoma, NOS (DLBCL, NOS)",
+                    zh: "瀰漫大 B 細胞淋巴瘤，NOS",
+                    links: [
+                      { label: "🔍 B 細胞診斷與 IHC", url: BASE.bcell + "#sec-diag" },
+                      { label: "💊 DLBCL 一線／CAR-T／BsAb 治療", url: BASE.bcell + "#sec-dlbcl", primary: true },
+                      { label: "📊 IPI / CNS-IPI 計算機", url: BASE.bcell + "#sec-calc" }
+                    ],
+                    essential: [
+                      "中至大型淋巴細胞（核圓至卵圓、空泡狀染色質）瀰漫片狀增生，破壞組織結構",
+                      "成熟 B 細胞表型（CD20+, CD79a+, PAX5+, CD19+）",
+                      "排除所有其他特定大 B 細胞淋巴瘤實體（含 MYC+BCL2 雙重打擊、EBV+、PMBL、免疫特權部位等）"
+                    ],
+                    desirable: [
+                      "以 IHC（如 Hans 算法）或 GEP 區分 GCB vs ABC (non-GCB) 亞型；FISH 排除 MYC 與 BCL2 重排；檢測 CD5, EBER"
+                    ]
+                  },
+                  {
+                    id: "ch4-thrlbcl",
+                    level: "Entity",
+                    name: "T-cell/histiocyte-rich large B-cell lymphoma (THRLBCL)",
+                    zh: "富 T 細胞／組織球大 B 細胞淋巴瘤",
+                    links: [{ label: "💊 DLBCL / THRLBCL 治療", url: BASE.bcell + "#sec-dlbcl", primary: true }],
+                    essential: [
+                      "瀰漫背景由大量反應性 T 細胞與組織球組成，僅散在 <10% 大型腫瘤性 B 細胞（CD20+, PAX5+, BCL6+, EMA±, CD30−, CD15−, EBER−）",
+                      "缺乏結節性小 B 細胞背景與濾泡樹突網（與 NLPHL 區分）"
+                    ],
+                    desirable: [
+                      "建議完整淋巴結切除切片（小針穿刺常無法與 NLPHL Pattern E 區分）"
+                    ]
+                  },
+                  {
+                    id: "ch4-dh",
+                    level: "Entity",
+                    name: "DLBCL / HGBL with MYC and BCL2 rearrangements",
+                    zh: "合併 MYC 與 BCL2 重排之 DLBCL / HGBL",
+                    tag: "renamed",
+                    links: [
+                      { label: "💊 HGBL 雙重打擊治療指引", url: BASE.bcell + "#sec-hgbl", primary: true }
+                    ],
+                    essential: [
+                      "具大 B 細胞、中型或母細胞樣型態之成熟 B 細胞淋巴瘤",
+                      "FISH 同時證實 MYC 重排與 BCL2 重排（第五版已排除 MYC+BCL6 雙重打擊！）"
+                    ],
+                    desirable: [
+                      "免疫表型多為 GCB（CD10+, BCL6+, BCL2+）；確認 MYC 融合伴侶（IG vs non-IG）"
+                    ]
+                  },
+                  {
+                    id: "ch4-alklbcl",
+                    level: "Entity",
+                    name: "ALK-positive large B-cell lymphoma",
+                    zh: "ALK 陽性大 B 細胞淋巴瘤",
+                    links: [{ label: "💊 DLBCL 特殊亞型", url: BASE.bcell + "#sec-dlbcl" }],
+                    essential: [
+                      "單形性大免疫母細胞／漿母細胞型態，常呈竇狀生長",
+                      "漿細胞表型（CD138+, CD38+, VS38c+, MUM1+, EMA+, 細胞質 IgA 多見），CD20/PAX5 陰性或弱陽性",
+                      "ALK 蛋白表現（多為顆粒狀細胞質 CLTC::ALK）與 ALK 基因重排"
+                    ],
+                    desirable: [
+                      "排除 ALK+ ALCL（CD30 強陽、T 標記）與非造血 ALK 腫瘤"
+                    ]
+                  },
+                  {
+                    id: "ch4-irf4",
+                    level: "Entity",
+                    name: "Large B-cell lymphoma with IRF4 rearrangement",
+                    zh: "IRF4 重排大 B 細胞淋巴瘤",
+                    links: [{ label: "💊 DLBCL 治療參考", url: BASE.bcell + "#sec-dlbcl" }],
+                    essential: [
+                      "濾泡狀、濾泡合併瀰漫或瀰漫生長之大 B 細胞（好發兒童與年輕成人之瓦爾代爾環／頭頸淋巴結）",
+                      "成熟 B 細胞表型合併強烈 IRF4/MUM1 表現與 BCL6+（常 CD10+, BCL2±），FISH 證實 IRF4 重排"
+                    ],
+                    desirable: [
+                      "排除 BCL2 重排；IRF4 突變常見"
+                    ]
+                  },
+                  {
+                    id: "ch4-11q",
+                    level: "Entity",
+                    name: "High-grade B-cell lymphoma with 11q aberrations (HGBL-11q)",
+                    zh: "11q 異常高惡性度 B 細胞淋巴瘤",
+                    tag: "renamed",
+                    links: [{ label: "💊 HGBL 治療指引", url: BASE.bcell + "#sec-hgbl", primary: true }],
+                    essential: [
+                      "類似 Burkitt 淋巴瘤或中型／母細胞樣之侵襲性成熟 B 細胞淋巴瘤（CD10+, BCL6+, BCL2−, 高 Ki67）",
+                      "MYC 重排陰性，且 FISH 或染色體晶片證實特徵性 11q 異常（11q23.3 增益及／或 11q24qter 缺失，缺失更具特異性）"
+                    ],
+                    desirable: [
+                      "排除 ID3/TCF3 突變（Burkitt 特徵）；其突變譜較接近 GCB-DLBCL"
+                    ]
+                  },
+                  {
+                    id: "ch4-ebvdlbcl",
+                    level: "Entity",
+                    name: "EBV-positive DLBCL / Lymphomatoid granulomatosis / Chronic inflammation / Fibrin-associated",
+                    zh: "EBV 相關大 B 細胞淋巴瘤群（含纖維蛋白相關）",
+                    tag: "new",
+                    links: [{ label: "💊 DLBCL 治療指引", url: BASE.bcell + "#sec-dlbcl", primary: true }],
+                    essential: [
+                      "EBV+ DLBCL：大型 B 細胞淋巴瘤且絕大多數腫瘤細胞 EBER+（>80%），排除已知免疫缺陷背景",
+                      "淋巴瘤樣肉芽腫病（LyG）：血管中心破壞性 EBV+ B 細胞增生（好發肺部），分 Grade 1–3",
+                      "慢性發炎相關 DLBCL：發生於長期慢性發炎體腔（如膿胸）之 EBV+ LBCL",
+                      "纖維蛋白相關 LBCL (NEW)：侷限於纖維蛋白／假囊腫／人工瓣膜內之微觀 EBV+ 大 B 細胞聚集，無實質腫塊浸潤，預後極佳"
+                    ],
+                    desirable: [
+                      "EBV 潛伏期分型（LMP1, EBNA2）及排除免疫失調（IDD）背景"
+                    ]
+                  },
+                  {
+                    id: "ch4-fo",
+                    level: "Entity",
+                    name: "Fluid overload-associated large B-cell lymphoma",
+                    zh: "體液過荷相關大 B 細胞淋巴瘤",
+                    tag: "new",
+                    links: [{ label: "💊 DLBCL 治療參考", url: BASE.bcell + "#sec-dlbcl" }],
+                    essential: [
+                      "僅限體腔積液（最常見肋膜腔），無實質腫塊，好發伴心／腎／肝衰竭等體液過荷之年長者",
+                      "成熟 B 細胞表型（CD20+, CD79a+，非漿母表型），KSHV/HHV8 必須為陰性（與 PEL 區分）"
+                    ],
+                    desirable: [
+                      "評估 EBV 狀態（約 13–30% 陽性）；預後較 PEL 佳"
+                    ]
+                  },
+                  {
+                    id: "ch4-pbl",
+                    level: "Entity",
+                    name: "Plasmablastic lymphoma",
+                    zh: "漿母細胞淋巴瘤",
+                    links: [{ label: "💊 HIV 相關／漿母細胞淋巴瘤", url: BASE.bcell + "#sec-hiv", primary: true }],
+                    essential: [
+                      "大型免疫母／漿母細胞瀰漫增生，高 Ki67（常 >90%）",
+                      "終末漿細胞表型（CD138+, CD38+, MUM1+, CD79a±），全 B 標記（CD20, PAX5）陰性或極弱",
+                      "排除漿母細胞型多發性骨髓瘤（臨床無骨髓瘤 CRAB 表現）及 KSHV/HHV8 陰性"
+                    ],
+                    desirable: [
+                      "EBER（約 60–75% 陽性）與 MYC 重排（約 50%）檢測；評估 HIV／免疫抑制狀態"
+                    ]
+                  },
+                  {
+                    id: "ch4-ip",
+                    level: "Entity",
+                    name: "Primary large B-cell lymphoma of immune-privileged sites",
+                    zh: "免疫特權部位原發性大 B 細胞淋巴瘤（CNS / 玻璃體視網膜 / 睪丸）",
+                    tag: "new",
+                    links: [{ label: "💊 DLBCL (含睪丸/CNS 預防)", url: BASE.bcell + "#sec-dlbcl", primary: true }],
+                    essential: [
+                      "免疫功能正常之成人，原發於中樞神經系統（CNS）、玻璃體視網膜或睪丸之大 B 細胞淋巴瘤",
+                      "成熟 B 細胞表型，多為 ABC 表型（CD10−, MUM1+, BCL6+），EBV 陰性"
+                    ],
+                    desirable: [
+                      "常合併 MYD88 L265P 與 CD79B 突變（MCD/C5 基因特徵）及 MHC I/II 或 B2M 缺失"
+                    ]
+                  },
+                  {
+                    id: "ch4-leg-iv",
+                    level: "Entity",
+                    name: "Primary cutaneous DLBCL, leg type / Intravascular LBCL",
+                    zh: "原發皮膚 DLBCL（腿型）／血管內大 B 細胞淋巴瘤",
+                    links: [{ label: "💊 DLBCL 治療指引", url: BASE.bcell + "#sec-dlbcl", primary: true }],
+                    essential: [
+                      "腿型：原發皮膚（多下肢），片狀中心母／免疫母細胞，CD20+, 強 BCL2+, MUM1+, FOXP1+, 多 IgM+",
+                      "血管內 LBCL：大 B 細胞選擇性侷限於小血管腔內生長（皮膚隨機切片／骨髓／器官活檢證實）"
+                    ],
+                    desirable: [
+                      "兩者皆常見 MYD88 與 CD79B 突變；血管內型依臨床分經典、皮膚及噬血球相關三型"
+                    ]
+                  },
+                  {
+                    id: "ch4-pmbl-mgzl",
+                    level: "Entity",
+                    name: "Primary mediastinal LBCL (PMBL) / Mediastinal grey zone lymphoma (MGZL)",
+                    zh: "原發縱膈大 B 細胞淋巴瘤／縱膈灰區淋巴瘤",
+                    tag: "renamed",
+                    links: [
+                      { label: "💊 PMBL 診斷與治療專章", url: BASE.bcell + "#sec-pmbl", primary: true }
+                    ],
+                    essential: [
+                      "PMBL：原發前縱膈腔腫塊，大 B 細胞伴淡染細胞質與分室狀硬化纖維化，CD20+, CD23+, CD30弱/局部+, MAL+, PD-L1/L2+",
+                      "MGZL：侷限於縱膈腔，組織型態與免疫表型介於 PMBL 與結節硬化型 CHL 之間（如 CHL 型態但強 CD20+，或 PMBL 型態但強 CD30+/CD15+ 且失 B 標記）"
+                    ],
+                    desirable: [
+                      "9p24.1 (PD-L1/L2/JAK2) 擴增與 CIITA 重排具支持價值；發生於縱膈外之灰區型態個案現改歸 DLBCL, NOS"
+                    ]
+                  },
+                  {
+                    id: "ch4-hgbl-nos",
+                    level: "Entity",
+                    name: "High-grade B-cell lymphoma, NOS (HGBL, NOS)",
+                    zh: "高惡性度 B 細胞淋巴瘤，NOS",
+                    links: [{ label: "💊 HGBL 治療指引", url: BASE.bcell + "#sec-hgbl", primary: true }],
+                    essential: [
+                      "具母細胞樣或介於 DLBCL 與 Burkitt 間之侵襲性成熟 B 細胞淋巴瘤",
+                      "排除 MYC+BCL2 雙重打擊、Burkitt 淋巴瘤、HGBL-11q、母細胞樣 MCL 及 B-LBL"
+                    ],
+                    desirable: [
+                      "FISH 確認 MYC/BCL2/BCL6 與 11q 狀態（約半數具雙重打擊基因表現特徵 DHITsig）"
+                    ]
+                  }
+                ]
+              },
+              {
+                id: "ch4-m-bl",
+                level: "Entity",
+                name: "Burkitt lymphoma (BL)",
+                zh: "伯基特淋巴瘤",
+                links: [
+                  { label: "💊 B 細胞個論：Burkitt 診斷與治療", url: BASE.bcell + "#sec-bl", primary: true }
+                ],
+                essential: [
+                  "單形性中型淋巴細胞呈「星天現象」瀰漫浸潤，核圓伴多個小核仁，嗜鹼性細胞質含脂質空泡",
+                  "生發中心表型：CD20+, CD10+, BCL6+, BCL2 陰性或極弱，Ki67 >95%",
+                  "證實 IG::MYC 融合（t(8;14)、t(2;8) 或 t(8;22)），且無 BCL2 或 BCL6 重排"
+                ],
+                desirable: [
+                  "第五版建議依 EBER 狀態區分為 EBV 陽性與 EBV 陰性亞型（優於傳統流行病學分型）；常見 TCF3/ID3 突變"
+                ]
+              },
+              {
+                id: "ch4-m-hhv8",
+                level: "Entity",
+                name: "KSHV/HHV8-associated B-cell LPDs and lymphomas (PEL / HHV8+ DLBCL / GLPD)",
+                zh: "KSHV/HHV8 相關 B 細胞增生與淋巴瘤",
+                links: [
+                  { label: "💊 HIV / PEL 治療指引", url: BASE.bcell + "#sec-hiv", primary: true }
+                ],
+                essential: [
+                  "所有實體皆須免疫染色證實腫瘤細胞核 KSHV/HHV8 (LANA-1) 陽性",
+                  "PEL（含腔外型）：漿母細胞型態，CD138+, CD30+, EMA+, CD20−，多合併 EBER+",
+                  "KSHV/HHV8+ DLBCL：常起源於 HHV8-MCD，IgM λ 單株漿母細胞片狀增生，EBER−",
+                  "KSHV/HHV8+ GLPD：局限生發中心之 HHV8+/EBER+ 漿母細胞聚集，多見於無明顯免疫缺陷年長者"
+                ],
+                desirable: [
+                  "評估 HIV 狀態與免疫球蛋白基因重排（GLPD 多為多株或寡株）"
+                ]
+              },
+              {
+                id: "ch4-m-idd",
+                level: "Entity",
+                name: "Lymphoid proliferations & lymphomas associated with IDD (incl. IEI)",
+                zh: "免疫缺陷與失調（IDD）相關淋巴增生與淋巴瘤",
+                tag: "renamed",
+                links: [
+                  { label: "💊 PTLD 移植後淋巴增生治療", url: BASE.bcell + "#sec-ptld", primary: true },
+                  { label: "💊 HIV 相關淋巴瘤治療", url: BASE.bcell + "#sec-hiv" }
+                ],
+                essential: [
+                  "採用標準三段式診斷命名：(1) 組織學診斷（增生 / 多形性 LPD / EBV+ 黏膜皮膚潰瘍 / 特定淋巴瘤）；(2) 病毒狀態（EBV+/−, KSHV/HHV8+/−）；(3) 臨床免疫失調背景（移植後、HIV、醫源性／化療、自體免疫、免疫衰老或先天免疫異常 IEI）"
+                ],
+                desirable: [
+                  "檢測 B/T 細胞株系性與 IEI 特定生殖系基因突變以指導減量免疫抑制或標靶治療"
+                ]
+              }
+            ]
+          },
+          {
+            id: "ch4-hl",
+            level: "Category",
+            name: "Hodgkin lymphoma",
+            zh: "何杰金氏淋巴瘤",
+            children: [
+              {
+                id: "ch4-chl",
+                level: "Entity",
+                name: "Classic Hodgkin lymphoma (CHL)",
+                zh: "典型何杰金氏淋巴瘤",
+                essential: [
+                  "豐富反應性發炎背景中見少數大型雙核／多核 Hodgkin 與 Reed-Sternberg (HRS) 細胞",
+                  "HRS 細胞表型：CD30 強陽性、CD15 常陽性、弱 PAX5+、MUM1+，CD45−，B 細胞程式缺損（CD20 多陰或弱變異，OCT2/BOB1 常缺失）"
+                ],
+                desirable: [
+                  "區分四種組織亞型（NSCHL, MCCHL, LRCHL, LDCHL）；檢測 EBER；注意排除 nTFHL 與 IDD 伴 EBV+ HRS 樣細胞之仿效病變"
+                ]
+              },
+              {
+                id: "ch4-nlphl",
+                level: "Entity",
+                name: "Nodular lymphocyte predominant Hodgkin lymphoma (NLPHL / NLPBCL)",
+                zh: "結節性淋巴球為主型何杰金氏淋巴瘤",
+                essential: [
+                  "結節狀（或變異型瀰漫）小 B 細胞背景中見爆米花樣 LP 細胞，伴濾泡樹突網與 PD1+ TFH 細胞環繞（rosetting）",
+                  "LP 細胞具完整 B 細胞程式：強 CD20+, PAX5+, OCT2+, BOB1+, BCL6+, EMA±，通常 CD30−、CD15−、EBER−"
+                ],
+                desirable: [
+                  "標註 Fan 生長型態（Pattern A–F；Pattern C/D/E 臨床行為較具侵襲性，Pattern E 須與 THRLBCL 鑑別）"
+                ]
+              }
+            ]
+          },
+          {
+            id: "ch4-pcn",
+            level: "Category",
+            name: "Plasma cell neoplasms and other diseases with paraproteins",
+            zh: "漿細胞腫瘤及其他副蛋白相關疾病",
+            tag: "renamed",
+            links: [
+              { label: "🔍 MM 診斷與 SLiM-CRAB", url: BASE.mm + "#definitions" },
+              { label: "💊 一線治療 (四藥)", url: BASE.mm + "#primary-tx", primary: true },
+              { label: "💊 MGCS / MGRS / POEMS", url: BASE.mm + "#mgcs" }
+            ],
+            children: [
+              {
+                id: "ch4-cad",
+                level: "Entity",
+                name: "Cold agglutinin disease (CAD)",
+                zh: "冷凝集素病",
+                tag: "new",
+                links: [{ label: "🔍 MM 個論：MGCS 副蛋白疾病", url: BASE.mm + "#mgcs", primary: true }],
+                essential: [
+                  "慢性溶血性貧血合併直接抗球蛋白試驗 C3d 強陽性、高滴度冷凝集素（4°C ≥64），且排除繼發感染／淋巴瘤",
+                  "骨髓見結節狀單株成熟 B 細胞浸潤（多 IgM κ），但不符合 LPL 或其他明確 B 細胞淋巴瘤標準"
+                ],
+                desirable: [
+                  "MYD88 L265P 通常為陰性（有助與 LPL/WM 區分）；常見 KMT2D 或 CARD11 突變與 3/12/18 染色體增益"
+                ]
+              },
+              {
+                id: "ch4-mgus",
+                level: "Entity",
+                name: "IgM & Non-IgM MGUS",
+                zh: "意義未明單株免疫球蛋白血症",
+                links: [{ label: "🔍 MM 個論：MGUS 與冒煙型追蹤", url: BASE.mm + "#precursor", primary: true }],
+                essential: [
+                  "血清單株 M 蛋白 <30 g/L",
+                  "骨髓單株漿細胞（或 IgM 型之淋巴漿細胞）<10%",
+                  "無終端器官損傷（無 CRAB、無類澱粉、無 MGRS 腎損傷）且無其他 B 細胞淋巴瘤證據"
+                ],
+                desirable: [
+                  "風險分層三指標：異常血清游離輕鏈比、IgA/IgM 型、M 蛋白 >1.5 g/dL"
+                ]
+              },
+              {
+                id: "ch4-mgrs",
+                level: "Entity",
+                name: "Monoclonal gammopathy of renal significance (MGRS)",
+                zh: "具腎臟意義之單株免疫球蛋白血症",
+                tag: "new",
+                links: [{ label: "💊 MM 個論：MGCS / MGRS 處置", url: BASE.mm + "#mgcs", primary: true }],
+                essential: [
+                  "單株漿細胞或 B 細胞增生（未達多發性骨髓瘤或淋巴瘤治療標準）",
+                  "腎臟切片證實單株免疫球蛋白或其片段直接導致之腎臟病變（排除其他腎病）"
+                ],
+                desirable: [
+                  "腎臟免疫螢光／電鏡分類沉積型態，並以骨髓與血清／尿液電泳定位源頭單株細胞以利針對性治療"
+                ]
+              },
+              {
+                id: "ch4-dep-hcd",
+                level: "Entity",
+                name: "AL amyloidosis / MIDD / Heavy chain diseases",
+                zh: "AL 類澱粉沉積症／單株免疫球蛋白沉積病／重鏈病",
+                tag: "renamed",
+                links: [{ label: "💊 MM 個論：MGCS / 腎病變處置", url: BASE.mm + "#mgcs", primary: true }],
+                essential: [
+                  "AL amyloidosis：組織剛果紅染色呈蘋果綠雙折光，質譜或免疫染色證實為免疫球蛋白輕鏈（λ 居多）＋單株漿細胞／B 細胞證據",
+                  "MIDD：非纖維性單株輕鏈／重鏈沉積於基底膜（最常見腎臟），剛果紅陰性",
+                  "重鏈病（Mu / Gamma / Alpha）：血清或組織證實不完整的單株重鏈且缺乏對應輕鏈"
+                ],
+                desirable: [
+                  "雷射顯微切割質譜分析（LC-MS/MS）為類澱粉分型黃金標準；評估心腎器官受累分期"
+                ]
+              },
+              {
+                id: "ch4-pcm",
+                level: "Entity",
+                name: "Plasmacytoma / Plasma cell myeloma (Multiple myeloma) / Paraneoplastic PCNs",
+                zh: "漿細胞瘤／多發性骨髓瘤／副腫瘤症候群（POEMS, TEMPI, AESOP）",
+                tag: "new",
+                links: [
+                  { label: "🔍 SLiM-CRAB 診斷與分期", url: BASE.mm + "#definitions" },
+                  { label: "💊 一線治療 (Dara/Isa-VRd)", url: BASE.mm + "#primary-tx", primary: true },
+                  { label: "🔄 復發治療 (CAR-T/BsAb)", url: BASE.mm + "#relapse-tx" },
+                  { label: "💊 POEMS / 漿細胞瘤", url: BASE.mm + "#mgcs" }
+                ],
+                essential: [
+                  "多發性骨髓瘤（PCM）：骨髓單株漿細胞 ≥10%（或切片證實漿細胞瘤）＋ ≥1 項骨髓瘤定義事件（CRAB：高血鈣、腎衰竭、貧血、溶骨病灶；或 SLiM：骨髓漿細胞 ≥60%、游離輕鏈比 ≥100、MRI >1 處局灶病灶）",
+                  "孤立性漿細胞瘤：單一骨或骨髓外單株漿細胞腫塊，骨髓正常（或 <10% 單株漿細胞）且無終端器官損傷",
+                  "副腫瘤症候群：POEMS（多發神經病變＋單株漿細胞＋VEGF 升高等）、TEMPI（血管擴張、紅血球增多、單株球蛋白、腎周積液、肺內分流）、AESOP (NEW，漿細胞瘤上方大片紅斑與淋巴結腫大)"
+                ],
+                desirable: [
+                  "FISH 風險分層：t(4;14), t(14;16), del(17p), 1q21 增益；採用 R-ISS/R2-ISS 分期及 NGF/NGS MRD 與 PET/CT 追蹤"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: "ch5",
+        chapter: 5,
+        level: "Chapter",
+        name: "Ch. 5 T-Cell and NK-Cell Lymphoid Proliferations and Lymphomas",
+        zh: "T 與 NK 細胞淋巴增生與淋巴瘤（3 大類別）",
+        note: "包含良性 T 細胞腫瘤樣病變、前驅 T 與 9 大成熟 T/NK 族群。",
+        links: [
+          { label: "T 細胞淋巴瘤個論總覽", url: BASE.tcell },
+          { label: "🔍 IHC 與次發性 HLH", url: BASE.tcell + "#ihc-hlh" }
+        ],
+        children: [
+          {
+            id: "ch5-tl",
+            level: "Category",
+            name: "Tumour-like lesions with T-cell predominance",
+            zh: "T 細胞為主的腫瘤樣病變",
+            tag: "new",
+            children: [
+              {
+                id: "ch5-kfd",
+                level: "Entity",
+                name: "Kikuchi-Fujimoto disease (KFD)",
+                zh: "菊池-藤本病（組織球壞死性淋巴結炎）",
+                tag: "new",
+                essential: [
+                  "淋巴結副皮質區界限清楚之凝固性壞死與大量核碎屑，缺乏嗜中性球與嗜酸性球",
+                  "大量新月形組織球（MPO+, CD68+, CD123+ pDC 成群）伴 CD8+ T 免疫母細胞增生"
+                ],
+                desirable: [
+                  "臨床多為年輕女性頸部淋巴結腫大；排除 SLE 淋巴結炎（抗核抗體）與周邊 T 細胞淋巴瘤"
+                ]
+              },
+              {
+                id: "ch5-itlp",
+                level: "Entity",
+                name: "Indolent T-lymphoblastic proliferation (ITLP)",
+                zh: "惰性 T 淋巴芽球增生",
+                tag: "new",
+                essential: [
+                  "淋巴結或結外組織（常伴隨 Castleman 病或 FDC 肉瘤）見成群或片狀小至中型 TdT+ 未成熟 T 細胞（類似正常胸腺皮質細胞）",
+                  "組織結構整體保留（非破壞性）、細胞異型輕微、且缺乏單株 TCR 基因重排"
+                ],
+                desirable: [
+                  "務必完整檢查（流式＋分子株系性＋影像）以嚴格排除 T-淋巴芽球淋巴瘤（T-LBL）"
+                ]
+              },
+              {
+                id: "ch5-alps",
+                level: "Entity",
+                name: "Autoimmune lymphoproliferative syndrome (ALPS)",
+                zh: "自體免疫性淋巴增生症候群",
+                tag: "new",
+                essential: [
+                  "慢性非惡性淋巴結／脾腫大，淋巴結副皮質區擴張伴大量 CD3+ TCRαβ+ CD4− CD8−（雙陰性）T 細胞浸潤，無破壞性生長",
+                  "周邊血雙陰性 T 細胞升高及 FAS 介導細胞凋亡路徑基因（FAS, FASLG, CASP10）突變"
+                ],
+                desirable: [
+                  "臨床多為兒童伴自體免疫血球減少；檢測血漿 sFASL、IL-10、維生素 B12 升高"
+                ]
+              }
+            ]
+          },
+          {
+            id: "ch5-pre",
+            level: "Category",
+            name: "Precursor T-cell neoplasms (T-LBL/L / T-ALL)",
+            zh: "前驅 T 細胞腫瘤",
+            children: [
+              {
+                id: "ch5-tall",
+                level: "Entity",
+                name: "T-lymphoblastic leukaemia/lymphoma, NOS (T-ALL / T-LBL)",
+                zh: "T 淋巴芽球白血病／淋巴瘤，NOS",
+                tag: "renamed",
+                essential: [
+                  "前驅 T 淋巴芽球增生（白血病或縱膈／淋巴結腫塊）",
+                  "表現系譜定義標記 cytoplasmic CD3（或 surface CD3）合併未成熟標記（TdT, CD34, CD1a, CD99 等），且不符合 ETP-ALL 標準"
+                ],
+                desirable: [
+                  "TCR 基因重排與 NOTCH1/FBXW7 等突變（目前基因分型尚未列為獨立實體）"
+                ]
+              },
+              {
+                id: "ch5-etp",
+                level: "Entity",
+                name: "Early T-precursor lymphoblastic leukaemia/lymphoma (ETP-ALL)",
+                zh: "早期 T 前驅淋巴芽球白血病／淋巴瘤",
+                tag: "renamed",
+                essential: [
+                  "表現 cytoplasmic CD3+、CD7+",
+                  "CD1a 陰性、CD8 陰性、CD5 陰性或弱陽性（<75% 芽球）",
+                  "表現 ≥1 項幹細胞或骨髓標記（CD34, CD117, HLA-DR, CD13, CD33, CD11b, CD65），且 MPO 陰性"
+                ],
+                desirable: [
+                  "分子檢測（常具骨髓相關突變如 FLT3, NRAS, DNMT3A, RUNX1）與 MPAL T/myeloid 鑑別"
+                ]
+              }
+            ]
+          },
+          {
+            id: "ch5-mature",
+            level: "Category",
+            name: "Mature T-cell and NK-cell neoplasms (9 Families)",
+            zh: "成熟 T 與 NK 細胞腫瘤（9 大族群）",
+            links: [
+              { label: "🔍 T 細胞分類與生物標記", url: BASE.tcell + "#biomarkers" },
+              { label: "🔍 IHC 與 HLH 處置", url: BASE.tcell + "#ihc-hlh" }
+            ],
+            children: [
+              {
+                id: "ch5-m-leuk",
+                level: "Family",
+                name: "Mature T-cell and NK-cell leukaemias",
+                zh: "成熟 T 與 NK 細胞白血病（6 種）",
+                tag: "new",
+                children: [
+                  {
+                    id: "ch5-tpll",
+                    level: "Entity",
+                    name: "T-prolymphocytic leukaemia (T-PLL)",
+                    zh: "T 前淋巴球白血病",
+                    links: [{ label: "💊 T-PLL 診斷與治療", url: BASE.tcell + "#tpll", primary: true }],
+                    essential: [
+                      "周邊血 T 淋巴球增多 >5×10⁹/L（具典型前淋巴球型態）",
+                      "成熟胸腺後 T 細胞表型（CD2+, CD3+, CD5+, CD7+, 多 CD4+ 或 CD4+CD8+）與 T 細胞單株性",
+                      "證實 TCL1A 或 MTCP1 基因重排（inv(14)/t(14;14)/t(X;14)）或 TCL1 蛋白過表達"
+                    ],
+                    desirable: [
+                      "常見 ATM 缺失／突變及 JAK-STAT 路徑突變（JAK3, STAT5B）"
+                    ]
+                  },
+                  {
+                    id: "ch5-lgll",
+                    level: "Entity",
+                    name: "T-LGLL & NK-LGLL",
+                    zh: "T／NK 大顆粒淋巴球白血病",
+                    tag: "renamed",
+                    links: [{ label: "💊 LGLL 診斷與治療", url: BASE.tcell + "#lgll", primary: true }],
+                    essential: [
+                      "持續性周邊血大顆粒淋巴球增多（通常 ≥0.5×10⁹/L，常伴嗜中性球減少或貧血）",
+                      "T-LGLL：成熟細胞毒殺 T 表型（多 CD3+, CD8+, CD57+, TCRαβ+）＋ 單株 TCR 重排",
+                      "NK-LGLL（原 CLPD-NK）：持續 NK 細胞增多（CD3−, CD16+, CD56±）＋ 異常 KIR 表現或株系性突變"
+                    ],
+                    desirable: [
+                      "檢測 STAT3（CD8+/γδ T-LGLL 常見，與嗜中性球減少及較差預後相關）與 STAT5B（CD4+ 常見；僅在 CD8+ 具不良預後）突變"
+                    ]
+                  },
+                  {
+                    id: "ch5-atll",
+                    level: "Entity",
+                    name: "Adult T-cell leukaemia/lymphoma (ATLL)",
+                    zh: "成人 T 細胞白血病／淋巴瘤",
+                    links: [{ label: "💊 ATLL 分型與治療", url: BASE.tcell + "#atll", primary: true }],
+                    essential: [
+                      "成熟 T 細胞白血病／淋巴瘤（周邊血常見花瓣核「flower cells」），表型多為 CD4+, CD25+, FOXP3±, CD7−",
+                      "證實 HTLV-1 感染（血清抗體陽性，疑難個案確認株系性病毒整合）"
+                    ],
+                    desirable: [
+                      "依 Shimoyama 標準分急性、淋巴瘤、慢性、冒煙四型；檢測 CCR4 表現與免疫逃脫基因變異"
+                    ]
+                  },
+                  {
+                    id: "ch5-ss",
+                    level: "Entity",
+                    name: "Sézary syndrome (SS)",
+                    zh: "塞札里氏症候群",
+                    essential: [
+                      "紅皮症（覆蓋 ≥80% 體表面積）、全身淋巴結腫大",
+                      "周邊血具相同單株 T 細胞群（與皮膚一致）且達 B2 血液負荷：Sézary 細胞 ≥1×10⁹/L，或 CD4/CD8 ≥10，或 CD4+CD7− ≥40%／CD4+CD26− ≥30%"
+                    ],
+                    desirable: [
+                      "皮膚切片確認親表皮 T 細胞浸潤；流式檢測 KIR3DL2/CD158k"
+                    ]
+                  },
+                  {
+                    id: "ch5-ankl",
+                    level: "Entity",
+                    name: "Aggressive NK-cell leukaemia (ANKL)",
+                    zh: "侵襲性 NK 細胞白血病",
+                    links: [{ label: "💊 ENKL / ANKL 治療指引", url: BASE.tcell + "#enkl", primary: true }],
+                    essential: [
+                      "全身系統性爆發病程（發燒、全血球減少、肝脾腫大、常伴 HLH），周邊血／骨髓見異常大顆粒淋巴球",
+                      "NK 細胞表型（sCD3−, CD2+, CD56+, 細胞毒殺顆粒 TIA1/granzyme B+, 通常 CD16+），幾乎皆為 EBV (EBER) 陽性"
+                    ],
+                    desirable: [
+                      "檢測 JAK/STAT、RAS/MAPK 與表觀遺傳突變；排除結外 NK/T 細胞淋巴瘤晚期白血病化"
+                    ]
+                  }
+                ]
+              },
+              {
+                id: "ch5-m-cut",
+                level: "Family",
+                name: "Primary cutaneous T-cell lymphomas (CTCL, 9 entities)",
+                zh: "原發性皮膚 T 細胞淋巴瘤（9 種）",
+                tag: "new",
+                children: [
+                  {
+                    id: "ch5-mf",
+                    level: "Entity",
+                    name: "Mycosis fungoides (MF)",
+                    zh: "蕈狀肉芽腫",
+                    essential: [
+                      "典型臨床進展（斑片 → 斑塊 → 腫瘤），皮膚切片見腦迴狀小至中型 T 細胞親表皮（epidermotropism）與 Pautrier 微膿瘍",
+                      "成熟 T 細胞表型（多 CD4+, CD3+, 常失 CD7）並整合皮膚科臨床照片與病史"
+                    ],
+                    desirable: [
+                      "TCR 株系性檢測（早期斑片診斷輔助）；親毛囊型（folliculotropic MF）須區分早期與晚期臨床型態"
+                    ]
+                  },
+                  {
+                    id: "ch5-cd30",
+                    level: "Entity",
+                    name: "Primary cutaneous CD30+ T-cell LPDs (LyP / pcALCL)",
+                    zh: "原發皮膚 CD30+ T 細胞增生（LyP / 原發皮膚 ALCL）",
+                    essential: [
+                      "僅限皮膚原發（排除系統性 ALCL 侵犯）",
+                      "LyP：反覆自發消退之丘疹結節，組織見大型 CD30+ 異型 T 細胞（分 A–E 等型）",
+                      "pcALCL：孤立或局部腫瘤／潰瘍，>75% 腫瘤細胞強表現 CD30，ALK 通常陰性"
+                    ],
+                    desirable: [
+                      "pcALCL 約 25% 具 DUSP22 重排；務必與臨床病程整合以區分 LyP 與 pcALCL"
+                    ]
+                  },
+                  {
+                    id: "ch5-cut-indolent",
+                    level: "Entity",
+                    name: "Primary cutaneous CD4+ small/medium & Acral CD8+ T-cell LPD",
+                    zh: "原發皮膚 CD4+ 小/中型 ＆ 肢端 CD8+ T 細胞 LPD",
+                    tag: "renamed",
+                    essential: [
+                      "多為單一無痛結節（CD4+ 好發頭頸；肢端 CD8+ 好發耳／鼻／手足），無 MF 斑片病史",
+                      "CD4+ 小/中型：真皮結節狀 CD4+ TFH 標記（PD1+, BCL6+, CXCL13+）小中 T 細胞，Ki67 低",
+                      "肢端 CD8+：真皮瀰漫單形中型 CD8+, TIA1+, 獨特高爾基體點狀 CD68+，Ki67 低，預後極佳"
+                    ],
+                    desirable: [
+                      "臨床追蹤確認良性惰性病程（故皆定名為 LPD 而非 lymphoma）"
+                    ]
+                  },
+                  {
+                    id: "ch5-cut-agg",
+                    level: "Entity",
+                    name: "SPTCL / Primary cutaneous γδ TCL / CD8+ aggressive epidermotropic / PC-PTCL, NOS",
+                    zh: "皮下脂膜炎樣／皮膚 γδ／CD8+ 侵襲性親表皮／皮膚 PTCL, NOS",
+                    tag: "new",
+                    essential: [
+                      "SPTCL：侷限皮下脂肪小葉之 CD8+, TCRαβ+, 細胞毒殺 T 細胞環繞脂肪細胞（rimming）",
+                      "皮膚 γδ TCL：TCRδ+/βF1− 細胞毒殺 T 細胞浸潤表皮／真皮／皮下，常伴壞死與血管侵犯",
+                      "CD8+ 侵襲性親表皮：快速進展潰瘍性斑塊，顯著親表皮壞死，CD8+, CD45RA+, 細胞毒殺+",
+                      "PC-PTCL, NOS (NEW)：原發皮膚 T 細胞淋巴瘤但排除所有上述特定 CTCL 實體"
+                    ],
+                    desirable: [
+                      "SPTCL 檢測 HAVCR2 (TIM-3) 生殖系突變（與 HLH 相關）；所有 CTCL 皆須完整皮膚臨床照相整合"
+                    ]
+                  }
+                ]
+              },
+              {
+                id: "ch5-m-gi",
+                level: "Family",
+                name: "Intestinal T-cell and NK-cell LPDs and lymphomas",
+                zh: "腸道 T 與 NK 細胞淋巴增生與淋巴瘤（5 種）",
+                tag: "renamed",
+                links: [{ label: "💊 腸道 T/NK 診斷與治療專章", url: BASE.tcell + "#intcl", primary: true }],
+                children: [
+                  {
+                    id: "ch5-itgi",
+                    level: "Entity",
+                    name: "Indolent T-cell lymphoma of the GI tract",
+                    zh: "胃腸道惰性 T 細胞淋巴瘤",
+                    tag: "renamed",
+                    links: [{ label: "💊 GI T-LPD 處置", url: BASE.tcell + "#intcl", primary: true }],
+                    essential: [
+                      "淺層黏膜固有層見單形性小淋巴球非破壞性浸潤（最少核異型、極少親上皮、無壞死）",
+                      "成熟 T 細胞表型（CD4+ 居多，或 CD8+），Ki67 極低（<10%），EBV 陰性，具單株 TCR 重排"
+                    ],
+                    desirable: [
+                      "CD4+ 型常見 STAT3::JAK2 融合或 JAK-STAT／表觀遺傳突變；CD8+ 型常見 IL2 結構變異"
+                    ]
+                  },
+                  {
+                    id: "ch5-inkgi",
+                    level: "Entity",
+                    name: "Indolent NK-cell LPD of the GI tract (iNKLPD)",
+                    zh: "胃腸道惰性 NK 細胞淋巴增生疾患",
+                    tag: "new",
+                    links: [{ label: "🔍 GI NK-LPD 鑑別與處置", url: BASE.tcell + "#intcl", primary: true }],
+                    essential: [
+                      "胃腸道淺層黏膜膨脹性浸潤（非破壞性），由中型淡染細胞質細胞組成（常含核旁亮嗜酸性顆粒）",
+                      "NK 細胞表型（cCD3+, CD56+, CD7+, TIA1+, granzyme B+），且 EBV (EBER) 必須為陰性（與 ENKTL 區分之關鍵！）"
+                    ],
+                    desirable: [
+                      "約 30% 檢出體細胞 JAK3 突變（K563_C565del）；臨床常自發緩解，勿過度化療"
+                    ]
+                  },
+                  {
+                    id: "ch5-eatl-meitl",
+                    level: "Entity",
+                    name: "EATL / MEITL / Intestinal T-cell lymphoma, NOS",
+                    zh: "腸病相關(EATL)／單形性親上皮(MEITL)／腸道 T, NOS",
+                    links: [{ label: "💊 EATL / MEITL 治療指引", url: BASE.tcell + "#intcl", primary: true }],
+                    essential: [
+                      "EATL：與乳糜瀉相關，深層浸潤之多形中大細胞伴發炎背景，CD3+, CD103+, 多 CD4−CD8−, CD56−, EBER−",
+                      "MEITL：無乳糜瀉關聯（好發亞洲），單形性小中細胞伴顯著親上皮，CD3+, CD8+, CD56+, MATK+, 多 TCRγδ+, EBER−",
+                      "Intestinal TCL, NOS：原發腸道侵襲性 T 淋巴瘤但不符 EATL/MEITL/ALCL/ENKTL"
+                    ],
+                    desirable: [
+                      "MEITL 常見 SETD2 失活突變與 STAT5B/JAK3 突變；EATL 常見 JAK1/STAT3 突變與 HLA-DQ2/DQ8"
+                    ]
+                  }
+                ]
+              },
+              {
+                id: "ch5-m-hstcl",
+                level: "Entity",
+                name: "Hepatosplenic T-cell lymphoma (HSTCL)",
+                zh: "肝脾 T 細胞淋巴瘤",
+                links: [{ label: "💊 HSTCL 診斷與治療專章", url: BASE.tcell + "#hstcl", primary: true }],
+                essential: [
+                  "單形性中型 T 細胞選擇性浸潤脾臟紅髓、肝竇及骨髓竇（通常無明顯淋巴結腫大）",
+                  "成熟細胞毒殺 T 表型：CD3+, CD2+, CD7+, 常 CD5−, CD4−CD8−, TIA1+（granzyme B/perforin 多陰性）；約 75% TCRγδ+、25% TCRαβ+"
+                ],
+                desirable: [
+                  "常見 isochromosome 7q [i(7)(q10)]、trisomy 8 及 STAT5B/SETD2 突變"
+                ]
+              },
+              {
+                id: "ch5-m-alcl",
+                level: "Family",
+                name: "Anaplastic large cell lymphoma (ALCL)",
+                zh: "間變性大細胞淋巴瘤",
+                links: [
+                  { label: "💊 系統性 ALCL 治療 (BV-CHP)", url: BASE.tcell + "#ptcl", primary: true },
+                  { label: "💊 BIA-ALCL 專章", url: BASE.tcell + "#bia-alcl" }
+                ],
+                children: [
+                  {
+                    id: "ch5-alcl-pos",
+                    level: "Entity",
+                    name: "ALK-positive ALCL",
+                    zh: "ALK 陽性 ALCL",
+                    links: [{ label: "💊 ALK+ ALCL 治療指引", url: BASE.tcell + "#ptcl", primary: true }],
+                    essential: [
+                      "大型多形性細胞含特徵性馬蹄腎形核「hallmark cells」，常呈竇狀生長",
+                      "所有腫瘤細胞均勻強表現 CD30（細胞膜＋高爾基體），並表現 ALK 蛋白／ALK 基因重排（最常見 NPM1::ALK）"
+                    ],
+                    desirable: [
+                      "常表現 EMA+, 細胞毒殺顆粒（TIA1/granzyme B/perforin+），部分 T 細胞標記缺失（CD3 常陰性）"
+                    ]
+                  },
+                  {
+                    id: "ch5-alcl-neg",
+                    level: "Entity",
+                    name: "ALK-negative ALCL",
+                    zh: "ALK 陰性 ALCL",
+                    links: [{ label: "💊 ALK− ALCL 治療指引", url: BASE.tcell + "#ptcl", primary: true }],
+                    essential: [
+                      "型態與 ALK+ ALCL 相似（含 hallmark cells），均勻強表現 CD30，且 ALK 蛋白與重排陰性",
+                      "排除原發皮膚 ALCL、BIA-ALCL、CD30+ PTCL-NOS 及 CHL（PAX5 陰性）"
+                    ],
+                    desirable: [
+                      "FISH 檢測 DUSP22 重排（常呈甜甜圈細胞且 LEF1+）與 TP63 重排（預後極差）；檢測 TP53 缺失"
+                    ]
+                  },
+                  {
+                    id: "ch5-bia-alcl",
+                    level: "Entity",
+                    name: "Breast implant-associated ALCL (BIA-ALCL)",
+                    zh: "乳房植入物相關 ALCL",
+                    links: [{ label: "💊 BIA-ALCL 診斷與手術／治療專章", url: BASE.tcell + "#bia-alcl", primary: true }],
+                    essential: [
+                      "發生於粗糙面乳房植入物周圍之積液（seroma）或纖維包膜內，大型間變細胞均勻強表現 CD30",
+                      "ALK 陰性，常表現 EMA 與細胞毒殺標記，且排除系統性 ALCL 侵犯"
+                    ],
+                    desirable: [
+                      "完整評估包膜侵犯深度（侷限積液／包膜內預後極佳，侵犯實質較差）；常見 JAK-STAT 突變與 chr 20 缺失"
+                    ]
+                  }
+                ]
+              },
+              {
+                id: "ch5-m-tfh",
+                level: "Entity",
+                name: "Nodal T-follicular helper (TFH) cell lymphoma (nTFHL-AI / -F / -NOS)",
+                zh: "淋巴結 TFH 細胞淋巴瘤（血管免疫母細胞型 / 濾泡型 / NOS）",
+                tag: "renamed",
+                links: [
+                  { label: "💊 nTFHL (AITL) 診斷與治療", url: BASE.tcell + "#ptcl", primary: true }
+                ],
+                essential: [
+                  "原發淋巴結 CD4+ 成熟 T 細胞淋巴瘤，表現 ≥2 項 TFH 標記（PD1, ICOS, CXCL13, CD10, BCL6）",
+                  "nTFHL-AI（原 AITL）：結構破壞、樹枝狀高內皮靜脈增生、濾泡樹突網擴張、常伴 EBV+ B 免疫母細胞",
+                  "nTFHL-F（原 FTCL）：濾泡狀生長模式（如 PTGC 樣）",
+                  "nTFHL-NOS：具 TFH 表型但不符 AI 或 F 型（細針穿刺建議統稱 nTFHL）"
+                ],
+                desirable: [
+                  "NGS 檢測特徵性突變譜（TET2, DNMT3A, RHOA G17V, IDH2 R172）極有助於與 PTCL-NOS 及 CHL 鑑別"
+                ]
+              },
+              {
+                id: "ch5-m-ptcl",
+                level: "Entity",
+                name: "Peripheral T-cell lymphoma, NOS (PTCL, NOS)",
+                zh: "周邊 T 細胞淋巴瘤，NOS",
+                links: [
+                  { label: "💊 PTCL, NOS 一線與復發治療", url: BASE.tcell + "#ptcl", primary: true }
+                ],
+                essential: [
+                  "具細胞學異型與結構破壞之成熟 T 細胞淋巴瘤（表現 T 標記且常有抗原缺失）",
+                  "排除性診斷：須嚴格排除 nTFHL（<2 項 TFH 標記）、ALCL、EBV+ 淋巴結 T/NK 淋巴瘤及其他特定實體"
+                ],
+                desirable: [
+                  "TCR 株系性確認；TBX21 vs GATA3 免疫表型目前為研究性生物亞型（尚未正式獨立）"
+                ]
+              },
+              {
+                id: "ch5-m-ebv",
+                level: "Family",
+                name: "EBV-positive NK/T-cell lymphomas",
+                zh: "EBV 陽性 NK/T 細胞淋巴瘤",
+                tag: "new",
+                links: [{ label: "💊 ENKL 診斷與治療專章", url: BASE.tcell + "#enkl", primary: true }],
+                children: [
+                  {
+                    id: "ch5-enktl",
+                    level: "Entity",
+                    name: "Extranodal NK/T-cell lymphoma (ENKTL)",
+                    zh: "結外 NK/T 細胞淋巴瘤（去掉 nasal-type）",
+                    tag: "renamed",
+                    links: [{ label: "💊 ENKL (L-asp / 放療 / ICI) 治療", url: BASE.tcell + "#enkl", primary: true }],
+                    essential: [
+                      "結外部位（最常見鼻腔／上呼吸道，亦可腸道／皮膚／軟組織）見血管中心性破壞與大片凝固性壞死",
+                      "NK 或細胞毒殺 T 表型（cCD3+, CD2+, 細胞毒殺顆粒 TIA1/granzyme B+, 常 CD56+）且絕大多數腫瘤細胞 EBER 強陽性"
+                    ],
+                    desirable: [
+                      "檢測 PD-L1、6q21-25 缺失與 JAK-STAT/DDX3X/TP53 突變"
+                    ]
+                  },
+                  {
+                    id: "ch5-ebv-nodal",
+                    level: "Entity",
+                    name: "EBV-positive nodal T- and NK-cell lymphoma",
+                    zh: "EBV 陽性淋巴結 T 與 NK 細胞淋巴瘤",
+                    tag: "new",
+                    links: [{ label: "💊 T 細胞個論：PTCL / ENKL 治療參考", url: BASE.tcell + "#ptcl" }],
+                    essential: [
+                      "原發於淋巴結（無鼻腔侵犯，好發東亞年長者），單形性中大細胞似 DLBCL，缺乏 ENKTL 典型凝固性壞死與血管侵犯",
+                      "多為細胞毒殺 T 表型（CD8+, TCRαβ+, TIA1/granzyme B+, CD56 多陰性）且定義上 EBER 強陽性"
+                    ],
+                    desirable: [
+                      "排除免疫缺陷背景；基因譜與 ENKTL 不同（最常見 TET2 突變）"
+                    ]
+                  }
+                ]
+              },
+              {
+                id: "ch5-m-ebvchild",
+                level: "Entity",
+                name: "EBV-positive T- and NK-cell LPDs and lymphomas of childhood",
+                zh: "兒童 EBV 陽性 T 與 NK 細胞增生與淋巴瘤（SMBA / HVLPD / CAEBVD / 兒童 EBV+ T 淋巴瘤）",
+                essential: [
+                  "好發亞洲與拉美兒童（無已知免疫缺陷），T 或 NK 細胞檢出 EBER 陽性",
+                  "依臨床光譜區分：嚴重蚊蟲叮咬過敏（SMBA，多 NK 細胞）、種痘樣水疱病 LPD（HVLPD，分經典皮膚型與系統型）、系統性慢性活動性 EBV 疾病（CAEBVD，持續發燒／肝脾腫大 >3 個月、高血中 EBV DNA）、兒童系統性 EBV+ T 細胞淋巴瘤（爆發性致死、多伴 HLH、單株 CD8+ T 細胞）"
+                ],
+                desirable: [
+                  "整合臨床病程、血中 EBV 病毒量與單株 TCR 重排，以決定造血幹細胞移植時機"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: "ch6",
+        chapter: 6,
+        level: "Chapter",
+        name: "Ch. 6 Stroma-Derived Neoplasms of Lymphoid Tissues",
+        zh: "淋巴組織基質來源腫瘤（第五版新增章節）",
+        tag: "new",
+        note: "專屬於淋巴結與脾臟的間質／基質腫瘤；濾泡樹突細胞腫瘤由 Ch.3 移入本章。",
+        children: [
+          {
+            id: "ch6-mdc",
+            level: "Family",
+            name: "Mesenchymal dendritic cell neoplasms",
+            zh: "間質樹突細胞腫瘤",
+            tag: "moved",
+            children: [
+              {
+                id: "ch6-fdcs",
+                level: "Entity",
+                name: "Follicular dendritic cell sarcoma (FDCS)",
+                zh: "濾泡樹突細胞肉瘤",
+                essential: [
+                  "梭狀至卵圓形細胞呈漩渦狀、束狀或片狀排列，常夾雜散在成熟小淋巴球",
+                  "表現 ≥2 項 FDC 標記（CD21, CD23, CD35, CXCL13, Clusterin, Podoplanin/D2-40），且缺乏角蛋白、S100、CD1a、CD45"
+                ],
+                desirable: [
+                  "常具 NF-κB 路徑或細胞週期基因變異；約 10–20% 與透明血管型 Castleman 病相關"
+                ]
+              },
+              {
+                id: "ch6-ebvfdcs",
+                level: "Entity",
+                name: "EBV-positive inflammatory follicular dendritic cell sarcoma",
+                zh: "EBV 陽性發炎性濾泡樹突細胞肉瘤",
+                tag: "renamed",
+                essential: [
+                  "好發脾臟與肝臟（亦可胃腸道），大量淋巴漿細胞背景中散在異型梭狀／卵圓腫瘤細胞",
+                  "腫瘤細胞表現 FDC 標記（CD21/CD23/CD35/SMA）且 EBER 強陽性"
+                ],
+                desirable: [
+                  "與發炎性肌纖維母細胞腫瘤（IMT, ALK+, EBER−）及 IgG4 相關疾病鑑別"
+                ]
+              },
+              {
+                id: "ch6-frct",
+                level: "Entity",
+                name: "Fibroblastic reticular cell tumour",
+                zh: "纖維母細胞網狀細胞腫瘤",
+                essential: [
+                  "淋巴結（或脾／軟組織）梭狀至卵圓腫瘤細胞呈束狀／漩渦狀生長",
+                  "表現 SMA+、Desmin±、局部弱角蛋白（CK+），且 FDC 標記（CD21, CD23, CD35）與 S100、CD1a 皆陰性"
+                ],
+                desirable: [
+                  "電鏡可見纖維母細胞網狀細胞特徵及基底膜樣物質，嚴格排除轉移性肉瘤樣癌"
+                ]
+              }
+            ]
+          },
+          {
+            id: "ch6-myo",
+            level: "Entity",
+            name: "Intranodal palisaded myofibroblastoma",
+            zh: "淋巴結內柵欄狀肌纖維母細胞瘤",
+            tag: "new",
+            essential: [
+              "原發於淋巴結（最常見腹股溝），良性梭狀細胞呈核柵欄狀排列，伴特徵性嗜酸性「石棉樣纖維（amianthoid fibres）」與紅血球外滲",
+              "SMA+、Cyclin D1 核陽性、β-catenin 核陽性，S100 陰性（排除神經鞘瘤）"
+            ],
+            desirable: [
+              "常見 CTNNB1 exon 3 突變"
+            ]
+          },
+          {
+            id: "ch6-spleen",
+            level: "Family",
+            name: "Spleen-specific vascular-stromal tumours",
+            zh: "脾臟特異性血管基質腫瘤",
+            tag: "new",
+            children: [
+              {
+                id: "ch6-lca",
+                level: "Entity",
+                name: "Littoral cell angioma",
+                zh: "脾竇岸細胞血管瘤",
+                tag: "new",
+                essential: [
+                  "脾臟良性血管增生，吻合血管腔由高大脫落之竇岸細胞襯覆，常伴血球吞噬",
+                  "兼具內皮與組織球雙重免疫表型：CD31+, ERG+, CD68+, CD163+, CD21+, 但 CD34−、CD8−"
+                ],
+                desirable: [
+                  "WT1 陰性有助排除血管肉瘤"
+                ]
+              },
+              {
+                id: "ch6-sh",
+                level: "Entity",
+                name: "Splenic hamartoma",
+                zh: "脾臟錯構瘤",
+                tag: "new",
+                essential: [
+                  "脾臟界限清楚之良性結節，由紊亂的紅髓成分（異常血管竇與髓索）組成，缺乏正常白髓（淋巴濾泡）",
+                  "竇內皮細胞表現正常脾竇表型：CD8+, CD31+, Factor VIII+, CD34−"
+                ],
+                desirable: [
+                  "排除血管瘤與 SANT"
+                ]
+              },
+              {
+                id: "ch6-sant",
+                level: "Entity",
+                name: "Sclerosing angiomatoid nodular transformation of spleen (SANT)",
+                zh: "脾臟硬化性血管瘤樣結節轉化",
+                tag: "new",
+                essential: [
+                  "脾臟孤立良性腫塊，由多個血管瘤樣結節組成，周圍環繞同心圓狀硬化纖維基質",
+                  "結節內同時包含三種獨特血管表型：微血管（CD34+/CD31+/CD8−）、脾竇（CD8+/CD31+/CD34−）及小靜脈（CD31+/CD34−/CD8−）"
+                ],
+                desirable: [
+                  "EBER 陰性（排除 EBV+ 發炎性 FDC 肉瘤）"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: "ch7",
+        chapter: 7,
+        level: "Chapter",
+        name: "Ch. 7 Genetic Tumour Syndromes",
+        zh: "遺傳性腫瘤症候群（第五版新增章節）",
+        tag: "new",
+        note: "收錄顯著增加血液與淋巴腫瘤風險之遺傳症候群；診斷出之白血病／淋巴瘤應加註相關症候群（如 AT-related）。",
+        links: [
+          { label: "🧬 MDS 個論：遺傳易感與基因篩檢", url: BASE.mds + "#hereditary", primary: true }
+        ],
+        children: [
+          {
+            id: "ch7-fa",
+            level: "Entity",
+            name: "Fanconi anaemia",
+            zh: "范可尼貧血",
+            tag: "new",
+            links: [{ label: "🧬 MDS 遺傳易感評估", url: BASE.mds + "#hereditary" }],
+            essential: [
+              "生殖系 FANC 路徑基因（如 FANCA, FANCC, FANCG 等 22+ 基因）雙對偶基因致病突變（FANCB 為 X 連鎖、RAD51 為顯性）",
+              "染色體斷裂試驗（DEB/MMC 誘發）陽性"
+            ],
+            desirable: [
+              "定期監測骨髓衰竭、MDN/AML（常見 1q+, 3q+, -7）與頭頸／生殖道鱗狀細胞癌；化療須大幅減量"
+            ]
+          },
+          {
+            id: "ch7-bloom",
+            level: "Entity",
+            name: "Bloom syndrome",
+            zh: "布魯姆氏症候群",
+            tag: "new",
+            essential: [
+              "雙對偶基因生殖系 BLM 基因致病突變",
+              "典型臨床（嚴重生長遲緩、臉部光敏感紅斑）合併極高之姊妹染色分體交換（SCE）頻率"
+            ],
+            desirable: [
+              "高度易發白血病、淋巴瘤及多種實體癌，需長期癌症監測"
+            ]
+          },
+          {
+            id: "ch7-at",
+            level: "Entity",
+            name: "Ataxia-telangiectasia syndrome (AT)",
+            zh: "共濟失調微血管擴張症候群",
+            tag: "new",
+            essential: [
+              "雙對偶基因生殖系 ATM 基因致病突變",
+              "進行性小腦共濟失調、眼結膜／皮膚微血管擴張、免疫缺陷及對游離輻射高度敏感",
+              "併發之淋巴瘤／白血病須依常規分類並標註「AT-related」"
+            ],
+            desirable: [
+              "血清 AFP 持續升高；治療規劃須避免放射治療與過高毒性化療，並提供家族帶因諮詢"
+            ]
+          },
+          {
+            id: "ch7-nbs",
+            level: "Entity",
+            name: "Nijmegen-Breakage syndrome (NBS)",
+            zh: "奈梅亨斷裂症候群",
+            tag: "new",
+            essential: [
+              "雙對偶基因生殖系 NBN 基因致病突變（最常見 657del5）",
+              "先天小頭畸形、特徵性面容、免疫缺陷、高度輻射敏感與極高淋巴瘤風險（尤以 B/T 細胞淋巴瘤為主）",
+              "併發之淋巴瘤／白血病須標註「NBS-related」"
+            ],
+            desirable: [
+              "染色體 7/14 頻繁重排；治療須調整劑量避免嚴重毒性"
+            ]
+          },
+          {
+            id: "ch7-ras",
+            level: "Entity",
+            name: "RASopathies (Noonan / NF1 / CBL syndrome)",
+            zh: "RAS 路徑遺傳病變",
+            tag: "new",
+            essential: [
+              "RAS/MAPK 路徑基因（PTPN11, NF1, CBL, KRAS, NRAS, RIT1 等）之生殖系致病突變合併對應臨床症候群表現",
+              "顯著增加 JMML、嬰兒骨髓增生疾患及部分 ALL 風險"
+            ],
+            desirable: [
+              "區分體細胞 vs 生殖系突變（例如 Noonan 相關多株骨髓增生常可自發緩解，不須積極移植）"
+            ]
+          }
+        ]
+      }
+    ];
+
+    const DELETED_REDIRECTS = [
+      { old: "Accelerated phase (AP) of CML", now: "已刪除 → 僅留慢性期與芽球期 (Ch.2 MPN)", targetId: "ch2-cml" },
+      { old: "MDS-SLD / MDS-MLD / MDS-RS / MDS-U", now: "已刪除 → 改依基因(5q/SF3B1/TP53)與芽球數(LB/h/IB)分類 (Ch.2 MDN)", targetId: "ch2-mdn" },
+      { old: "AML with mutated RUNX1 / APMF", now: "已刪除 → 依其餘基因或分化特徵歸類 (Ch.2 AML)", targetId: "ch2-aml" },
+      { old: "B-cell prolymphocytic leukaemia (B-PLL)", now: "已刪除 → 分流至 SBLPN、MCL 或 CLL 前淋巴球進展 (Ch.4)", targetId: "ch4-sblpn" },
+      { old: "Hairy cell leukaemia variant (HCLv)", now: "併入 → SBLPN 具顯著核仁之脾臟 B 細胞淋巴瘤 (Ch.4)", targetId: "ch4-sblpn" },
+      { old: "NK-lymphoblastic leukaemia/lymphoma", now: "已刪除 → 缺乏可靠診斷標準 (原 Ch.5 前驅 T/NK)", targetId: "ch5-pre" },
+      { old: "HGBL with MYC & BCL6 (Double-hit)", now: "移出雙重打擊 → 歸入 DLBCL, NOS 或 HGBL, NOS (Ch.4 LBCL)", targetId: "ch4-dh" },
+      { old: "Follicular dendritic cell sarcoma", now: "搬家 → 由 Ch.3 組織球/DC 移至 Ch.6 基質來源腫瘤", targetId: "ch6-fdcs" },
+      { old: "JMML (幼年型骨髓單核球白血病)", now: "搬家 → 由 MDN/MPN 移入 Ch.2 MPN", targetId: "ch2-jmml" }
+    ];
+
+    const SCENARIOS = [
+      { label: "良性但像淋巴瘤 (Castleman/IgG4/Kikuchi)", ids: ["ch4-tl", "ch5-tl"], ch: 4 },
+      { label: "骨髓芽球 / AML / APL", ids: ["ch2-aml"], ch: 2 },
+      { label: "血球減少 / MDN(MDS) / CHIP", ids: ["ch2-precursor", "ch2-mdn"], ch: 2 },
+      { label: "組織球 / BPDCN / RDD / ALK+", ids: ["ch3"], ch: 3 },
+      { label: "大 B 細胞 (DLBCL/雙重打擊/CNS)", ids: ["ch4-m-lbcl"], ch: 4 },
+      { label: "脾臟小 B (HCL/SMZL/SBLPN)", ids: ["ch4-m-spleen"], ch: 4 },
+      { label: "漿細胞 / 副蛋白 / MGRS", ids: ["ch4-pcn"], ch: 4 },
+      { label: "皮膚 T 細胞 (MF/CTCL)", ids: ["ch5-m-cut"], ch: 5 },
+      { label: "腸道 T/NK (EATL/MEITL/iNKLPD)", ids: ["ch5-m-gi"], ch: 5 },
+      { label: "淋巴結 TFH(原AITL) / ALCL", ids: ["ch5-m-tfh", "ch5-m-alcl"], ch: 5 },
+      { label: "基質腫瘤 (FDC / SANT)", ids: ["ch6"], ch: 6 },
+      { label: "遺傳症候群 (Fanconi / AT / NBS)", ids: ["ch7"], ch: 7 }
+    ];
+
+    // Theme management (Light / Dark)
+    const themeBtn = document.getElementById("theme-toggle");
+    function applyTheme(theme) {
+      if (theme === "dark") {
+        document.documentElement.setAttribute("data-theme", "dark");
+        themeBtn.textContent = "☀️ 淺色";
+      } else {
+        document.documentElement.removeAttribute("data-theme");
+        themeBtn.textContent = "🌙 深色";
+      }
+      try { localStorage.setItem("who5-theme", theme); } catch (_) {}
+    }
+    const savedTheme = (() => {
+      try { return localStorage.getItem("who5-theme"); } catch (_) { return null; }
+    })();
+    if (savedTheme) {
+      applyTheme(savedTheme);
+    } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      applyTheme("dark");
+    }
+    themeBtn.addEventListener("click", () => {
+      const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+      applyTheme(isDark ? "light" : "dark");
+    });
+
+    // State
+    let expandedIds = new Set(["ch2", "ch3", "ch4", "ch5", "ch6", "ch7"]);
+    let selectedId = "ch4-dlbcl";
+    let activeChapter = "all";
+    let activeTag = "all";
+    let searchQuery = "";
+
+    const nodeMap = new Map();
+    const pathMap = new Map();
+    function indexNodes(nodes, ancestors = [], chapter = null) {
+      for (const n of nodes) {
+        const ch = n.chapter || chapter;
+        n._chapter = ch;
+        const currentPath = [...ancestors, n];
+        nodeMap.set(n.id, n);
+        pathMap.set(n.id, currentPath);
+        if (n.children) indexNodes(n.children, currentPath, ch);
+      }
+    }
+    indexNodes(TREE_DATA);
+
+    function escapeHtml(str) {
+      return (str || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    function highlightText(text, q) {
+      if (!text) return "";
+      if (!q) return escapeHtml(text);
+      const terms = q.split(/\s+/).filter(Boolean).map(t => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+      if (!terms.length) return escapeHtml(text);
+      const re = new RegExp(`(${terms.join("|")})`, "gi");
+      return escapeHtml(text).replace(re, '<mark class="highlight-mark">$1</mark>');
+    }
+
+    function matchesSearch(node, q) {
+      if (!q) return true;
+      const ess = (node.essential || []).join(" ");
+      const des = (node.desirable || []).join(" ");
+      const hay = `${node.name} ${node.zh || ""} ${node.note || ""} ${ess} ${des}`.toLowerCase();
+      return q.split(/\s+/).filter(Boolean).every(term => hay.includes(term));
+    }
+
+    function matchesTag(node) {
+      if (activeTag === "all") return true;
+      if (activeTag === "new") return node.tag === "new";
+      if (activeTag === "changed") return node.tag === "renamed" || node.tag === "moved";
+      if (activeTag === "linked") return Array.isArray(node.links) && node.links.length > 0;
+      return true;
+    }
+
+    function filterTree(nodes, q) {
+      const result = [];
+      for (const node of nodes) {
+        if (activeChapter !== "all" && node._chapter !== Number(activeChapter)) continue;
+        const childMatches = node.children ? filterTree(node.children, q) : [];
+        const selfMatch = matchesSearch(node, q) && matchesTag(node);
+        if (selfMatch || childMatches.length > 0) {
+          result.push({ node, selfMatch, children: childMatches });
+        }
+      }
+      return result;
+    }
+
+    function countMatches(filtered) {
+      let count = 0;
+      for (const item of filtered) {
+        if (item.selfMatch) count++;
+        count += countMatches(item.children);
+      }
+      return count;
+    }
+
+    function renderBadge(tag) {
+      if (tag === "new") return '<span class="badge badge-new">NEW</span>';
+      if (tag === "renamed") return '<span class="badge badge-renamed">更名/重整</span>';
+      if (tag === "moved") return '<span class="badge badge-moved">搬家</span>';
+      return "";
+    }
+
+    function renderNodes(items, isRoot = false) {
+      if (!items.length) return "";
+      return items.map(({ node, children }) => {
+        const hasKids = node.children && node.children.length > 0;
+        const isForceOpen = searchQuery.length > 0 || activeTag !== "all";
+        const isOpen = hasKids && (isForceOpen || expandedIds.has(node.id));
+        const isSelected = selectedId === node.id;
+        const hasLinks = Array.isArray(node.links) && node.links.length > 0;
+
+        const rowTypeClass = node.level === "Chapter"
+          ? "is-chapter"
+          : (node.level === "Category" || node.level === "Family" || node.level === "Group")
+          ? "is-group"
+          : "is-entity";
+
+        const chevron = hasKids
+          ? `<button data-toggle="${node.id}" class="toggle-btn" type="button" title="展開/收合">${isOpen ? "▾" : "▸"}</button>`
+          : `<span class="leaf-bullet"></span>`;
+
+        const quickLink = hasLinks && node.level !== "Chapter"
+          ? `<a href="${node.links[0].url}" target="_blank" rel="noopener" class="badge badge-guide" onclick="event.stopPropagation()" title="直接開啟疾病個論">↗ 個論</a>`
+          : "";
+
+        return `
+          <div class="tree-item ${isRoot ? `tree-root-item theme-ch${node.chapter}` : ""}">
+            <div data-select="${node.id}" class="node-row ${rowTypeClass} ${isSelected ? "selected" : ""}">
+              ${chevron}
+              <div class="node-content">
+                <div class="node-title-line">
+                  ${node.level === "Chapter" ? `<span class="ch-dot"></span>` : ""}
+                  <span>${highlightText(node.name, searchQuery)}</span>
+                  ${renderBadge(node.tag)}
+                  ${quickLink}
+                </div>
+                ${node.zh ? `<div class="node-zh">${highlightText(node.zh, searchQuery)}</div>` : ""}
+              </div>
+            </div>
+            ${isOpen && children.length ? `<div class="tree-children">${renderNodes(children, false)}</div>` : ""}
+          </div>
+        `;
+      }).join("");
+    }
+
+    function updateInspector(id) {
+      const node = nodeMap.get(id);
+      const path = pathMap.get(id) || [];
+      if (!node) return;
+
+      const card = document.getElementById("inspector-card");
+      card.className = `card inspector-card theme-ch${node._chapter}`;
+
+      document.getElementById("detail-level").textContent = `Ch.${node._chapter} • ${node.level}`;
+      document.getElementById("detail-badges").innerHTML = renderBadge(node.tag);
+      document.getElementById("detail-title").textContent = node.name;
+      document.getElementById("detail-zh").textContent = node.zh || "";
+
+      // Breadcrumb
+      const bc = document.getElementById("breadcrumb-box");
+      bc.innerHTML = path.map((p, idx) => `
+        <div style="display:flex;align-items:flex-start;gap:6px;">
+          <span style="color:var(--text-muted);font-family:monospace;">${idx === 0 ? "根" : "↳"}</span>
+          <button data-jump="${p.id}" type="button" class="bc-btn ${idx === path.length - 1 ? "current" : ""}">
+            <span style="opacity:0.75;margin-right:4px;">[${p.level}]</span>${escapeHtml(p.name)}
+          </button>
+        </div>
+      `).join("");
+      bc.querySelectorAll("[data-jump]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const tid = btn.getAttribute("data-jump");
+          expandToNode(tid);
+          selectNode(tid);
+        });
+      });
+
+      // Monograph deep links (inherit nearest ancestor links if node itself has none)
+      let linksToShow = node.links;
+      let inheritedFrom = null;
+      if (!linksToShow || !linksToShow.length) {
+        for (let i = path.length - 2; i >= 0; i--) {
+          if (path[i].links && path[i].links.length && path[i].level !== "Chapter") {
+            linksToShow = path[i].links;
+            inheritedFrom = path[i].name;
+            break;
+          }
+        }
+      }
+      const guideSec = document.getElementById("guide-links-section");
+      const guideGrid = document.getElementById("guide-links-grid");
+      if (linksToShow && linksToShow.length) {
+        guideSec.classList.remove("hidden");
+        guideGrid.innerHTML = linksToShow.map(l => `
+          <a href="${l.url}" target="_blank" rel="noopener" class="guide-link-btn ${l.primary ? "primary-tx" : ""}">
+            <span>${escapeHtml(l.label)}</span>
+            <span>↗</span>
+          </a>
+        `).join("") + (inheritedFrom ? `<div style="width:100%;font-size:11px;color:var(--text-muted);margin-top:2px;">（沿用所屬族群「${escapeHtml(inheritedFrom)}」之個論連結）</div>` : "");
+      } else {
+        guideSec.classList.add("hidden");
+      }
+
+      // Essential Criteria
+      const essSec = document.getElementById("essential-section");
+      const essList = document.getElementById("essential-list");
+      if (node.essential && node.essential.length) {
+        essSec.classList.remove("hidden");
+        essList.innerHTML = node.essential.map(item => `<li>${highlightText(item, searchQuery)}</li>`).join("");
+      } else {
+        essSec.classList.add("hidden");
+      }
+
+      // Desirable Criteria
+      const desSec = document.getElementById("desirable-section");
+      const desList = document.getElementById("desirable-list");
+      if (node.desirable && node.desirable.length) {
+        desSec.classList.remove("hidden");
+        desList.innerHTML = node.desirable.map(item => `<li>${highlightText(item, searchQuery)}</li>`).join("");
+      } else {
+        desSec.classList.add("hidden");
+      }
+
+      // Note
+      const noteSec = document.getElementById("note-section");
+      const noteEl = document.getElementById("detail-note");
+      if (node.note) {
+        noteSec.classList.remove("hidden");
+        noteEl.innerHTML = highlightText(node.note, searchQuery);
+      } else {
+        noteSec.classList.add("hidden");
+      }
+    }
+
+    function selectNode(id) {
+      selectedId = id;
+      updateInspector(id);
+      render();
+    }
+
+    function expandToNode(id) {
+      const path = pathMap.get(id) || [];
+      path.forEach(p => expandedIds.add(p.id));
+    }
+
+    function render() {
+      const filtered = filterTree(TREE_DATA, searchQuery.trim().toLowerCase());
+      const container = document.getElementById("tree-container");
+      const summary = document.getElementById("result-summary");
+
+      if (!filtered.length) {
+        container.innerHTML = `<div style="padding:36px 12px;text-align:center;font-size:13px;color:var(--text-muted);">找不到符合「${escapeHtml(searchQuery)}」的項目，請試試其他關鍵字或清除篩選條件。</div>`;
+        summary.textContent = "0 筆符合項目";
+        return;
+      }
+
+      const matchCount = countMatches(filtered);
+      summary.textContent = searchQuery || activeTag !== "all" || activeChapter !== "all"
+        ? `找到 ${matchCount} 個符合節點（含診斷標準內文比對）`
+        : "顯示全部 6 大章節（Ch.2 – Ch.7）";
+
+      container.innerHTML = renderNodes(filtered, true);
+
+      container.querySelectorAll("[data-toggle]").forEach(btn => {
+        btn.addEventListener("click", e => {
+          e.stopPropagation();
+          const id = btn.getAttribute("data-toggle");
+          if (expandedIds.has(id)) expandedIds.delete(id);
+          else expandedIds.add(id);
+          render();
+        });
+      });
+
+      container.querySelectorAll("[data-select]").forEach(row => {
+        row.addEventListener("click", () => {
+          const id = row.getAttribute("data-select");
+          const node = nodeMap.get(id);
+          if (node && node.children && node.children.length && !expandedIds.has(id)) {
+            expandedIds.add(id);
+          }
+          selectNode(id);
+        });
+      });
+    }
+
+    // Chapter filter pills
+    const chapterMeta = [
+      { id: "all", label: "全部章節" },
+      { id: "2", label: "Ch.2 骨髓" },
+      { id: "3", label: "Ch.3 組織球/DC" },
+      { id: "4", label: "Ch.4 B 細胞" },
+      { id: "5", label: "Ch.5 T/NK 細胞" },
+      { id: "6", label: "Ch.6 基質腫瘤" },
+      { id: "7", label: "Ch.7 遺傳症候群" }
+    ];
+    const chContainer = document.getElementById("chapter-filters");
+    function renderChapterPills() {
+      chContainer.innerHTML = chapterMeta.map(c => {
+        const active = activeChapter === c.id;
+        if (c.id === "all") {
+          return `<button data-ch="all" type="button" class="btn-sm ${active ? "active" : ""}" style="border-radius:999px;">${c.label}</button>`;
+        }
+        return `
+          <button data-ch="${c.id}" type="button" class="theme-ch${c.id} ch-pill ${active ? "active" : ""}">
+            <span class="ch-dot"></span>
+            <span>${c.label}</span>
+          </button>
+        `;
+      }).join("");
+      chContainer.querySelectorAll("[data-ch]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          activeChapter = btn.getAttribute("data-ch");
+          if (activeChapter !== "all") expandedIds.add(`ch${activeChapter}`);
+          renderChapterPills();
+          render();
+        });
+      });
+    }
+
+    // Scenarios
+    const scContainer = document.getElementById("scenario-chips");
+    scContainer.innerHTML = SCENARIOS.map((s, i) => `
+      <button data-sc="${i}" type="button" class="theme-ch${s.ch} sc-chip">
+        <span class="ch-dot" style="width:6px;height:6px;"></span>
+        <span>${s.label}</span>
+      </button>
+    `).join("");
+    scContainer.querySelectorAll("[data-sc]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const sc = SCENARIOS[Number(btn.getAttribute("data-sc"))];
+        activeChapter = "all";
+        activeTag = "all";
+        searchQuery = "";
+        document.getElementById("search-input").value = "";
+        document.getElementById("btn-clear-search").style.display = "none";
+        updateTagButtons();
+        renderChapterPills();
+        expandedIds = new Set();
+        sc.ids.forEach(id => {
+          expandToNode(id);
+          expandedIds.add(id);
+        });
+        selectNode(sc.ids[0]);
+      });
+    });
+
+    // Deleted redirects
+    const delList = document.getElementById("deleted-list");
+    delList.innerHTML = DELETED_REDIRECTS.map(d => `
+      <button data-del-target="${d.targetId}" type="button" class="deleted-item">
+        <div class="deleted-old">${escapeHtml(d.old)}</div>
+        <div>${escapeHtml(d.now)}</div>
+      </button>
+    `).join("");
+    delList.querySelectorAll("[data-del-target]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const tid = btn.getAttribute("data-del-target");
+        activeChapter = "all";
+        activeTag = "all";
+        searchQuery = "";
+        document.getElementById("search-input").value = "";
+        updateTagButtons();
+        renderChapterPills();
+        expandToNode(tid);
+        expandedIds.add(tid);
+        selectNode(tid);
+      });
+    });
+
+    // Search & Controls
+    const searchInput = document.getElementById("search-input");
+    const clearBtn = document.getElementById("btn-clear-search");
+    searchInput.addEventListener("input", () => {
+      searchQuery = searchInput.value;
+      clearBtn.style.display = searchQuery ? "block" : "none";
+      if (selectedId) updateInspector(selectedId);
+      render();
+    });
+    clearBtn.addEventListener("click", () => {
+      searchQuery = "";
+      searchInput.value = "";
+      clearBtn.style.display = "none";
+      if (selectedId) updateInspector(selectedId);
+      render();
+    });
+
+    function updateTagButtons() {
+      document.querySelectorAll(".tag-filter-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.getAttribute("data-tag-filter") === activeTag);
+      });
+    }
+    document.querySelectorAll(".tag-filter-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        activeTag = btn.getAttribute("data-tag-filter");
+        updateTagButtons();
+        render();
+      });
+    });
+
+    document.getElementById("btn-level-1").addEventListener("click", () => {
+      expandedIds = new Set();
+      render();
+    });
+    document.getElementById("btn-level-2").addEventListener("click", () => {
+      expandedIds = new Set();
+      TREE_DATA.forEach(ch => {
+        expandedIds.add(ch.id);
+        (ch.children || []).forEach(c => {
+          if (c.level === "Category") expandedIds.add(c.id);
+        });
+      });
+      render();
+    });
+    document.getElementById("btn-expand-all").addEventListener("click", () => {
+      nodeMap.forEach((n, id) => {
+        if (n.children && n.children.length) expandedIds.add(id);
+      });
+      render();
+    });
+
+    const delPanel = document.getElementById("deleted-panel");
+    document.getElementById("btn-toggle-deleted").addEventListener("click", () => delPanel.classList.toggle("show"));
+    document.getElementById("btn-close-deleted").addEventListener("click", () => delPanel.classList.remove("show"));
+
+    // Init (support URL hash deep-linking, e.g. #ch3-lch)
+    function applyHashSelection() {
+      const hashId = (window.location.hash || "").replace(/^#/, "").trim();
+      if (hashId && nodeMap.has(hashId)) {
+        selectedId = hashId;
+        expandToNode(hashId);
+        expandedIds.add(hashId);
+      }
+    }
+    applyHashSelection();
+    window.addEventListener("hashchange", () => {
+      applyHashSelection();
+      updateInspector(selectedId);
+      render();
+    });
+    expandToNode(selectedId);
+    renderChapterPills();
+    updateInspector(selectedId);
+    render();
+  </script>
+</body>
+</html>
